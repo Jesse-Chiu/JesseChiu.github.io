@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   
   <title>Page 7 - Hexo</title>
-  <meta name="author" content="John Doe">
+  <meta name="author" content="JesseChiu">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -129,6 +129,64 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2018-01-08 </div>
+			<div class="article-title"><a href="/2018/01/08/2018-01-08-30-seconds-of-code/" >30 Seconds of code</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>Curated collection of useful JavaScript snippets that you can understand in 30 seconds or less.</p>
+</blockquote>
+<h2 id="一、Date"><a href="#一、Date" class="headerlink" title="一、Date"></a>一、Date</h2><h3 id="1-解析时间数组为人类可读字符"><a href="#1-解析时间数组为人类可读字符" class="headerlink" title="1. 解析时间数组为人类可读字符"></a>1. 解析时间数组为人类可读字符</h3><p>技术点:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries" target="_blank" rel="noopener">Object.entries</a></li>
+<li><code>Math.floor()</code></li>
+<li><code>Array.filter()</code></li>
+<li><code>Array.map()</code></li>
+<li><code>Array.join()</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> formatDuration = <span class="function"><span class="params">ms</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (ms &lt; <span class="number">0</span>) ms = -ms;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> time = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    day: <span class="built_in">Math</span>.floor(ms / <span class="number">86400000</span>),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    hour: <span class="built_in">Math</span>.floor(ms / <span class="number">3600000</span>) % <span class="number">24</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    minute: <span class="built_in">Math</span>.floor(ms / <span class="number">60000</span>) % <span class="number">60</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    second: <span class="built_in">Math</span>.floor(ms / <span class="number">1000</span>) % <span class="number">60</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    millisecond: <span class="built_in">Math</span>.floor(ms) % <span class="number">1000</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// object 转为数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> temp = <span class="built_in">Object</span>.entries(time);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n Object.entries: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 过滤掉值为 0 的值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  temp = temp.filter(<span class="function"><span class="params">val</span> =&gt;</span> val[<span class="number">1</span>] !== <span class="number">0</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n filter: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 拆分数组里面的子数组 -&gt; 一维 数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  temp = temp.map(<span class="function"><span class="params">val</span> =&gt;</span> val[<span class="number">1</span>] + <span class="string">' '</span> + (val[<span class="number">1</span>] !== <span class="number">1</span> ? val[<span class="number">0</span>] + <span class="string">'s'</span> : val[<span class="number">0</span>]));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n map: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 数组 -&gt; 字符串</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">  temp = temp.join(<span class="string">', '</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n join: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res1 = formatDuration(<span class="number">1001</span>); <span class="comment">// '1 second, 1 millisecond'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res2 = formatDuration(<span class="number">34325055574</span>); <span class="comment">// '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(res1,res2);</span></pre></td></tr></table></figure>
+
+<h3 id="2-计算两个时间间隔多少天"><a href="#2-计算两个时间间隔多少天" class="headerlink" title="2. 计算两个时间间隔多少天"></a>2. 计算两个时间间隔多少天</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getDaysDiffBetweenDates = <span class="function">(<span class="params">dateInitial, dateFinal</span>) =&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  (dateFinal - dateInitial) / (<span class="number">1000</span> * <span class="number">3600</span> * <span class="number">24</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> difDay = getDaysDiffBetweenDates(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2017-12-13'</span>), <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2017-12-22'</span>)); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(difDay)</span></pre></td></tr></table></figure>
+<h3 id="3-明天"><a href="#3-明天" class="headerlink" title="3. 明天"></a>3. 明天</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tomorrow = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + (<span class="number">1000</span>*<span class="number">3600</span>*<span class="number">24</span>)).toISOString().split(<span class="string">'T'</span>)[<span class="number">0</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`tomorrow() <span class="subst">$&#123;tomorrow()&#125;</span>`</span>)</span></pre></td></tr></table></figure>
+
+<h2 id="二、Array"><a href="#二、Array" class="headerlink" title="二、Array"></a>二、Array</h2><h3 id="1-提取两个数字中不重复值"><a href="#1-提取两个数字中不重复值" class="headerlink" title="1. 提取两个数字中不重复值"></a>1. 提取两个数字中不重复值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> union = <span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>([...a, ...b]));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res = union([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`union: <span class="subst">$&#123;res&#125;</span>`</span>)</span></pre></td></tr></table></figure>
+
+
+<h2 id="三、Browser"><a href="#三、Browser" class="headerlink" title="三、Browser"></a>三、Browser</h2><h3 id="1-测试当前环境平台"><a href="#1-测试当前环境平台" class="headerlink" title="1. 测试当前环境平台"></a>1. 测试当前环境平台</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> detectDeviceType = <span class="function"><span class="params">()</span> =&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    ? <span class="string">'Mobile'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    : <span class="string">'Desktop'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(detectDeviceType())</span></pre></td></tr></table></figure>
+
+<h2 id="字谜"><a href="#字谜" class="headerlink" title="字谜"></a>字谜</h2><p>技术点:</p>
+<ul>
+<li><code>String.split()</code></li>
+<li><code>Array.contact()</code></li>
+<li><code>Array.reduce()</code></li>
+<li><code>Array.filter()</code></li>
+<li><code>Array.map()</code></li>
+<li><code>Array.join()</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> anagrams = <span class="function"><span class="params">str</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 如果只有两个字符,直接对调返回</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (str.length &lt;= <span class="number">2</span>) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> str.length === <span class="number">2</span> ? [str, str[<span class="number">0</span>] + str[<span class="number">1</span>]] : [str];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 多余两个，分割为数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">let</span> strArray = str.split(<span class="string">''</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">`strArray: `</span>,strArray);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 再使用数组的 reduce 累加拼接</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> strArray.reduce(<span class="function">(<span class="params">acc, letter, i</span>) =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">`acc:<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(acc)&#125;</span> letter:<span class="subst">$&#123;letter&#125;</span> i:<span class="subst">$&#123;i&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">let</span> first = str.slice(<span class="number">0</span>, i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">let</span> last = str.slice(i+<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">`first:<span class="subst">$&#123;first&#125;</span> last:<span class="subst">$&#123;last&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 递归调用自身，拼接对调字符</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> acc.concat(anagrams(first+last).map(<span class="function"><span class="params">val</span> =&gt;</span> letter + val))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;, []);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">anagrams(<span class="string">'abc'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ['abc','acb','bac','bca','cab','cba']</span></span></pre></td></tr></table></figure>
+<p>思考:如果是中文字符怎么修改代码？</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><ul>
+<li><a href="https://30secondsofcode.org/" target="_blank" rel="noopener">30 seconds of code</a></li>
+<li><a href="https://mp.weixin.qq.com/s/RGSA0VvRcCrQwicVvL9-Xw" target="_blank" rel="noopener">48 个 JavaScript 代码片段</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2018-01-08 </div>
 			<div class="article-title"><a href="/2018/01/08/2018-01-08-python-starting/" >Python Starting</a></div>						
 		</h3>
 	
@@ -196,64 +254,6 @@
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><ul>
 <li><a href="https://www.python.org" target="_blank" rel="noopener">python 官网</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2018-01-08 </div>
-			<div class="article-title"><a href="/2018/01/08/2018-01-08-30-seconds-of-code/" >30 Seconds of code</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<blockquote>
-<p>Curated collection of useful JavaScript snippets that you can understand in 30 seconds or less.</p>
-</blockquote>
-<h2 id="一、Date"><a href="#一、Date" class="headerlink" title="一、Date"></a>一、Date</h2><h3 id="1-解析时间数组为人类可读字符"><a href="#1-解析时间数组为人类可读字符" class="headerlink" title="1. 解析时间数组为人类可读字符"></a>1. 解析时间数组为人类可读字符</h3><p>技术点:</p>
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries" target="_blank" rel="noopener">Object.entries</a></li>
-<li><code>Math.floor()</code></li>
-<li><code>Array.filter()</code></li>
-<li><code>Array.map()</code></li>
-<li><code>Array.join()</code></li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> formatDuration = <span class="function"><span class="params">ms</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (ms &lt; <span class="number">0</span>) ms = -ms;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> time = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    day: <span class="built_in">Math</span>.floor(ms / <span class="number">86400000</span>),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    hour: <span class="built_in">Math</span>.floor(ms / <span class="number">3600000</span>) % <span class="number">24</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    minute: <span class="built_in">Math</span>.floor(ms / <span class="number">60000</span>) % <span class="number">60</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    second: <span class="built_in">Math</span>.floor(ms / <span class="number">1000</span>) % <span class="number">60</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    millisecond: <span class="built_in">Math</span>.floor(ms) % <span class="number">1000</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// object 转为数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> temp = <span class="built_in">Object</span>.entries(time);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n Object.entries: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 过滤掉值为 0 的值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  temp = temp.filter(<span class="function"><span class="params">val</span> =&gt;</span> val[<span class="number">1</span>] !== <span class="number">0</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n filter: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 拆分数组里面的子数组 -&gt; 一维 数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  temp = temp.map(<span class="function"><span class="params">val</span> =&gt;</span> val[<span class="number">1</span>] + <span class="string">' '</span> + (val[<span class="number">1</span>] !== <span class="number">1</span> ? val[<span class="number">0</span>] + <span class="string">'s'</span> : val[<span class="number">0</span>]));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n map: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 数组 -&gt; 字符串</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">  temp = temp.join(<span class="string">', '</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n join: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(temp)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res1 = formatDuration(<span class="number">1001</span>); <span class="comment">// '1 second, 1 millisecond'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res2 = formatDuration(<span class="number">34325055574</span>); <span class="comment">// '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(res1,res2);</span></pre></td></tr></table></figure>
-
-<h3 id="2-计算两个时间间隔多少天"><a href="#2-计算两个时间间隔多少天" class="headerlink" title="2. 计算两个时间间隔多少天"></a>2. 计算两个时间间隔多少天</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getDaysDiffBetweenDates = <span class="function">(<span class="params">dateInitial, dateFinal</span>) =&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  (dateFinal - dateInitial) / (<span class="number">1000</span> * <span class="number">3600</span> * <span class="number">24</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> difDay = getDaysDiffBetweenDates(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2017-12-13'</span>), <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2017-12-22'</span>)); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(difDay)</span></pre></td></tr></table></figure>
-<h3 id="3-明天"><a href="#3-明天" class="headerlink" title="3. 明天"></a>3. 明天</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tomorrow = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + (<span class="number">1000</span>*<span class="number">3600</span>*<span class="number">24</span>)).toISOString().split(<span class="string">'T'</span>)[<span class="number">0</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`tomorrow() <span class="subst">$&#123;tomorrow()&#125;</span>`</span>)</span></pre></td></tr></table></figure>
-
-<h2 id="二、Array"><a href="#二、Array" class="headerlink" title="二、Array"></a>二、Array</h2><h3 id="1-提取两个数字中不重复值"><a href="#1-提取两个数字中不重复值" class="headerlink" title="1. 提取两个数字中不重复值"></a>1. 提取两个数字中不重复值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> union = <span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>([...a, ...b]));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res = union([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`union: <span class="subst">$&#123;res&#125;</span>`</span>)</span></pre></td></tr></table></figure>
-
-
-<h2 id="三、Browser"><a href="#三、Browser" class="headerlink" title="三、Browser"></a>三、Browser</h2><h3 id="1-测试当前环境平台"><a href="#1-测试当前环境平台" class="headerlink" title="1. 测试当前环境平台"></a>1. 测试当前环境平台</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> detectDeviceType = <span class="function"><span class="params">()</span> =&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    ? <span class="string">'Mobile'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    : <span class="string">'Desktop'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(detectDeviceType())</span></pre></td></tr></table></figure>
-
-<h2 id="字谜"><a href="#字谜" class="headerlink" title="字谜"></a>字谜</h2><p>技术点:</p>
-<ul>
-<li><code>String.split()</code></li>
-<li><code>Array.contact()</code></li>
-<li><code>Array.reduce()</code></li>
-<li><code>Array.filter()</code></li>
-<li><code>Array.map()</code></li>
-<li><code>Array.join()</code></li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> anagrams = <span class="function"><span class="params">str</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 如果只有两个字符,直接对调返回</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (str.length &lt;= <span class="number">2</span>) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> str.length === <span class="number">2</span> ? [str, str[<span class="number">0</span>] + str[<span class="number">1</span>]] : [str];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 多余两个，分割为数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">let</span> strArray = str.split(<span class="string">''</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">`strArray: `</span>,strArray);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 再使用数组的 reduce 累加拼接</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> strArray.reduce(<span class="function">(<span class="params">acc, letter, i</span>) =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">`acc:<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(acc)&#125;</span> letter:<span class="subst">$&#123;letter&#125;</span> i:<span class="subst">$&#123;i&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">let</span> first = str.slice(<span class="number">0</span>, i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">let</span> last = str.slice(i+<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">`first:<span class="subst">$&#123;first&#125;</span> last:<span class="subst">$&#123;last&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 递归调用自身，拼接对调字符</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> acc.concat(anagrams(first+last).map(<span class="function"><span class="params">val</span> =&gt;</span> letter + val))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;, []);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">anagrams(<span class="string">'abc'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ['abc','acb','bac','bca','cab','cba']</span></span></pre></td></tr></table></figure>
-<p>思考:如果是中文字符怎么修改代码？</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><ul>
-<li><a href="https://30secondsofcode.org/" target="_blank" rel="noopener">30 seconds of code</a></li>
-<li><a href="https://mp.weixin.qq.com/s/RGSA0VvRcCrQwicVvL9-Xw" target="_blank" rel="noopener">48 个 JavaScript 代码片段</a></li>
 </ul>
 
 	
@@ -879,45 +879,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
+			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
 		
-			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
-		
-			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
-		
-			<li><a href="/tags/Performence/">Performence<span>1</span></a></li>
-		
-			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
-		
-			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+			<li><a href="/tags/Document/">Document<span>8</span></a></li>
 		
 			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
+		
+			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
+		
+			<li><a href="/tags/Karma/">Karma<span>1</span></a></li>
 		
 			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
 		
 			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
 		
-			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
+			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
 		
-			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
+			<li><a href="/tags/MySQL/">MySQL<span>1</span></a></li>
 		
-			<li><a href="/tags/Karma/">Karma<span>1</span></a></li>
-		
-			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
-		
-			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
-		
-			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
+			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
 		
 			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
 		
+			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
+		
+			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
+		
 			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
 		
-			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
+			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
 		
-			<li><a href="/tags/Document/">Document<span>8</span></a></li>
+			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
 		
-			<li><a href="/tags/MySQL/">MySQL<span>1</span></a></li>
+			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+		
+			<li><a href="/tags/Performence/">Performence<span>1</span></a></li>
+		
+			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
+		
+			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>21</span></a></li>
@@ -998,7 +998,7 @@
 
 
 <span>
-  &copy; 2019 John Doe
+  &copy; 2019 JesseChiu
   
 </span>
 
