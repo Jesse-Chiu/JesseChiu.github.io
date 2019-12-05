@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Page 17 - Hexo</title>
+  <title>Page 17 - Cease to struggle and you cease to live</title>
   <meta name="author" content="JesseChiu">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="Hexo"/>
+  <meta property="og:site_name" content="Cease to struggle and you cease to live"/>
 
   
     <meta property="og:image" content=""/>
   
 
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Cease to struggle and you cease to live" type="application/atom+xml">
   
   
     <link href="/favicon.ico" rel="icon">
@@ -53,7 +53,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-       <a class="navbar-brand" href="/">Hexo</a>
+       <a class="navbar-brand" href="/">Cease to struggle and you cease to live</a>
       <div class="collapse navbar-collapse nav-menu">
 		<ul class="nav navbar-nav">
 		  
@@ -102,7 +102,7 @@
   <div class="container">
   	<div class="content">
     	 <div class="page-header page-header-inverse ">
-  <h1 class="title title-inverse ">Hexo</h1>
+  <h1 class="title title-inverse ">Cease to struggle and you cease to live</h1>
 </div>
 
 <div class="row page">
@@ -123,6 +123,131 @@
         
         <!-- render other articles -->
         
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-04 </div>
+			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-history/" >History 对象</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>浏览器窗口有一个<code>history</code>对象，用来保存浏览历史。</p>
+<p>比如，当前窗口先后访问了三个地址，那么<code>history</code>对象就包括三项，<code>history.length</code>属性等于3。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.length <span class="comment">// 3</span></span></pre></td></tr></table></figure>
+
+<p><code>history</code>对象提供了一系列方法，允许在浏览历史之间移动。</p>
+<ul>
+<li><code>back()</code>：移动到上一个访问页面，等同于浏览器的后退键。</li>
+<li><code>forward()</code>：移动到下一个访问页面，等同于浏览器的前进键。</li>
+<li><code>go()</code>：接受一个整数作为参数，移动到该整数指定的页面，比如<code>go(1)</code>相当于<code>forward()</code>，<code>go(-1)</code>相当于<code>back()</code>。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.back();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">history.forward();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-2</span>);</span></pre></td></tr></table></figure>
+
+<p>如果移动的位置超出了访问历史的边界，以上三个方法并不报错，而是默默的失败。</p>
+<p>以下命令相当于刷新当前页面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">0</span>);</span></pre></td></tr></table></figure>
+
+<p>常见的“返回上一页”链接，代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'backLink'</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">window</span>.history.back();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>注意，返回上一页时，页面通常是从浏览器缓存之中加载，而不是重新要求服务器发送新的网页。</p>
+<h2 id="history-pushState-，history-replaceState"><a href="#history-pushState-，history-replaceState" class="headerlink" title="history.pushState()，history.replaceState()"></a>history.pushState()，history.replaceState()</h2><p>HTML5为history对象添加了两个新方法，history.pushState() 和 history.replaceState()，用来在浏览历史中添加和修改记录。所有主流浏览器都支持该方法（包括IE10）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!!(<span class="built_in">window</span>.history &amp;&amp; history.pushState))&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 支持History API</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 不支持</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>上面代码可以用来检查，当前浏览器是否支持History API。如果不支持的话，可以考虑使用Polyfill库<a href="https://github.com/browserstate/history.js/" target="_blank" rel="noopener">History.js</a>。</p>
+<p>history.pushState方法接受三个参数，依次为：</p>
+<ul>
+<li><strong>state</strong>：一个与指定网址相关的状态对象，popstate事件触发时，该对象会传入回调函数。如果不需要这个对象，此处可以填null。</li>
+<li><strong>title</strong>：新页面的标题，但是所有浏览器目前都忽略这个值，因此这里可以填null。</li>
+<li><strong>url</strong>：新的网址，必须与当前页面处在同一个域。浏览器的地址栏将显示这个网址。</li>
+</ul>
+<p>假定当前网址是<code>example.com/1.html</code>，我们使用pushState方法在浏览记录（history对象）中添加一个新记录。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stateObj = &#123; <span class="attr">foo</span>: <span class="string">"bar"</span> &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">history.pushState(stateObj, <span class="string">"page 2"</span>, <span class="string">"2.html"</span>);</span></pre></td></tr></table></figure>
+
+<p>添加上面这个新记录后，浏览器地址栏立刻显示<code>example.com/2.html</code>，但并不会跳转到2.html，甚至也不会检查2.html是否存在，它只是成为浏览历史中的最新记录。假定这时你访问了google.com，然后点击了倒退按钮，页面的url将显示2.html，但是内容还是原来的1.html。你再点击一次倒退按钮，url将显示1.html，内容不变。</p>
+<blockquote>
+<p>注意，pushState方法不会触发页面刷新。</p>
+</blockquote>
+<p>如果 pushState 的url参数，设置了一个当前网页的#号值（即hash），并不会触发hashchange事件。如果设置了一个非同域的网址，则会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 报错</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, <span class="string">'https://twitter.com/hello'</span>);</span></pre></td></tr></table></figure>
+
+<p>上面代码中，pushState想要插入一个非同域的网址，导致报错。这样设计的目的是，防止恶意代码让用户以为他们是在另一个网站上。</p>
+<p><code>history.replaceState</code>方法的参数与<code>pushState</code>方法一模一样，区别是它修改浏览历史中当前页面的值。下面的例子假定当前网页是example.com/example.html。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;<span class="attr">page</span>: <span class="number">1</span>&#125;, <span class="string">"title 1"</span>, <span class="string">"?page=1"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;<span class="attr">page</span>: <span class="number">2</span>&#125;, <span class="string">"title 2"</span>, <span class="string">"?page=2"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">history.replaceState(&#123;<span class="attr">page</span>: <span class="number">3</span>&#125;, <span class="string">"title 3"</span>, <span class="string">"?page=3"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">history.back(); <span class="comment">// url显示为http://example.com/example.html?page=1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">history.back(); <span class="comment">// url显示为http://example.com/example.html</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">2</span>);  <span class="comment">// url显示为http://example.com/example.html?page=3</span></span></pre></td></tr></table></figure>
+
+<h2 id="history-state属性"><a href="#history-state属性" class="headerlink" title="history.state属性"></a>history.state属性</h2><p>history.state 属性保存当前页面的state对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;<span class="attr">page</span>: <span class="number">1</span>&#125;, <span class="string">"title 1"</span>, <span class="string">"?page=1"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">history.state</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#123; page: 1 &#125;</span></span></pre></td></tr></table></figure>
+
+<h2 id="popstate-事件"><a href="#popstate-事件" class="headerlink" title="popstate 事件"></a>popstate 事件</h2><p>每当同一个文档的浏览历史（即history对象）出现变化时，就会触发 popstate 事件。需要注意的是，仅仅调用 pushState 方法或 replaceState 方法 ，并不会触发该事件，只有用户点击浏览器倒退按钮和前进按钮，或者使用 JavaScript 调用 back、forward、go 方法时才会触发。另外，该事件只针对同一个文档，如果浏览历史的切换，导致加载不同的文档，该事件也不会触发。</p>
+<p>使用的时候，可以为popstate事件指定回调函数。这个回调函数的参数是一个event事件对象，它的state属性指向pushState和replaceState方法为当前url所提供的状态对象（即这两个方法的第一个参数）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onpopstate = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"location: "</span> + <span class="built_in">document</span>.location);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"state: "</span> + <span class="built_in">JSON</span>.stringify(event.state));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 或者</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"location: "</span> + <span class="built_in">document</span>.location);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"state: "</span> + <span class="built_in">JSON</span>.stringify(event.state));  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+
+<p>上面代码中的event.state，就是通过pushState和replaceState方法，为当前url绑定的state对象。</p>
+<p>这个state对象也可以直接通过history对象读取。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currentState = history.state;</span></pre></td></tr></table></figure>
+
+<p>另外，需要注意的是，当页面第一次加载的时候，在onload事件发生后，Chrome和Safari浏览器（Webkit核心）会触发popstate 事件，而Firefox和IE浏览器不会。</p>
+<h3 id="如果要设置禁止浏览器后退和前进的按钮"><a href="#如果要设置禁止浏览器后退和前进的按钮" class="headerlink" title="如果要设置禁止浏览器后退和前进的按钮"></a>如果要设置禁止浏览器后退和前进的按钮</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//防止页面后退</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把当前的 url 地址设置的历史记录中</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, <span class="built_in">document</span>.URL);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听 popstate 事件，每当页面切换时，触发更新设置历史记录中的记录为当前 url 地址，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样每次历史记录中永远都是当前页面，达到进制后退功能</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, <span class="built_in">document</span>.URL);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<h2 id="URLSearchParams-API"><a href="#URLSearchParams-API" class="headerlink" title="URLSearchParams API"></a>URLSearchParams API</h2><p>URLSearchParams API用于处理URL之中的查询字符串，即问号之后的部分。没有部署这个API的浏览器，可以用<a href="https://github.com/WebReflection/url-search-params" target="_blank" rel="noopener">url-search-params</a>这个垫片库。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> paramsString = <span class="string">'q=URLUtils.searchParams&amp;topic=api'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchParams = <span class="keyword">new</span> URLSearchParams(paramsString);</span></pre></td></tr></table></figure>
+
+<p>URLSearchParams有以下方法，用来操作某个参数。</p>
+<ul>
+<li><code>has()</code>：返回一个布尔值，表示是否具有某个参数</li>
+<li><code>get（）</code>：返回指定参数的第一个值</li>
+<li><code>getAll()</code>：返回一个数组，成员是指定参数的所有值</li>
+<li><code>set()</code>：设置指定参数</li>
+<li><code>delete()</code>：删除指定参数</li>
+<li><code>append()</code>：在查询字符串之中，追加一个键值对</li>
+<li><code>toString()</code>：返回整个查询字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> paramsString = <span class="string">"q=URLUtils.searchParams&amp;topic=api"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchParams = <span class="keyword">new</span> URLSearchParams(paramsString);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">searchParams.has(<span class="string">'topic'</span>) <span class="comment">// true</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'topic'</span>) <span class="comment">// "api"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">searchParams.getAll(<span class="string">'topic'</span>) <span class="comment">// ["api"]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'foo'</span>) <span class="comment">// null，注意Firefox返回空字符串</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">searchParams.set(<span class="string">'foo'</span>, <span class="number">2</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'foo'</span>) <span class="comment">// 2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'topic'</span>, <span class="string">'webdev'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">searchParams.toString() <span class="comment">// "q=URLUtils.searchParams&amp;topic=api&amp;foo=2&amp;topic=webdev"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'foo'</span>, <span class="number">3</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">searchParams.getAll(<span class="string">'foo'</span>) <span class="comment">// [2, 3]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">searchParams.delete(<span class="string">'topic'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">searchParams.toString() <span class="comment">// "q=URLUtils.searchParams&amp;foo=2&amp;foo=3"</span></span></pre></td></tr></table></figure>
+
+<p>URLSearchParams还有三个方法，用来遍历所有参数。</p>
+<ul>
+<li><code>keys()</code>：遍历所有参数名</li>
+<li><code>values()</code>：遍历所有参数值</li>
+<li><code>entries()</code>：遍历所有参数的键值对</li>
+</ul>
+<p>上面三个方法返回的都是Iterator对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchParams = <span class="keyword">new</span> URLSearchParams(<span class="string">'key1=value1&amp;key2=value2'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">of</span> searchParams.keys()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(key);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> value <span class="keyword">of</span> searchParams.values()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(value);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// value1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// value2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> pair <span class="keyword">of</span> searchParams.entries()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(pair[<span class="number">0</span>]+ <span class="string">', '</span>+ pair[<span class="number">1</span>]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key1, value1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key2, value2</span></span></pre></td></tr></table></figure>
+
+<p>在Chrome浏览器之中，<code>URLSearchParams</code>实例本身就是Iterator对象，与<code>entries</code>方法返回值相同。所以，可以写成下面的样子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">of</span> searchParams) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(p);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>下面是一个替换当前URL的例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// URL: https://example.com?version=1.0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> params = <span class="keyword">new</span> URLSearchParams(location.search.slice(<span class="number">1</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">params.set(<span class="string">'version'</span>, <span class="number">2.0</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.history.replaceState(&#123;&#125;, <span class="string">''</span>, <span class="string">`<span class="subst">$&#123;location.pathname&#125;</span>?<span class="subst">$&#123;params&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// URL: https://example.com?version=2.0</span></span></pre></td></tr></table></figure>
+
+<p><code>URLSearchParams</code>实例可以当作POST数据发送，所有数据都会URL编码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> params = <span class="keyword">new</span> URLSearchParams();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">params.append(<span class="string">'api_key'</span>, <span class="string">'1234567890'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">'https://example.com/api'</span>, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  method: <span class="string">'POST'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  body: params</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;).then(...)</span></pre></td></tr></table></figure>
+
+<p>DOM的<code>a</code>元素节点的<code>searchParams</code>属性，就是一个<code>URLSearchParams</code>实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">a.href = <span class="string">'https://example.com?filter=api'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">a.searchParams.get(<span class="string">'filter'</span>) <span class="comment">// "api"</span></span></pre></td></tr></table></figure>
+
+<p><code>URLSearchParams</code>还可以与<code>URL</code>接口结合使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="keyword">new</span> URL(location);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = url.searchParams.get(<span class="string">'foo'</span>) || <span class="string">'somedefault'</span>;</span></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>MOZILLA DEVELOPER NETWORK，<a href="https://developer.mozilla.org/en-US/docs/DOM/Manipulating_the_browser_history" target="_blank" rel="noopener">Manipulating the browser history</a></li>
+<li>MOZILLA DEVELOPER NETWORK，<a href="https://developer.mozilla.org/en-US/docs/DOM/window.onpopstate" target="_blank" rel="noopener">window.onpopstate</a></li>
+<li>Johnny Simpson, <a href="http://www.inserthtml.com/2013/06/history-api/" target="_blank" rel="noopener">Controlling History: The HTML5 History API And ‘Selective’ Loading</a></li>
+<li>Louis Lazaris, <a href="http://www.impressivewebs.com/html5-history-api-syntax/" target="_blank" rel="noopener">HTML5 History API: A Syntax Primer</a></li>
+<li>Eric Bidelman, <a href="https://developers.google.com/web/updates/2016/01/urlsearchparams?hl=en" target="_blank" rel="noopener">Easy URL manipulation with URLSearchParams</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
            
 			  
 	
@@ -280,371 +405,6 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2017-03-04 </div>
-			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-performance/" >Performance API</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，提供以前没有办法做到的精度。</p>
-<p>比如，为了得到脚本运行的准确耗时，需要一个高精度时间戳。传统的做法是使用Date对象的getTime方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> start = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// do something here</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> latency = now - start;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"任务运行时间："</span> + latency);</span></pre></td></tr></table></figure>
-
-<p>上面这种做法有两个不足之处。首先，getTime方法（以及Date对象的其他方法）都只能精确到毫秒级别（一秒的千分之一），想要得到更小的时间差别就无能为力了；其次，这种写法只能获取代码运行过程中的时间进度，无法知道一些后台事件的时间进度，比如浏览器用了多少时间从服务器加载网页。</p>
-<p>为了解决这两个不足之处，ECMAScript 5引入“高精度时间戳”这个API，部署在performance对象上。它的精度可以达到1毫秒的千分之一（1秒的百万分之一），这对于衡量的程序的细微差别，提高程序运行速度很有好处，而且还可以获取后台事件的时间进度。</p>
-<p>目前，所有主要浏览器都已经支持performance对象，包括Chrome 20+、Firefox 15+、IE 10+、Opera 15+。</p>
-<h2 id="performance-timing对象"><a href="#performance-timing对象" class="headerlink" title="performance.timing对象"></a>performance.timing对象</h2><p>performance对象的timing属性指向一个对象，它包含了各种与浏览器性能有关的时间数据，提供浏览器处理网页各个阶段的耗时。比如，performance.timing.navigationStart就是浏览器处理当前网页的启动时间。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.now() - performance.timing.navigationStart</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 13260687</span></span></pre></td></tr></table></figure>
-
-<p>上面代码表示距离浏览器开始处理当前网页，已经过了13260687毫秒。</p>
-<p>下面是另一个例子。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = performance.timing;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageloadtime = t.loadEventStart - t.navigationStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dns = t.domainLookupEnd - t.domainLookupStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tcp = t.connectEnd - t.connectStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ttfb = t.responseStart - t.navigationStart;</span></pre></td></tr></table></figure>
-
-<p>上面代码依次得到页面加载的耗时、域名解析的耗时、TCP连接的耗时、读取页面第一个字节之前的耗时。</p>
-<p>performance.timing对象包含以下属性（全部为只读）：</p>
-<ul>
-<li><p><strong>navigationStart</strong>：当前浏览器窗口的前一个网页关闭，发生unload事件时的Unix毫秒时间戳。如果没有前一个网页，则等于fetchStart属性。</p>
-</li>
-<li><p><strong>unloadEventStart</strong>：如果前一个网页与当前网页属于同一个域名，则返回前一个网页的unload事件发生时的Unix毫秒时间戳。如果没有前一个网页，或者之前的网页跳转不是在同一个域名内，则返回值为0。</p>
-</li>
-<li><p><strong>unloadEventEnd</strong>：如果前一个网页与当前网页属于同一个域名，则返回前一个网页unload事件的回调函数结束时的Unix毫秒时间戳。如果没有前一个网页，或者之前的网页跳转不是在同一个域名内，则返回值为0。</p>
-</li>
-<li><p><strong>redirectStart</strong>：返回第一个HTTP跳转开始时的Unix毫秒时间戳。如果没有跳转，或者不是同一个域名内部的跳转，则返回值为0。</p>
-</li>
-<li><p><strong>redirectEnd</strong>：返回最后一个HTTP跳转结束时（即跳转回应的最后一个字节接受完成时）的Unix毫秒时间戳。如果没有跳转，或者不是同一个域名内部的跳转，则返回值为0。</p>
-</li>
-<li><p><strong>fetchStart</strong>：返回浏览器准备使用HTTP请求读取文档时的Unix毫秒时间戳。该事件在网页查询本地缓存之前发生。</p>
-</li>
-<li><p><strong>domainLookupStart</strong>：返回域名查询开始时的Unix毫秒时间戳。如果使用持久连接，或者信息是从本地缓存获取的，则返回值等同于fetchStart属性的值。</p>
-</li>
-<li><p><strong>domainLookupEnd</strong>：返回域名查询结束时的Unix毫秒时间戳。如果使用持久连接，或者信息是从本地缓存获取的，则返回值等同于fetchStart属性的值。</p>
-</li>
-<li><p><strong>connectStart</strong>：返回HTTP请求开始向服务器发送时的Unix毫秒时间戳。如果使用持久连接（persistent connection），则返回值等同于fetchStart属性的值。</p>
-</li>
-<li><p><strong>connectEnd</strong>：返回浏览器与服务器之间的连接建立时的Unix毫秒时间戳。如果建立的是持久连接，则返回值等同于fetchStart属性的值。连接建立指的是所有握手和认证过程全部结束。</p>
-</li>
-<li><p><strong>secureConnectionStart</strong>：返回浏览器与服务器开始安全链接的握手时的Unix毫秒时间戳。如果当前网页不要求安全连接，则返回0。</p>
-</li>
-<li><p><strong>requestStart</strong>：返回浏览器向服务器发出HTTP请求时（或开始读取本地缓存时）的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>responseStart</strong>：返回浏览器从服务器收到（或从本地缓存读取）第一个字节时的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>responseEnd</strong>：返回浏览器从服务器收到（或从本地缓存读取）最后一个字节时（如果在此之前HTTP连接已经关闭，则返回关闭时）的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>domLoading</strong>：返回当前网页DOM结构开始解析时（即Document.readyState属性变为“loading”、相应的readystatechange事件触发时）的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>domInteractive</strong>：返回当前网页DOM结构结束解析、开始加载内嵌资源时（即Document.readyState属性变为“interactive”、相应的readystatechange事件触发时）的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>domContentLoadedEventStart</strong>：返回当前网页DOMContentLoaded事件发生时（即DOM结构解析完毕、所有脚本开始运行时）的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>domContentLoadedEventEnd</strong>：返回当前网页所有需要执行的脚本执行完成时的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>domComplete</strong>：返回当前网页DOM结构生成时（即Document.readyState属性变为“complete”，以及相应的readystatechange事件发生时）的Unix毫秒时间戳。</p>
-</li>
-<li><p><strong>loadEventStart</strong>：返回当前网页load事件的回调函数开始时的Unix毫秒时间戳。如果该事件还没有发生，返回0。</p>
-</li>
-<li><p><strong>loadEventEnd</strong>：返回当前网页load事件的回调函数运行结束时的Unix毫秒时间戳。如果该事件还没有发生，返回0。</p>
-</li>
-</ul>
-<p>根据上面这些属性，可以计算出网页加载各个阶段的耗时。比如，网页加载整个过程的耗时的计算方法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = performance.timing; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageLoadTime = t.loadEventEnd - t.navigationStart;</span></pre></td></tr></table></figure>
-
-<h2 id="performance-now"><a href="#performance-now" class="headerlink" title="performance.now()"></a>performance.now()</h2><p>performance.now方法返回当前网页自从performance.timing.navigationStart到当前时间之间的微秒数（毫秒的千分之一）。也就是说，它的精度可以达到100万分之一秒。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">performance.now() </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 23493457.476999998</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.now() - (performance.timing.navigationStart + performance.now())</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// -0.64306640625</span></span></pre></td></tr></table></figure>
-
-<p>上面代码表示，performance.timing.navigationStart加上performance.now()，近似等于Date.now()，也就是说，Date.now()可以替代performance.now()。但是，前者返回的是毫秒，后者返回的是微秒，所以后者的精度比前者高1000倍。</p>
-<p>通过两次调用performance.now方法，可以得到间隔的准确时间，用来衡量某种操作的耗时。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> start = performance.now();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">doTasks();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> end = performance.now();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'耗时：'</span> + (end - start) + <span class="string">'微秒。'</span>);</span></pre></td></tr></table></figure>
-
-<h2 id="performance-mark"><a href="#performance-mark" class="headerlink" title="performance.mark()"></a>performance.mark()</h2><p>mark方法用于为相应的视点做标记。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance.mark(<span class="string">'mark_fully_loaded'</span>);</span></pre></td></tr></table></figure>
-
-<p>clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.peformance.clearMarks(<span class="string">'mark_fully_loaded'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance.clearMarks();</span></pre></td></tr></table></figure>
-
-<h2 id="performance-getEntries"><a href="#performance-getEntries" class="headerlink" title="performance.getEntries()"></a>performance.getEntries()</h2><p>浏览器获取网页时，会对网页中每一个对象（脚本文件、样式表、图片文件等等）发出一个HTTP请求。performance.getEntries方法以数组形式，返回这些请求的时间统计信息，有多少个请求，返回数组就会有多少个成员。</p>
-<p>由于该方法与浏览器处理网页的过程相关，所以只能在浏览器中使用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance.getEntries()[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// PerformanceResourceTiming &#123; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   responseEnd: 4121.6200000017125, </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   responseStart: 4120.0690000005125, </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   requestStart: 3315.355000002455, </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#125;</span></span></pre></td></tr></table></figure>
-
-<p>上面代码返回第一个HTTP请求（即网页的HTML源码）的时间统计信息。该信息以一个高精度时间戳的对象形式返回，每个属性的单位是微秒（microsecond），即百万分之一秒。</p>
-<h2 id="performance-navigation对象"><a href="#performance-navigation对象" class="headerlink" title="performance.navigation对象"></a>performance.navigation对象</h2><p>除了时间信息，performance还可以提供一些用户行为信息，主要都存放在performance.navigation对象上面。</p>
-<p>它有两个属性：</p>
-<p><strong>（1）performance.navigation.type</strong></p>
-<p>该属性返回一个整数值，表示网页的加载来源，可能有以下4种情况：</p>
-<ul>
-<li><p><strong>0</strong>：网页通过点击链接、地址栏输入、表单提交、脚本操作等方式加载，相当于常数performance.navigation.TYPE_NAVIGATENEXT。</p>
-</li>
-<li><p><strong>1</strong>：网页通过“重新加载”按钮或者location.reload()方法加载，相当于常数performance.navigation.TYPE_RELOAD。</p>
-</li>
-<li><p><strong>2</strong>：网页通过“前进”或“后退”按钮加载，相当于常数performance.navigation.TYPE_BACK_FORWARD。</p>
-</li>
-<li><p><strong>255</strong>：任何其他来源的加载，相当于常数performance.navigation.TYPE_UNDEFINED。</p>
-</li>
-</ul>
-<p><strong>（2）performance.navigation.redirectCount</strong></p>
-<p>该属性表示当前网页经过了多少次重定向跳转。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li>Mozilla Developer Network, <a href="https://developer.mozilla.org/en-US/docs/Navigation_timing" target="_blank" rel="noopener">Navigation Timing</a></li>
-<li>W3C, <a href="http://www.w3.org/TR/navigation-timing/" target="_blank" rel="noopener">Navigation Timing</a></li>
-<li>W3C, <a href="http://www.w3.org/TR/html5/browsers.html" target="_blank" rel="noopener">HTML5, A vocabulary and associated APIs for HTML and XHTML</a></li>
-<li>Matt West, <a href="http://blog.teamtreehouse.com/timing-javascript-code-high-resolution-timestamps" target="_blank" rel="noopener">Timing JavaScript Code with High Resolution Timestamps</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-04 </div>
-			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-history/" >History 对象</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>浏览器窗口有一个<code>history</code>对象，用来保存浏览历史。</p>
-<p>比如，当前窗口先后访问了三个地址，那么<code>history</code>对象就包括三项，<code>history.length</code>属性等于3。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.length <span class="comment">// 3</span></span></pre></td></tr></table></figure>
-
-<p><code>history</code>对象提供了一系列方法，允许在浏览历史之间移动。</p>
-<ul>
-<li><code>back()</code>：移动到上一个访问页面，等同于浏览器的后退键。</li>
-<li><code>forward()</code>：移动到下一个访问页面，等同于浏览器的前进键。</li>
-<li><code>go()</code>：接受一个整数作为参数，移动到该整数指定的页面，比如<code>go(1)</code>相当于<code>forward()</code>，<code>go(-1)</code>相当于<code>back()</code>。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.back();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">history.forward();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-2</span>);</span></pre></td></tr></table></figure>
-
-<p>如果移动的位置超出了访问历史的边界，以上三个方法并不报错，而是默默的失败。</p>
-<p>以下命令相当于刷新当前页面。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">0</span>);</span></pre></td></tr></table></figure>
-
-<p>常见的“返回上一页”链接，代码如下。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'backLink'</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">window</span>.history.back();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>注意，返回上一页时，页面通常是从浏览器缓存之中加载，而不是重新要求服务器发送新的网页。</p>
-<h2 id="history-pushState-，history-replaceState"><a href="#history-pushState-，history-replaceState" class="headerlink" title="history.pushState()，history.replaceState()"></a>history.pushState()，history.replaceState()</h2><p>HTML5为history对象添加了两个新方法，history.pushState() 和 history.replaceState()，用来在浏览历史中添加和修改记录。所有主流浏览器都支持该方法（包括IE10）。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!!(<span class="built_in">window</span>.history &amp;&amp; history.pushState))&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 支持History API</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 不支持</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>上面代码可以用来检查，当前浏览器是否支持History API。如果不支持的话，可以考虑使用Polyfill库<a href="https://github.com/browserstate/history.js/" target="_blank" rel="noopener">History.js</a>。</p>
-<p>history.pushState方法接受三个参数，依次为：</p>
-<ul>
-<li><strong>state</strong>：一个与指定网址相关的状态对象，popstate事件触发时，该对象会传入回调函数。如果不需要这个对象，此处可以填null。</li>
-<li><strong>title</strong>：新页面的标题，但是所有浏览器目前都忽略这个值，因此这里可以填null。</li>
-<li><strong>url</strong>：新的网址，必须与当前页面处在同一个域。浏览器的地址栏将显示这个网址。</li>
-</ul>
-<p>假定当前网址是<code>example.com/1.html</code>，我们使用pushState方法在浏览记录（history对象）中添加一个新记录。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stateObj = &#123; <span class="attr">foo</span>: <span class="string">"bar"</span> &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">history.pushState(stateObj, <span class="string">"page 2"</span>, <span class="string">"2.html"</span>);</span></pre></td></tr></table></figure>
-
-<p>添加上面这个新记录后，浏览器地址栏立刻显示<code>example.com/2.html</code>，但并不会跳转到2.html，甚至也不会检查2.html是否存在，它只是成为浏览历史中的最新记录。假定这时你访问了google.com，然后点击了倒退按钮，页面的url将显示2.html，但是内容还是原来的1.html。你再点击一次倒退按钮，url将显示1.html，内容不变。</p>
-<blockquote>
-<p>注意，pushState方法不会触发页面刷新。</p>
-</blockquote>
-<p>如果 pushState 的url参数，设置了一个当前网页的#号值（即hash），并不会触发hashchange事件。如果设置了一个非同域的网址，则会报错。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 报错</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, <span class="string">'https://twitter.com/hello'</span>);</span></pre></td></tr></table></figure>
-
-<p>上面代码中，pushState想要插入一个非同域的网址，导致报错。这样设计的目的是，防止恶意代码让用户以为他们是在另一个网站上。</p>
-<p><code>history.replaceState</code>方法的参数与<code>pushState</code>方法一模一样，区别是它修改浏览历史中当前页面的值。下面的例子假定当前网页是example.com/example.html。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;<span class="attr">page</span>: <span class="number">1</span>&#125;, <span class="string">"title 1"</span>, <span class="string">"?page=1"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;<span class="attr">page</span>: <span class="number">2</span>&#125;, <span class="string">"title 2"</span>, <span class="string">"?page=2"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">history.replaceState(&#123;<span class="attr">page</span>: <span class="number">3</span>&#125;, <span class="string">"title 3"</span>, <span class="string">"?page=3"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">history.back(); <span class="comment">// url显示为http://example.com/example.html?page=1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">history.back(); <span class="comment">// url显示为http://example.com/example.html</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">2</span>);  <span class="comment">// url显示为http://example.com/example.html?page=3</span></span></pre></td></tr></table></figure>
-
-<h2 id="history-state属性"><a href="#history-state属性" class="headerlink" title="history.state属性"></a>history.state属性</h2><p>history.state 属性保存当前页面的state对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;<span class="attr">page</span>: <span class="number">1</span>&#125;, <span class="string">"title 1"</span>, <span class="string">"?page=1"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">history.state</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#123; page: 1 &#125;</span></span></pre></td></tr></table></figure>
-
-<h2 id="popstate-事件"><a href="#popstate-事件" class="headerlink" title="popstate 事件"></a>popstate 事件</h2><p>每当同一个文档的浏览历史（即history对象）出现变化时，就会触发 popstate 事件。需要注意的是，仅仅调用 pushState 方法或 replaceState 方法 ，并不会触发该事件，只有用户点击浏览器倒退按钮和前进按钮，或者使用 JavaScript 调用 back、forward、go 方法时才会触发。另外，该事件只针对同一个文档，如果浏览历史的切换，导致加载不同的文档，该事件也不会触发。</p>
-<p>使用的时候，可以为popstate事件指定回调函数。这个回调函数的参数是一个event事件对象，它的state属性指向pushState和replaceState方法为当前url所提供的状态对象（即这两个方法的第一个参数）。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onpopstate = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"location: "</span> + <span class="built_in">document</span>.location);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"state: "</span> + <span class="built_in">JSON</span>.stringify(event.state));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 或者</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"location: "</span> + <span class="built_in">document</span>.location);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">"state: "</span> + <span class="built_in">JSON</span>.stringify(event.state));  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-
-<p>上面代码中的event.state，就是通过pushState和replaceState方法，为当前url绑定的state对象。</p>
-<p>这个state对象也可以直接通过history对象读取。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currentState = history.state;</span></pre></td></tr></table></figure>
-
-<p>另外，需要注意的是，当页面第一次加载的时候，在onload事件发生后，Chrome和Safari浏览器（Webkit核心）会触发popstate 事件，而Firefox和IE浏览器不会。</p>
-<h3 id="如果要设置禁止浏览器后退和前进的按钮"><a href="#如果要设置禁止浏览器后退和前进的按钮" class="headerlink" title="如果要设置禁止浏览器后退和前进的按钮"></a>如果要设置禁止浏览器后退和前进的按钮</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//防止页面后退</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把当前的 url 地址设置的历史记录中</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, <span class="built_in">document</span>.URL);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听 popstate 事件，每当页面切换时，触发更新设置历史记录中的记录为当前 url 地址，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样每次历史记录中永远都是当前页面，达到进制后退功能</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    history.pushState(<span class="literal">null</span>, <span class="literal">null</span>, <span class="built_in">document</span>.URL);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-<h2 id="URLSearchParams-API"><a href="#URLSearchParams-API" class="headerlink" title="URLSearchParams API"></a>URLSearchParams API</h2><p>URLSearchParams API用于处理URL之中的查询字符串，即问号之后的部分。没有部署这个API的浏览器，可以用<a href="https://github.com/WebReflection/url-search-params" target="_blank" rel="noopener">url-search-params</a>这个垫片库。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> paramsString = <span class="string">'q=URLUtils.searchParams&amp;topic=api'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchParams = <span class="keyword">new</span> URLSearchParams(paramsString);</span></pre></td></tr></table></figure>
-
-<p>URLSearchParams有以下方法，用来操作某个参数。</p>
-<ul>
-<li><code>has()</code>：返回一个布尔值，表示是否具有某个参数</li>
-<li><code>get（）</code>：返回指定参数的第一个值</li>
-<li><code>getAll()</code>：返回一个数组，成员是指定参数的所有值</li>
-<li><code>set()</code>：设置指定参数</li>
-<li><code>delete()</code>：删除指定参数</li>
-<li><code>append()</code>：在查询字符串之中，追加一个键值对</li>
-<li><code>toString()</code>：返回整个查询字符串</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> paramsString = <span class="string">"q=URLUtils.searchParams&amp;topic=api"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchParams = <span class="keyword">new</span> URLSearchParams(paramsString);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">searchParams.has(<span class="string">'topic'</span>) <span class="comment">// true</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'topic'</span>) <span class="comment">// "api"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">searchParams.getAll(<span class="string">'topic'</span>) <span class="comment">// ["api"]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'foo'</span>) <span class="comment">// null，注意Firefox返回空字符串</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">searchParams.set(<span class="string">'foo'</span>, <span class="number">2</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'foo'</span>) <span class="comment">// 2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'topic'</span>, <span class="string">'webdev'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">searchParams.toString() <span class="comment">// "q=URLUtils.searchParams&amp;topic=api&amp;foo=2&amp;topic=webdev"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'foo'</span>, <span class="number">3</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">searchParams.getAll(<span class="string">'foo'</span>) <span class="comment">// [2, 3]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">searchParams.delete(<span class="string">'topic'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">searchParams.toString() <span class="comment">// "q=URLUtils.searchParams&amp;foo=2&amp;foo=3"</span></span></pre></td></tr></table></figure>
-
-<p>URLSearchParams还有三个方法，用来遍历所有参数。</p>
-<ul>
-<li><code>keys()</code>：遍历所有参数名</li>
-<li><code>values()</code>：遍历所有参数值</li>
-<li><code>entries()</code>：遍历所有参数的键值对</li>
-</ul>
-<p>上面三个方法返回的都是Iterator对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> searchParams = <span class="keyword">new</span> URLSearchParams(<span class="string">'key1=value1&amp;key2=value2'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">of</span> searchParams.keys()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(key);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> value <span class="keyword">of</span> searchParams.values()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(value);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// value1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// value2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> pair <span class="keyword">of</span> searchParams.entries()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(pair[<span class="number">0</span>]+ <span class="string">', '</span>+ pair[<span class="number">1</span>]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key1, value1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// key2, value2</span></span></pre></td></tr></table></figure>
-
-<p>在Chrome浏览器之中，<code>URLSearchParams</code>实例本身就是Iterator对象，与<code>entries</code>方法返回值相同。所以，可以写成下面的样子。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">of</span> searchParams) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(p);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>下面是一个替换当前URL的例子。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// URL: https://example.com?version=1.0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> params = <span class="keyword">new</span> URLSearchParams(location.search.slice(<span class="number">1</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">params.set(<span class="string">'version'</span>, <span class="number">2.0</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.history.replaceState(&#123;&#125;, <span class="string">''</span>, <span class="string">`<span class="subst">$&#123;location.pathname&#125;</span>?<span class="subst">$&#123;params&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// URL: https://example.com?version=2.0</span></span></pre></td></tr></table></figure>
-
-<p><code>URLSearchParams</code>实例可以当作POST数据发送，所有数据都会URL编码。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> params = <span class="keyword">new</span> URLSearchParams();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">params.append(<span class="string">'api_key'</span>, <span class="string">'1234567890'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">'https://example.com/api'</span>, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  method: <span class="string">'POST'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  body: params</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;).then(...)</span></pre></td></tr></table></figure>
-
-<p>DOM的<code>a</code>元素节点的<code>searchParams</code>属性，就是一个<code>URLSearchParams</code>实例。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">a.href = <span class="string">'https://example.com?filter=api'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">a.searchParams.get(<span class="string">'filter'</span>) <span class="comment">// "api"</span></span></pre></td></tr></table></figure>
-
-<p><code>URLSearchParams</code>还可以与<code>URL</code>接口结合使用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="keyword">new</span> URL(location);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = url.searchParams.get(<span class="string">'foo'</span>) || <span class="string">'somedefault'</span>;</span></pre></td></tr></table></figure>
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li>MOZILLA DEVELOPER NETWORK，<a href="https://developer.mozilla.org/en-US/docs/DOM/Manipulating_the_browser_history" target="_blank" rel="noopener">Manipulating the browser history</a></li>
-<li>MOZILLA DEVELOPER NETWORK，<a href="https://developer.mozilla.org/en-US/docs/DOM/window.onpopstate" target="_blank" rel="noopener">window.onpopstate</a></li>
-<li>Johnny Simpson, <a href="http://www.inserthtml.com/2013/06/history-api/" target="_blank" rel="noopener">Controlling History: The HTML5 History API And ‘Selective’ Loading</a></li>
-<li>Louis Lazaris, <a href="http://www.impressivewebs.com/html5-history-api-syntax/" target="_blank" rel="noopener">HTML5 History API: A Syntax Primer</a></li>
-<li>Eric Bidelman, <a href="https://developers.google.com/web/updates/2016/01/urlsearchparams?hl=en" target="_blank" rel="noopener">Easy URL manipulation with URLSearchParams</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-04 </div>
-			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-cookie/" >Cookie</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Cookie是服务器保存在浏览器的一小段文本信息，每个Cookie的大小一般不能超过4KB。浏览器每次向服务器发出请求，就会自动附上这段信息。</p>
-<p>Cookie保存以下几方面的信息。</p>
-<ul>
-<li>Cookie的名字</li>
-<li>Cookie的值</li>
-<li>到期时间</li>
-<li>所属域名（默认是当前域名）</li>
-<li>生效的路径（默认是当前网址）</li>
-</ul>
-<p>举例来说，如果当前URL是<code>www.example.com</code>，那么Cookie的路径就是根目录<code>/</code>。这意味着，这个Cookie对该域名的根路径和它的所有子路径都有效。如果路径设为<code>/forums</code>，那么这个Cookie只有在访问<code>www.example.com/forums</code>及其子路径时才有效。</p>
-<p>浏览器可以设置不接受Cookie，也可以设置不向服务器发送Cookie。<code>window.navigator.cookieEnabled</code>属性返回一个布尔值，表示浏览器是否打开Cookie功能。</p>
-<p><code>document.cookie</code>属性返回当前网页的Cookie。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取当前网页的所有cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> allCookies = <span class="built_in">document</span>.cookie;</span></pre></td></tr></table></figure>
-
-<p>由于<code>document.cookie</code>返回的是分号分隔的所有Cookie，所以必须手动还原，才能取出每一个Cookie的值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cookies = <span class="built_in">document</span>.cookie.split(<span class="string">';'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; cookies.length; i++) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// cookies[i] name=value形式的单个Cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p><code>document.cookie</code>属性是可写的，可以通过它为当前网站添加Cookie。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'fontSize=14'</span>;</span></pre></td></tr></table></figure>
-
-<p>Cookie的值必须写成<code>key=value</code>的形式。注意，等号两边不能有空格。另外，写入Cookie的时候，必须对分号、逗号和空格进行转义（它们都不允许作为Cookie的值），这可以用<code>encodeURIComponent</code>方法达到。</p>
-<p>但是，<code>document.cookie</code>一次只能写入一个Cookie，而且写入并不是覆盖，而是添加。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'test1=hello'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'test2=world'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// test1=hello;test2=world</span></span></pre></td></tr></table></figure>
-
-<p><code>document.cookie</code>属性读写行为的差异（一次可以读出全部Cookie，但是只能写入一个Cookie），与服务器与浏览器之间的Cookie通信格式有关。浏览器向服务器发送Cookie的时候，是一行将所有Cookie全部发送。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/sample_page.html</span> HTTP/1.1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Host</span>: www.example.org</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cookie</span>: cookie_name1=cookie_value1; cookie_name2=cookie_value2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Accept</span>: */*</span></pre></td></tr></table></figure>
-
-<p>上面的头信息中，<code>Cookie</code>字段是浏览器向服务器发送的Cookie。</p>
-<p>服务器告诉浏览器需要储存Cookie的时候，则是分行指定。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">HTTP/1.0 <span class="number">200</span> OK</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-type</span>: text/html</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: cookie_name1=cookie_value1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: cookie_name2=cookie_value2; expires=Sun, 16 Jul 3567 06:23:41 GMT</span></pre></td></tr></table></figure>
-
-<p>上面的头信息中，<code>Set-Cookie</code>字段是服务器写入浏览器的Cookie，一行一个。</p>
-<p>如果仔细看浏览器向服务器发送的Cookie，就会意识到，Cookie协议存在问题。对于服务器来说，有两点是无法知道的。</p>
-<ul>
-<li>Cookie的各种属性，比如何时过期。</li>
-<li>哪个域名设置的Cookie，因为Cookie可能是一级域名设的，也可能是任意一个二级域名设的。</li>
-</ul>
-<h2 id="Cookie的属性"><a href="#Cookie的属性" class="headerlink" title="Cookie的属性"></a>Cookie的属性</h2><p>除了Cookie本身的内容，还有一些可选的属性也是可以写入的，它们都必须以分号开头。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: value[; expires=date][; domain=domain][; path=path][; secure]</span></pre></td></tr></table></figure>
-
-<p>上面的<code>Set-Cookie</code>字段，用分号分隔多个属性。它们的含义如下。</p>
-<p>（1）value属性</p>
-<p><code>value</code>属性是必需的，它是一个键值对，用于指定Cookie的值。</p>
-<p>（2）expires属性</p>
-<p><code>expires</code>属性用于指定Cookie过期时间。它的格式采用<code>Date.toUTCString()</code>的格式。</p>
-<p>如果不设置该属性，或者设为<code>null</code>，Cookie只在当前会话（session）有效，浏览器窗口一旦关闭，当前Session结束，该Cookie就会被删除。</p>
-<p>浏览器根据本地时间，决定Cookie是否过期，由于本地时间是不精确的，所以没有办法保证Cookie一定会在服务器指定的时间过期。</p>
-<p>（3）domain属性</p>
-<p><code>domain</code>属性指定Cookie所在的域名，比如<code>example.com</code>或<code>.example.com</code>（这种写法将对所有子域名生效）、<code>subdomain.example.com</code>。</p>
-<p>如果未指定，默认为设定该Cookie的域名。所指定的域名必须是当前发送Cookie的域名的一部分，比如当前访问的域名是<code>example.com</code>，就不能将其设为<code>google.com</code>。只有访问的域名匹配domain属性，Cookie才会发送到服务器。</p>
-<p>（4）path属性</p>
-<p><code>path</code>属性用来指定路径，必须是绝对路径（比如<code>/</code>、<code>/mydir</code>），如果未指定，默认为请求该Cookie的网页路径。</p>
-<p>只有<code>path</code>属性匹配向服务器发送的路径，Cookie才会发送。这里的匹配不是绝对匹配，而是从根路径开始，只要<code>path</code>属性匹配发送路径的一部分，就可以发送。比如，<code>path</code>属性等于<code>/blog</code>，则发送路径是<code>/blog</code>或者<code>/blogroll</code>，Cookie都会发送。<code>path</code>属性生效的前提是<code>domain</code>属性匹配。</p>
-<p>（5）secure</p>
-<p><code>secure</code>属性用来指定Cookie只能在加密协议HTTPS下发送到服务器。</p>
-<p>该属性只是一个开关，不需要指定值。如果通信是HTTPS协议，该开关自动打开。</p>
-<p>（6）max-age</p>
-<p><code>max-age</code>属性用来指定Cookie有效期，比如<code>60 * 60 * 24 * 365</code>（即一年31536e3秒）。</p>
-<p>（7）HttpOnly</p>
-<p><code>HttpOnly</code>属性用于设置该Cookie不能被JavaScript读取，详见下文的说明。</p>
-<p>以上属性可以同时设置一个或多个，也没有次序的要求。如果服务器想改变一个早先设置的Cookie，必须同时满足四个条件：Cookie的<code>key</code>、<code>domain</code>、<code>path</code>和<code>secure</code>都匹配。也就是说，如果原始的Cookie是用如下的<code>Set-Cookie</code>设置的。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: key1=value1; domain=example.com; path=/blog</span></pre></td></tr></table></figure>
-
-<p>改变上面这个cookie的值，就必须使用同样的<code>Set-Cookie</code>。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: key1=value2; domain=example.com; path=/blog</span></pre></td></tr></table></figure>
-
-<p>只要有一个属性不同，就会生成一个全新的Cookie，而不是替换掉原来那个Cookie。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: key1=value2; domain=example.com; path=/</span></pre></td></tr></table></figure>
-
-<p>上面的命令设置了一个全新的同名Cookie，但是<code>path</code>属性不一样。下一次访问<code>example.com/blog</code>的时候，浏览器将向服务器发送两个同名的Cookie。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cookie</span>: key1=value1; key1=value2</span></pre></td></tr></table></figure>
-
-<p>上面代码的两个Cookie是同名的，匹配越精确的Cookie排在越前面。</p>
-<p>浏览器设置这些属性的写法如下。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'fontSize=14; '</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  + <span class="string">'expires='</span> + someDate.toGMTString() + <span class="string">'; '</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  + <span class="string">'path=/subdirectory; '</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  + <span class="string">'domain=*.example.com'</span>;</span></pre></td></tr></table></figure>
-
-<p>另外，这些属性只能用来设置Cookie。一旦设置完成，就没有办法读取这些属性的值。</p>
-<p>删除一个Cookie的简便方法，就是设置<code>expires</code>属性等于0，或者等于一个过去的日期。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'fontSize=;expires=Thu, 01-Jan-1970 00:00:01 GMT'</span>;</span></pre></td></tr></table></figure>
-
-<p>上面代码中，名为<code>fontSize</code>的Cookie的值为空，过期时间设为1970年1月1月零点，就等同于删除了这个Cookie。</p>
-<h2 id="Cookie的限制"><a href="#Cookie的限制" class="headerlink" title="Cookie的限制"></a>Cookie的限制</h2><p>浏览器对Cookie数量的限制，规定不一样。目前，Firefox是每个域名最多设置50个Cookie，而Safari和Chrome没有域名数量的限制。</p>
-<p>所有Cookie的累加长度限制为4KB。超过这个长度的Cookie，将被忽略，不会被设置。</p>
-<p>由于Cookie可能存在数量限制，有时为了规避限制，可以将cookie设置成下面的形式。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">name=a=b&amp;c=d&amp;e=f&amp;g=h</span></pre></td></tr></table></figure>
-
-<p>上面代码实际上是设置了一个Cookie，但是这个Cookie内部使用<code>&amp;</code>符号，设置了多部分的内容。因此，读取这个Cookie的时候，就要自行解析，得到多个键值对。这样就规避了cookie的数量限制。</p>
-<h2 id="同源政策"><a href="#同源政策" class="headerlink" title="同源政策"></a>同源政策</h2><p>浏览器的同源政策规定，两个网址只要域名相同和端口相同，就可以共享Cookie。</p>
-<p>注意，这里不要求协议相同。也就是说，<code>http://example.com</code>设置的Cookie，可以被<code>https://example.com</code>读取。</p>
-<h2 id="Http-Only-Cookie"><a href="#Http-Only-Cookie" class="headerlink" title="Http-Only Cookie"></a>Http-Only Cookie</h2><p>设置Cookie的时候，如果服务器加上了<code>HttpOnly</code>属性，则这个Cookie无法被JavaScript读取（即<code>document.cookie</code>不会返回这个Cookie的值），只用于向服务器发送。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: key=value; HttpOnly</span></pre></td></tr></table></figure>
-
-<p>上面的这个Cookie将无法用JavaScript获取。进行AJAX操作时，<code>XMLHttpRequest</code>对象也无法包括这个Cookie。这主要是为了防止XSS攻击盗取Cookie。</p>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-04 </div>
 			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-mobile/" >移动设备 API</a></div>						
 		</h3>
 	
@@ -785,6 +545,312 @@
 <li>Aurelio De Rosa, <a href="http://code.tutsplus.com/tutorials/an-introduction-to-the-geolocation-api--cms-20071" target="_blank" rel="noopener">An Introduction to the Geolocation API</a></li>
 <li>David Walsh, <a href="http://davidwalsh.name/vibration-api" target="_blank" rel="noopener">Vibration API</a></li>
 <li>Ahmet Mermerkaya, <a href="http://www.sitepoint.com/using-device-orientation-html5/" target="_blank" rel="noopener">Using Device Orientation in HTML5</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-04 </div>
+			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-performance/" >Performance API</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，提供以前没有办法做到的精度。</p>
+<p>比如，为了得到脚本运行的准确耗时，需要一个高精度时间戳。传统的做法是使用Date对象的getTime方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> start = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// do something here</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> latency = now - start;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"任务运行时间："</span> + latency);</span></pre></td></tr></table></figure>
+
+<p>上面这种做法有两个不足之处。首先，getTime方法（以及Date对象的其他方法）都只能精确到毫秒级别（一秒的千分之一），想要得到更小的时间差别就无能为力了；其次，这种写法只能获取代码运行过程中的时间进度，无法知道一些后台事件的时间进度，比如浏览器用了多少时间从服务器加载网页。</p>
+<p>为了解决这两个不足之处，ECMAScript 5引入“高精度时间戳”这个API，部署在performance对象上。它的精度可以达到1毫秒的千分之一（1秒的百万分之一），这对于衡量的程序的细微差别，提高程序运行速度很有好处，而且还可以获取后台事件的时间进度。</p>
+<p>目前，所有主要浏览器都已经支持performance对象，包括Chrome 20+、Firefox 15+、IE 10+、Opera 15+。</p>
+<h2 id="performance-timing对象"><a href="#performance-timing对象" class="headerlink" title="performance.timing对象"></a>performance.timing对象</h2><p>performance对象的timing属性指向一个对象，它包含了各种与浏览器性能有关的时间数据，提供浏览器处理网页各个阶段的耗时。比如，performance.timing.navigationStart就是浏览器处理当前网页的启动时间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.now() - performance.timing.navigationStart</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 13260687</span></span></pre></td></tr></table></figure>
+
+<p>上面代码表示距离浏览器开始处理当前网页，已经过了13260687毫秒。</p>
+<p>下面是另一个例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = performance.timing;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageloadtime = t.loadEventStart - t.navigationStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dns = t.domainLookupEnd - t.domainLookupStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tcp = t.connectEnd - t.connectStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ttfb = t.responseStart - t.navigationStart;</span></pre></td></tr></table></figure>
+
+<p>上面代码依次得到页面加载的耗时、域名解析的耗时、TCP连接的耗时、读取页面第一个字节之前的耗时。</p>
+<p>performance.timing对象包含以下属性（全部为只读）：</p>
+<ul>
+<li><p><strong>navigationStart</strong>：当前浏览器窗口的前一个网页关闭，发生unload事件时的Unix毫秒时间戳。如果没有前一个网页，则等于fetchStart属性。</p>
+</li>
+<li><p><strong>unloadEventStart</strong>：如果前一个网页与当前网页属于同一个域名，则返回前一个网页的unload事件发生时的Unix毫秒时间戳。如果没有前一个网页，或者之前的网页跳转不是在同一个域名内，则返回值为0。</p>
+</li>
+<li><p><strong>unloadEventEnd</strong>：如果前一个网页与当前网页属于同一个域名，则返回前一个网页unload事件的回调函数结束时的Unix毫秒时间戳。如果没有前一个网页，或者之前的网页跳转不是在同一个域名内，则返回值为0。</p>
+</li>
+<li><p><strong>redirectStart</strong>：返回第一个HTTP跳转开始时的Unix毫秒时间戳。如果没有跳转，或者不是同一个域名内部的跳转，则返回值为0。</p>
+</li>
+<li><p><strong>redirectEnd</strong>：返回最后一个HTTP跳转结束时（即跳转回应的最后一个字节接受完成时）的Unix毫秒时间戳。如果没有跳转，或者不是同一个域名内部的跳转，则返回值为0。</p>
+</li>
+<li><p><strong>fetchStart</strong>：返回浏览器准备使用HTTP请求读取文档时的Unix毫秒时间戳。该事件在网页查询本地缓存之前发生。</p>
+</li>
+<li><p><strong>domainLookupStart</strong>：返回域名查询开始时的Unix毫秒时间戳。如果使用持久连接，或者信息是从本地缓存获取的，则返回值等同于fetchStart属性的值。</p>
+</li>
+<li><p><strong>domainLookupEnd</strong>：返回域名查询结束时的Unix毫秒时间戳。如果使用持久连接，或者信息是从本地缓存获取的，则返回值等同于fetchStart属性的值。</p>
+</li>
+<li><p><strong>connectStart</strong>：返回HTTP请求开始向服务器发送时的Unix毫秒时间戳。如果使用持久连接（persistent connection），则返回值等同于fetchStart属性的值。</p>
+</li>
+<li><p><strong>connectEnd</strong>：返回浏览器与服务器之间的连接建立时的Unix毫秒时间戳。如果建立的是持久连接，则返回值等同于fetchStart属性的值。连接建立指的是所有握手和认证过程全部结束。</p>
+</li>
+<li><p><strong>secureConnectionStart</strong>：返回浏览器与服务器开始安全链接的握手时的Unix毫秒时间戳。如果当前网页不要求安全连接，则返回0。</p>
+</li>
+<li><p><strong>requestStart</strong>：返回浏览器向服务器发出HTTP请求时（或开始读取本地缓存时）的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>responseStart</strong>：返回浏览器从服务器收到（或从本地缓存读取）第一个字节时的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>responseEnd</strong>：返回浏览器从服务器收到（或从本地缓存读取）最后一个字节时（如果在此之前HTTP连接已经关闭，则返回关闭时）的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>domLoading</strong>：返回当前网页DOM结构开始解析时（即Document.readyState属性变为“loading”、相应的readystatechange事件触发时）的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>domInteractive</strong>：返回当前网页DOM结构结束解析、开始加载内嵌资源时（即Document.readyState属性变为“interactive”、相应的readystatechange事件触发时）的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>domContentLoadedEventStart</strong>：返回当前网页DOMContentLoaded事件发生时（即DOM结构解析完毕、所有脚本开始运行时）的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>domContentLoadedEventEnd</strong>：返回当前网页所有需要执行的脚本执行完成时的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>domComplete</strong>：返回当前网页DOM结构生成时（即Document.readyState属性变为“complete”，以及相应的readystatechange事件发生时）的Unix毫秒时间戳。</p>
+</li>
+<li><p><strong>loadEventStart</strong>：返回当前网页load事件的回调函数开始时的Unix毫秒时间戳。如果该事件还没有发生，返回0。</p>
+</li>
+<li><p><strong>loadEventEnd</strong>：返回当前网页load事件的回调函数运行结束时的Unix毫秒时间戳。如果该事件还没有发生，返回0。</p>
+</li>
+</ul>
+<p>根据上面这些属性，可以计算出网页加载各个阶段的耗时。比如，网页加载整个过程的耗时的计算方法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = performance.timing; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageLoadTime = t.loadEventEnd - t.navigationStart;</span></pre></td></tr></table></figure>
+
+<h2 id="performance-now"><a href="#performance-now" class="headerlink" title="performance.now()"></a>performance.now()</h2><p>performance.now方法返回当前网页自从performance.timing.navigationStart到当前时间之间的微秒数（毫秒的千分之一）。也就是说，它的精度可以达到100万分之一秒。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">performance.now() </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 23493457.476999998</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.now() - (performance.timing.navigationStart + performance.now())</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// -0.64306640625</span></span></pre></td></tr></table></figure>
+
+<p>上面代码表示，performance.timing.navigationStart加上performance.now()，近似等于Date.now()，也就是说，Date.now()可以替代performance.now()。但是，前者返回的是毫秒，后者返回的是微秒，所以后者的精度比前者高1000倍。</p>
+<p>通过两次调用performance.now方法，可以得到间隔的准确时间，用来衡量某种操作的耗时。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> start = performance.now();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">doTasks();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> end = performance.now();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'耗时：'</span> + (end - start) + <span class="string">'微秒。'</span>);</span></pre></td></tr></table></figure>
+
+<h2 id="performance-mark"><a href="#performance-mark" class="headerlink" title="performance.mark()"></a>performance.mark()</h2><p>mark方法用于为相应的视点做标记。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance.mark(<span class="string">'mark_fully_loaded'</span>);</span></pre></td></tr></table></figure>
+
+<p>clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.peformance.clearMarks(<span class="string">'mark_fully_loaded'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance.clearMarks();</span></pre></td></tr></table></figure>
+
+<h2 id="performance-getEntries"><a href="#performance-getEntries" class="headerlink" title="performance.getEntries()"></a>performance.getEntries()</h2><p>浏览器获取网页时，会对网页中每一个对象（脚本文件、样式表、图片文件等等）发出一个HTTP请求。performance.getEntries方法以数组形式，返回这些请求的时间统计信息，有多少个请求，返回数组就会有多少个成员。</p>
+<p>由于该方法与浏览器处理网页的过程相关，所以只能在浏览器中使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance.getEntries()[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// PerformanceResourceTiming &#123; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   responseEnd: 4121.6200000017125, </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   responseStart: 4120.0690000005125, </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   requestStart: 3315.355000002455, </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#125;</span></span></pre></td></tr></table></figure>
+
+<p>上面代码返回第一个HTTP请求（即网页的HTML源码）的时间统计信息。该信息以一个高精度时间戳的对象形式返回，每个属性的单位是微秒（microsecond），即百万分之一秒。</p>
+<h2 id="performance-navigation对象"><a href="#performance-navigation对象" class="headerlink" title="performance.navigation对象"></a>performance.navigation对象</h2><p>除了时间信息，performance还可以提供一些用户行为信息，主要都存放在performance.navigation对象上面。</p>
+<p>它有两个属性：</p>
+<p><strong>（1）performance.navigation.type</strong></p>
+<p>该属性返回一个整数值，表示网页的加载来源，可能有以下4种情况：</p>
+<ul>
+<li><p><strong>0</strong>：网页通过点击链接、地址栏输入、表单提交、脚本操作等方式加载，相当于常数performance.navigation.TYPE_NAVIGATENEXT。</p>
+</li>
+<li><p><strong>1</strong>：网页通过“重新加载”按钮或者location.reload()方法加载，相当于常数performance.navigation.TYPE_RELOAD。</p>
+</li>
+<li><p><strong>2</strong>：网页通过“前进”或“后退”按钮加载，相当于常数performance.navigation.TYPE_BACK_FORWARD。</p>
+</li>
+<li><p><strong>255</strong>：任何其他来源的加载，相当于常数performance.navigation.TYPE_UNDEFINED。</p>
+</li>
+</ul>
+<p><strong>（2）performance.navigation.redirectCount</strong></p>
+<p>该属性表示当前网页经过了多少次重定向跳转。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>Mozilla Developer Network, <a href="https://developer.mozilla.org/en-US/docs/Navigation_timing" target="_blank" rel="noopener">Navigation Timing</a></li>
+<li>W3C, <a href="http://www.w3.org/TR/navigation-timing/" target="_blank" rel="noopener">Navigation Timing</a></li>
+<li>W3C, <a href="http://www.w3.org/TR/html5/browsers.html" target="_blank" rel="noopener">HTML5, A vocabulary and associated APIs for HTML and XHTML</a></li>
+<li>Matt West, <a href="http://blog.teamtreehouse.com/timing-javascript-code-high-resolution-timestamps" target="_blank" rel="noopener">Timing JavaScript Code with High Resolution Timestamps</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-04 </div>
+			<div class="article-title"><a href="/2017/03/04/2017-03-04-bom-same-origin/" >同源政策</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>浏览器安全的基石是 “同源政策”（<a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank" rel="noopener">same-origin policy</a>）。很多开发者都知道这一点，但了解得不全面。</p>
+<p>本节详细介绍“同源政策”的各个方面，以及如何规避它。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016040801.jpg" alt=""></p>
+<h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="1-含义"><a href="#1-含义" class="headerlink" title="1. 含义"></a>1. 含义</h3><p>1995 年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。</p>
+<p>最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页“同源”。所谓“同源”指的是”三个相同“。</p>
+<blockquote>
+<ul>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口相同</li>
+</ul>
+</blockquote>
+<p>举例来说，<code>http://www.example.com/dir/page.html</code> 这个网址，协议是 <code>http://</code>，域名是 <code>www.example.com</code>，端口是 <code>80</code>（默认端口可以省略）。它的同源情况如下。</p>
+<ul>
+<li><code>http://www.example.com/dir2/other.html</code>：同源</li>
+<li><code>http://example.com/dir/other.html</code>：不同源（域名不同）</li>
+<li><code>http://v2.www.example.com/dir/other.html</code>：不同源（域名不同）</li>
+<li><code>http://www.example.com:81/dir/other.html</code>：不同源（端口不同）</li>
+<li><code>https://www.example.com/dir/page.html</code>：不同源（协议不同）</li>
+</ul>
+<h3 id="2-目的"><a href="#2-目的" class="headerlink" title="2. 目的"></a>2. 目的</h3><p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。</p>
+<p>设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的 Cookie，会发生什么？</p>
+<p>很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。</p>
+<p>由此可见，“同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。</p>
+<h3 id="3-限制范围"><a href="#3-限制范围" class="headerlink" title="3. 限制范围"></a>3. 限制范围</h3><p>随着互联网的发展，“同源政策”越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
+<blockquote>
+<p>（1） Cookie、LocalStorage 和 IndexedDB 无法读取。</p>
+<p>（2） DOM 无法获得。</p>
+<p>（3） AJAX 请求不能发送。</p>
+</blockquote>
+<p>虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。下面，我将详细介绍，如何规避上面三种限制。</p>
+<h2 id="二、Cookie"><a href="#二、Cookie" class="headerlink" title="二、Cookie"></a>二、Cookie</h2><p>Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置<code>document.domain</code>共享 Cookie。</p>
+<p>举例来说，A网页是<code>http://w1.example.com/a.html</code>，B网页是<code>http://w2.example.com/b.html</code>，那么只要设置相同的<code>document.domain</code>，两个网页就可以共享Cookie。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.domain = <span class="string">'example.com'</span>;</span></pre></td></tr></table></figure>
+
+<p>现在，A网页通过脚本设置一个 Cookie。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"test1=hello"</span>;</span></pre></td></tr></table></figure>
+
+<p>B网页就可以读到这个 Cookie。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> allCookie = <span class="built_in">document</span>.cookie;</span></pre></td></tr></table></figure>
+
+<p>注意，这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexedDB 无法通过这种方法，规避同源政策，而要使用下文介绍的PostMessage API。</p>
+<p>另外，服务器也可以在设置Cookie的时候，指定Cookie的所属域名为一级域名，比如<code>.example.com</code>。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: key=value; domain=.example.com; path=/</span></pre></td></tr></table></figure>
+
+<p>这样的话，二级域名和三级域名不用做任何设置，都可以读取这个Cookie。</p>
+<h2 id="三、iframe"><a href="#三、iframe" class="headerlink" title="三、iframe"></a>三、iframe</h2><p>如果两个网页不同源，就无法拿到对方的DOM。典型的例子是<code>iframe</code>窗口和<code>window.open</code>方法打开的窗口，它们与父窗口无法通信。</p>
+<p>比如，父窗口运行下面的命令，如果<code>iframe</code>窗口不是同源，就会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"myIFrame"</span>).contentWindow.document</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Uncaught DOMException: Blocked a frame from accessing a cross-origin frame.</span></span></pre></td></tr></table></figure>
+
+<p>上面命令中，父窗口想获取子窗口的DOM，因为跨源导致报错。</p>
+<p>反之亦然，子窗口获取主窗口的DOM也会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.parent.document.body</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 报错</span></span></pre></td></tr></table></figure>
+
+<p>如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的<code>document.domain</code>属性，就可以规避同源政策，拿到DOM。</p>
+<p>对于完全不同源的网站，目前有三种方法，可以解决跨域窗口的通信问题。</p>
+<blockquote>
+<ul>
+<li>片段识别符（fragment identifier）</li>
+<li>window.name</li>
+<li>跨文档通信API（Cross-document messaging）</li>
+</ul>
+</blockquote>
+<h3 id="1-片段识别符"><a href="#1-片段识别符" class="headerlink" title="1. 片段识别符"></a>1. 片段识别符</h3><p>片段标识符（fragment identifier）指的是，URL的<code>#</code>号后面的部分，比如<code>http://example.com/x.html#fragment</code>的<code>#fragment</code>。如果只是改变片段标识符，页面不会重新刷新。</p>
+<p>父窗口可以把信息，写入子窗口的片段标识符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> src = originURL + <span class="string">'#'</span> + data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'myIFrame'</span>).src = src;</span></pre></td></tr></table></figure>
+
+<p>子窗口通过监听<code>hashchange</code>事件得到通知。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onhashchange = checkMessage;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkMessage</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> message = <span class="built_in">window</span>.location.hash;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;r</span></pre></td></tr></table></figure>
+
+<p>同样的，子窗口也可以改变父窗口的片段标识符。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">parent.location.href= target + “#” + hash;</span></pre></td></tr></table></figure>
+
+<h3 id="2-window-name"><a href="#2-window-name" class="headerlink" title="2. window.name"></a>2. window.name</h3><p>浏览器窗口有<code>window.name</code>属性。这个属性的最大特点是，无论是否同源，只要在同一个窗口里，前一个网页设置了这个属性，后一个网页可以读取它。</p>
+<p>父窗口先打开一个子窗口，载入一个不同源的网页，该网页将信息写入<code>window.name</code>属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = data;</span></pre></td></tr></table></figure>
+
+<p>接着，子窗口跳回一个与主窗口同域的网址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">location = <span class="string">'http://parent.url.com/xxx.html'</span>;</span></pre></td></tr></table></figure>
+
+<p>然后，主窗口就可以读取子窗口的<code>window.name</code>了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = <span class="built_in">document</span>.getElementById(<span class="string">'myFrame'</span>).contentWindow.name;</span></pre></td></tr></table></figure>
+
+<p>这种方法的优点是，<code>window.name</code>容量很大，可以放置非常长的字符串；缺点是必须监听子窗口<code>window.name</code>属性的变化，影响网页性能。</p>
+<h3 id="3-window-postMessage"><a href="#3-window-postMessage" class="headerlink" title="3. window.postMessage"></a>3. window.postMessage</h3><p>上面两种方法都属于破解，HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。</p>
+<p>这个API为<code>window</code>对象新增了一个<code>window.postMessage</code>方法，允许跨窗口通信，不论这两个窗口是否同源。</p>
+<p>举例来说，父窗口<code>aaa.com</code>向子窗口<code>bbb.com</code>发消息，调用<code>postMessage</code>方法就可以了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> popup = <span class="built_in">window</span>.open(<span class="string">'http://bbb.com'</span>, <span class="string">'title'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">popup.postMessage(<span class="string">'Hello World!'</span>, <span class="string">'http://bbb.com'</span>);</span></pre></td></tr></table></figure>
+
+<p><code>postMessage</code>方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即“协议 + 域名 + 端口”。也可以设为<code>*</code>，表示不限制域名，向所有窗口发送。</p>
+<p>子窗口向父窗口发送消息的写法类似。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.opener.postMessage(<span class="string">'Nice to see you'</span>, <span class="string">'http://aaa.com'</span>);</span></pre></td></tr></table></figure>
+
+<p>父窗口和子窗口都可以通过<code>message</code>事件，监听对方的消息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(e.data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;,<span class="literal">false</span>);</span></pre></td></tr></table></figure>
+
+<p><code>message</code>事件的事件对象<code>event</code>，提供以下三个属性。</p>
+<blockquote>
+<ul>
+<li><code>event.source</code>：发送消息的窗口</li>
+<li><code>event.origin</code>: 消息发向的网址</li>
+<li><code>event.data</code>: 消息内容</li>
+</ul>
+</blockquote>
+<p>下面的例子是，子窗口通过<code>event.source</code>属性引用父窗口，然后发送消息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, receiveMessage);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">receiveMessage</span>(<span class="params">event</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  event.source.postMessage(<span class="string">'Nice to see you!'</span>, <span class="string">'*'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>上面代码有几个地方需要注意。首先，<code>receiveMessage</code>函数里面没有过滤信息的来源，任意网址发来的信息都会被处理。其次，<code>postMessage</code>方法中指定的目标窗口的网址是一个星号，表示该信息可以向任意网址发送。通常来说，这两种做法是不推荐的，因为不够安全，可能会被恶意利用。</p>
+<p><code>event.origin</code>属性可以过滤不是发给本窗口的消息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, receiveMessage);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">receiveMessage</span>(<span class="params">event</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (event.origin !== <span class="string">'http://aaa.com'</span>) <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (event.data === <span class="string">'Hello World'</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      event.source.postMessage(<span class="string">'Hello'</span>, event.origin);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(event.data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="4-LocalStorage"><a href="#4-LocalStorage" class="headerlink" title="4. LocalStorage"></a>4. LocalStorage</h3><p>通过<code>window.postMessage</code>，读写其他窗口的 LocalStorage 也成为了可能。</p>
+<p>下面是一个例子，主窗口写入iframe子窗口的<code>localStorage</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (e.origin !== <span class="string">'http://bbb.com'</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> payload = <span class="built_in">JSON</span>.parse(e.data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  localStorage.setItem(payload.key, <span class="built_in">JSON</span>.stringify(payload.data));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure>
+
+<p>上面代码中，子窗口将父窗口发来的消息，写入自己的LocalStorage。</p>
+<p>父窗口发送消息的代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> win = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'iframe'</span>)[<span class="number">0</span>].contentWindow;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">name</span>: <span class="string">'Jack'</span> &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">win.postMessage(<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">key</span>: <span class="string">'storage'</span>, <span class="attr">data</span>: obj&#125;), <span class="string">'http://bbb.com'</span>);</span></pre></td></tr></table></figure>
+
+<p>加强版的子窗口接收消息的代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (e.origin !== <span class="string">'http://bbb.com'</span>) <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> payload = <span class="built_in">JSON</span>.parse(e.data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">switch</span> (payload.method) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">case</span> <span class="string">'set'</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">      localStorage.setItem(payload.key, <span class="built_in">JSON</span>.stringify(payload.data));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">break</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">case</span> <span class="string">'get'</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">var</span> parent = <span class="built_in">window</span>.parent;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">var</span> data = localStorage.getItem(payload.key);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">      parent.postMessage(data, <span class="string">'http://aaa.com'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">break</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">case</span> <span class="string">'remove'</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">      localStorage.removeItem(payload.key);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">break</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure>
+
+<p>加强版的父窗口发送消息代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> win = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'iframe'</span>)[<span class="number">0</span>].contentWindow;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">name</span>: <span class="string">'Jack'</span> &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存入对象</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">win.postMessage(<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">key</span>: <span class="string">'storage'</span>, <span class="attr">method</span>: <span class="string">'set'</span>, <span class="attr">data</span>: obj&#125;), <span class="string">'http://bbb.com'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取对象</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">win.postMessage(<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">key</span>: <span class="string">'storage'</span>, <span class="attr">method</span>: <span class="string">"get"</span>&#125;), <span class="string">"*"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (e.origin != <span class="string">'http://aaa.com'</span>) <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// "Jack"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(e.data).name);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure>
+
+<h2 id="四、AJAX"><a href="#四、AJAX" class="headerlink" title="四、AJAX"></a>四、AJAX</h2><p>同源政策规定，AJAX请求只能发给同源的网址，否则就报错。</p>
+<p>除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。</p>
+<blockquote>
+<ul>
+<li>JSONP</li>
+<li>WebSocket</li>
+<li>CORS</li>
+</ul>
+</blockquote>
+<h3 id="1-JSONP"><a href="#1-JSONP" class="headerlink" title="1. JSONP"></a>1. JSONP</h3><p>JSONP 是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。</p>
+<p>它的基本思想是，网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
+<p>首先，网页动态插入<code>&lt;script&gt;</code>元素，由它向跨源网址发出请求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addScriptTag</span>(<span class="params">src</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  script.setAttribute(<span class="string">"type"</span>,<span class="string">"text/javascript"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  script.src = src;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">document</span>.body.appendChild(script);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  addScriptTag(<span class="string">'http://example.com/ip?callback=foo'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">data</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Your public IP address is: '</span> + data.ip);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure>
+
+<p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器<code>example.com</code>发出请求。注意，该请求的查询字符串有一个<code>callback</code>参数，用来指定回调函数的名字，这对于JSONP是必需的。</p>
+<p>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">foo(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="string">"ip"</span>: <span class="string">"8.8.8.8"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+
+<p>由于<code>&lt;script&gt;</code>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了<code>foo</code>函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用<code>JSON.parse</code>的步骤。</p>
+<h3 id="2-WebSocket"><a href="#2-WebSocket" class="headerlink" title="2. WebSocket"></a>2. WebSocket</h3><p>WebSocket是一种通信协议，使用<code>ws://</code>（非加密）和<code>wss://</code>（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。</p>
+<p>下面是一个例子，浏览器发出的WebSocket请求的头信息（摘自<a href="https://en.wikipedia.org/wiki/WebSocket" target="_blank" rel="noopener">维基百科</a>）。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> HTTP/1.1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Host</span>: server.example.com</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Upgrade</span>: websocket</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Connection</span>: Upgrade</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Sec-WebSocket-Key</span>: x3JJHMbDL1EzLkh9GBhXDw==</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Sec-WebSocket-Protocol</span>: chat, superchat</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Sec-WebSocket-Version</span>: 13</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Origin</span>: http://example.com</span></pre></td></tr></table></figure>
+
+<p>上面代码中，有一个字段是<code>Origin</code>，表示该请求的请求源（origin），即发自哪个域名。</p>
+<p>正是因为有了<code>Origin</code>这个字段，所以WebSocket才没有实行同源政策。因为服务器可以根据这个字段，判断是否许可本次通信。如果该域名在白名单内，服务器就会做出如下回应。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">101</span> Switching Protocols</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Upgrade</span>: websocket</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Connection</span>: Upgrade</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Sec-WebSocket-Accept</span>: HSmrc0sMlYUkAGmm5OPpG2HaGWk=</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="attribute">Sec-WebSocket-Protocol</span>: chat</span></pre></td></tr></table></figure>
+
+<h3 id="3-CORS"><a href="#3-CORS" class="headerlink" title="3. CORS"></a>3. CORS</h3><p>CORS是跨源资源分享（Cross-Origin Resource Sharing）的缩写。它是W3C标准，是跨源AJAX请求的根本解决方法。相比JSONP只能发<code>GET</code>请求，CORS允许任何类型的请求。</p>
+<p>下一节将详细介绍，如何通过CORS完成跨源AJAX请求。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>Mozilla Developer Network, <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage" target="_blank" rel="noopener">Window.postMessage</a></li>
+<li>Jakub Jankiewicz, <a href="http://jcubic.wordpress.com/2014/06/20/cross-domain-localstorage/" target="_blank" rel="noopener">Cross-Domain LocalStorage</a></li>
+<li>David Baron, <a href="http://dbaron.org/log/20100309-faster-timeouts" target="_blank" rel="noopener">setTimeout with a shorter delay</a>: 利用window.postMessage可以实现0毫秒触发回调函数</li>
 </ul>
 
 	
@@ -1655,45 +1721,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
-		
-			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
-		
-			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
-		
-			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
-		
-			<li><a href="/tags/Library/">Library<span>7</span></a></li>
-		
-			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
-		
-			<li><a href="/tags/Performence/">Performence<span>1</span></a></li>
-		
-			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
-		
-			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
-		
-			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
-		
-			<li><a href="/tags/MySQL/">MySQL<span>1</span></a></li>
-		
-			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
-		
-			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
+			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
 		
 			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
 		
-			<li><a href="/tags/Document/">Document<span>8</span></a></li>
-		
-			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
-		
-			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
+			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
 		
 			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
 		
 			<li><a href="/tags/Karma/">Karma<span>1</span></a></li>
 		
-			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
+			<li><a href="/tags/Performence/">Performence<span>1</span></a></li>
+		
+			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
+		
+			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
+		
+			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
+		
+			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
+		
+			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
+		
+			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
+		
+			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
+		
+			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
+		
+			<li><a href="/tags/Document/">Document<span>8</span></a></li>
+		
+			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
+		
+			<li><a href="/tags/MySQL/">MySQL<span>1</span></a></li>
+		
+			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+		
+			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
+		
+			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>21</span></a></li>
