@@ -128,176 +128,6 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
-			<div class="date"> 2017-02-28 </div>
-			<div class="article-title"><a href="/2017/02/28/2017-02-28-使用-Chrome-分析内存泄漏/" >使用 Chrome 分析内存泄漏</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<blockquote>
-<p>本文主要是记录如何通过 Chrome 的调试工具，来分析 Web App 内存泄漏</p>
-</blockquote>
-<h2 id="一、排查方法"><a href="#一、排查方法" class="headerlink" title="一、排查方法"></a>一、排查方法</h2><h3 id="1-The-Timeline"><a href="#1-The-Timeline" class="headerlink" title="1. The Timeline"></a>1. The Timeline</h3><p><code>Ctrl + Shift + i</code> -&gt; Timeline</p>
-<p>如下图:<br><img src="http://www.dwmkerr.com/content/images/2015/02/StartRecording.png" alt="Timeline"></p>
-<ul>
-<li>点击左上角圆点，开始记录。</li>
-<li>运行你的 app 应用。</li>
-<li>点击停止记录。</li>
-</ul>
-<p>这时你会看到类似如下图：</p>
-<p><img src="http://www.dwmkerr.com/content/images/2015/02/MemoryUsage.png" alt=""></p>
-<p>如果是排查内存泄漏，我们要关注的是 <strong>蓝色的线(JS Heap)</strong>。如果我们的应用在点击某个操作会消耗比较大的内存，完成后内存应该被垃圾回收，回到原来状态，这样抓取的图应该是 <strong>锯齿状</strong> 的。如下图:</p>
-<p><img src="http://www.dwmkerr.com/content/images/2015/03/TimelineSawtooth.png" alt=""></p>
-<p>如果是 <strong>梯形</strong> 状，那就要注意了，如下图:<br><img src="http://www.dwmkerr.com/content/images/2015/03/TimelineSteps-1.png" alt=""></p>
-<p>但是这并不代表就是存在内存泄漏，例如，我们允许用户不断滚动浏览图片，但是代码中并没释放之前图片。还有我们手机应用，下拉刷新列表，随着我们不断的下拉刷新，内存占用就会不断的上升。</p>
-<p>如果是下面的图片:<br><img src="http://www.dwmkerr.com/content/images/2015/03/TimelineLeakySawtooth.png" alt=""><br>初看也是 <strong>锯齿状</strong>，貌似正常。细看我们会发现，上图中的锯齿图会不断的往上倾斜。也就是，我们每操作一次应用，内存回收并没有到最初的点，而是，逐次的减少。这很 <strong>可能</strong> 就存在内存泄漏，但还需进一步确认。</p>
-<h3 id="2-Recording-Heap-Allocations"><a href="#2-Recording-Heap-Allocations" class="headerlink" title="2. Recording Heap Allocations"></a>2. Recording Heap Allocations</h3><p>为了进一步确认是否存在内存泄漏，就需要用到强大的 <code>Profiles</code> 工具了，打开方法:</p>
-<p><code>Ctrl + Shift + i</code> -&gt; Profiles -&gt; Recording Heap Allocations<br><img src="http://www.dwmkerr.com/content/images/2015/02/HeapAllocations.png" alt=""></p>
-<p>使用该工具可以帮助我们快速看到是否有内存泄漏。使用方法:</p>
-<ul>
-<li>点击开始录制</li>
-<li>操作应用</li>
-<li>回到原始操作点</li>
-<li>停止录制</li>
-</ul>
-<p>这时会看到类似如下的柱状图:</p>
-<p><img src="http://www.dwmkerr.com/content/images/2015/03/HeapAllocationsEx3.png" alt=""></p>
-<p>图中的 <strong>蓝色</strong> 柱状图表示该操作 Chrome 保留用到的内存，<strong>灰色</strong> 部分表示释放的内存。<br>如果完全理想状态应该是，重复操作完两次 (1-2,3-4),回到最初状态应该都是灰色，但是实际情况并非如此，如果还有 <strong>蓝色</strong> 柱状图(如上图),可能是由于缓存原因，并非是内存泄漏。</p>
-<p><em>如果是下图，那就要注意了</em>:</p>
-<p><img src="http://www.dwmkerr.com/content/images/2015/03/Scenario2HeapAllocations.png" alt=""></p>
-<p>上图是重复进入退出一个页面 10 次的抓取结果，可以看出，几乎每次都有保留 <strong>蓝色</strong> 柱状图，这很可能就是内存泄漏了。这时我们可以通过，组后一步的方法来确认!!!</p>
-<h3 id="3-Heap-Snapshots"><a href="#3-Heap-Snapshots" class="headerlink" title="3. Heap Snapshots"></a>3. Heap Snapshots</h3><p>最后一步，分别抓取每次操作的 Heap 快照，然后进行对比排查。<br>打开方法：<br><code>Ctrl + Shift + i</code> -&gt; Profiles -&gt; Heap Snapshots<br><img src="http://www.dwmkerr.com/content/images/2015/03/TakeHeapSnapshot.png" alt=""></p>
-<p><strong>注意：每次抓取都会进行内存的垃圾回收</strong></p>
-<p><code>Heap Snapshots vs Recording Heap Allocations</code></p>
-<ul>
-<li>Heap Snapshots 看到的数据和 Recording Heap Allocations 是相同的</li>
-<li>Heap Snapshots: 可以查看到目前所用到的所有内存</li>
-<li>Recording Heap Allocations：只能看当前被引用到并实例化的 <strong>对象</strong></li>
-</ul>
-<p>Heap Snapshots 真正可以用来排查内存泄漏的是里面的 <strong>快照对比</strong> 功能，可以分析对比两次快照的差别点，例如，销毁了多少内存对象，新增了多少对象，哪些 DOM 被隔离等，并能看到相应的代码上下文，这为我们排查内存泄漏带来了很大的帮助。</p>
-<h4 id="3-1-Analysing-Memory-Leaks"><a href="#3-1-Analysing-Memory-Leaks" class="headerlink" title="3.1 Analysing Memory Leaks"></a>3.1 Analysing Memory Leaks</h4><p><img src="http://www.dwmkerr.com/content/images/2015/03/HeapData.png" alt=""></p>
-<p>Constructor 列是目前所占用的内存对象实例，有的是系统创建的，有的是应用创建的。</p>
-<ul>
-<li>(compiled code): Chrome 创建的内部对象，不用考虑。</li>
-<li>(array): 同上，内部引用对象，不用考虑。</li>
-<li>system: 同上，内部引用对象，不考虑。</li>
-<li>Array: 应用用到的数组对象，需要关注。</li>
-<li>Object: 普通的 JavaScript 对象，而不是用户定义 array 或者浏览器 document 对象或者 null，它就是空 {} 或者键值对</li>
-<li>(closure): 闭包</li>
-<li>system / Context: 基础数据需要调用函数，例如闭包所使用的实际数据</li>
-<li>其它：类似 <code>HTMLDivElement、HTMLButtonElement、HTMLElement...</code> 等。</li>
-</ul>
-<p><img src="http://od6sd4xau.bkt.clouddn.com/heap-snapshot-01.png" alt=""></p>
-<h4 id="3-2-内存泄漏代码实例"><a href="#3-2-内存泄漏代码实例" class="headerlink" title="3.2 内存泄漏代码实例"></a>3.2 内存泄漏代码实例</h4><p>下面是一段内存泄漏的代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &lt;title&gt;Memory Leak Demo&lt;<span class="regexp">/title&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">&lt;/</span>head&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &lt;h1&gt;Memory Leak Demo&lt;<span class="regexp">/h1&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">    &lt;div style="margin: 5px"&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">		Current Num: &lt;span id="curNum" style="text-align: center;color:red"&gt;0&lt;/</span>span&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &lt;<span class="regexp">/div&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">    &lt;div&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">		&lt;button id="add" onclick="addNewHeapData()"&gt;add a heap data&lt;/</span>button&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">		&lt;button id=<span class="string">"del"</span> onclick=<span class="string">"deleteHeapData()"</span>&gt;<span class="keyword">delete</span> a heap data&lt;<span class="regexp">/button&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &lt;script type=<span class="string">"text/javascript"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">window</span>.funArray = [];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 事件绑定相关代码</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// var addEelement = document.getElementById('add');</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// function hello()&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">//     console.log('hello');</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// &#125;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">/**</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"><span class="comment">     * 模拟添加内存数据</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="comment">     */</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addNewHeapData</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">       </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  Create a class which will hold heap data. Makes it easier </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  to find the data in Chrome.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">HeapData</span>(<span class="params"></span>) </span>&#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  Create a heap data object.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> heapData = <span class="keyword">new</span> HeapData();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  Create a function that multiplies two numbers.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> a * b;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  Create a 'multiply by' function, which curries the above</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  to generate a function which multiplies by a constant. This</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  will involve closures. </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> multiplyBy = <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">return</span> multiply(a, b);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">        &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  Add some data to our heap data object.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        heapData.fry = <span class="string">"Philip J. Fry"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">        heapData.zoidberb = <span class="string">"John "</span> + <span class="string">"Zoidberg"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">        heapData.character = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">            firstName: <span class="string">"Amy"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">            secondName: <span class="string">"Wong"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">        &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">        heapData.double = multiplyBy(<span class="number">2</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">        heapData.multiplyBy100 = multiplyBy(<span class="number">100</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">        heapData.doubledNumber = heapData.double(<span class="number">18</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">        heapData.multipliedNumber = heapData.multiplyBy100(<span class="number">15</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">        heapData.div = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 添加事件绑定</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// addEelement.addEventListener('click',hello,false);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  Put the heap data on the window, it is now pinned to a GC root.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 挂载到 window 对象的属性是不能被 GC 回收</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">window</span>.funArray.push(heapData);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line">        setCurrentNum();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">'funArray.length: '</span> + <span class="built_in">window</span>.funArray.length);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">deleteHeapData</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">73</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// addEelement.removeEventListener('click',hello,false);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">74</span></pre></td><td class="code"><pre><span class="line">    	<span class="built_in">window</span>.funArray.shift();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">75</span></pre></td><td class="code"><pre><span class="line">    	setCurrentNum();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">76</span></pre></td><td class="code"><pre><span class="line">    	<span class="built_in">console</span>.log(<span class="string">'funArray.length: '</span> + <span class="built_in">window</span>.funArray.length);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">77</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">78</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setCurrentNum</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">79</span></pre></td><td class="code"><pre><span class="line">    	<span class="keyword">var</span> curNum = <span class="built_in">document</span>.getElementById(<span class="string">'curNum'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">80</span></pre></td><td class="code"><pre><span class="line">    	curNum.innerHTML = <span class="built_in">window</span>.funArray.length;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">81</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">82</span></pre></td><td class="code"><pre><span class="line">    &lt;<span class="regexp">/script&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">83</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">&lt;/</span>body&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">84</span></pre></td><td class="code"><pre><span class="line">&lt;<span class="regexp">/html&gt;</span></span></pre></td></tr></table></figure>
-<h4 id="3-3-内存泄漏在线例子"><a href="#3-3-内存泄漏在线例子" class="headerlink" title="3.3 内存泄漏在线例子"></a>3.3 内存泄漏在线例子</h4><p><a href="https://jesse-chiu.github.io/web-memory-leak-demo/" target="_blank" rel="noopener">内存泄漏在线例子</a></p>
-<p>下面是测试的 <code>Heap Snapshot</code> 截图：<br><img src="http://od6sd4xau.bkt.clouddn.com/demo-0.png" alt=""><br><img src="http://od6sd4xau.bkt.clouddn.com/demo-1.png" alt=""><br><img src="http://od6sd4xau.bkt.clouddn.com/demo-2.png" alt=""></p>
-<p>如上图是初始化，和添加 2 次的内存快照。</p>
-<p>图片解析:</p>
-<ul>
-<li>每个 Constructor 都会有一个唯一 UUID()，入上面的 <code>HeapData @312793</code></li>
-<li>Distance: 这个是各个实例距离 GC Root 的距离。例如上面的 demo 中，window 是全局对象(GC root),<code>HeapData</code> 距离它的值为 <code>3 = window -&gt; funArray(3) -&gt; funArray[x](2) -&gt; heapData=new HeapData() -&gt;(1) HeapData(构造函数)</code>。并且挂载到 window 下的属性是不会被 GC 的。<ul>
-<li>如下图的测试代码<br><img src="http://od6sd4xau.bkt.clouddn.com/global-delete.png" alt=""></li>
-</ul>
-</li>
-<li>Objects count: 有多少个实例对象别引用。</li>
-<li>Shallow Size: 对象直接占用的内存大小。</li>
-<li>Retained Size: 对象自身和其所应用到的对象总内存大小。 </li>
-<li><strong>上图中的背景用黄色高亮的实例，表示可以通过 <code>javascript</code> 直接访问。例如：<code>window.funArray[x]</code> 访问到。</strong></li>
-</ul>
-<p>再来看下闭包中引用到的<br><img src="http://www.dwmkerr.com/content/images/2015/03/HeapDataAnalysis4-1.png" alt=""><br>上图中可以看到，demo 中的属性引用到的闭包(<code>multiplyBy100</code>)。</p>
-<p>再来一张<br><img src="http://www.dwmkerr.com/content/images/2015/03/HeapDataAnalysis5.png" alt=""><br>上图要注意点</p>
-<ul>
-<li><code>HTMLDivElement</code> 选中时背景是 <strong>红色</strong>，不选中时时 <strong>黄色</strong>。</li>
-<li><strong>上面的 <code>native:: Detached Dom tree</code> 那行，显示占用的内存为 0 ，这个只是表示，js 层没有分配内存，但是在 V8 engine 依然占用着。</strong></li>
-<li><strong>红色</strong> 表示被隔离。也就是，存在 + 被其它对象引用着 + 不能被 GC 的对象，但是不存在于 DOM 中。如果一直在递增不是一种好的信号。</li>
-</ul>
-<h4 id="3-3-Comparison"><a href="#3-3-Comparison" class="headerlink" title="3.3 Comparison"></a>3.3 Comparison</h4><p>我们可以通过分别抓取两次操作的 <code>Heap Snapshot</code>,然后选择 <code>Comparison</code> 进行对比，新增了哪些对象。如下图：<br><img src="http://od6sd4xau.bkt.clouddn.com/demo-3.png" alt=""></p>
-<p>通过上图可以很快的查找出那些新增加的对象。</p>
-<h2 id="二、修复方法"><a href="#二、修复方法" class="headerlink" title="二、修复方法"></a>二、修复方法</h2><p><img src="http://www.dwmkerr.com/content/images/2015/03/ScopeLeakGraph2.png" alt=""><br>修改 bug 是个复杂的过程，这里 以 <code>AngularJS 1.x</code> 为例,介绍几个黄金准则,原理适合其它的框架。</p>
-<h3 id="1-熟悉你使用的框架-和-它的函数生命周期"><a href="#1-熟悉你使用的框架-和-它的函数生命周期" class="headerlink" title="1. 熟悉你使用的框架 和 它的函数生命周期"></a>1. 熟悉你使用的框架 和 它的函数生命周期</h3><h3 id="2-在短生命周期和长生命周期交互地方需要特别注意"><a href="#2-在短生命周期和长生命周期交互地方需要特别注意" class="headerlink" title="2. 在短生命周期和长生命周期交互地方需要特别注意"></a>2. 在短生命周期和长生命周期交互地方需要特别注意</h3><ul>
-<li>不要让长生命周期的函数，通过直接引用、闭包、回调等方式关联到短生命周期中的对象。<br>例如，angular 中的 directive、controler 和 service 之间，还有 angular 与其它库之间。</li>
-</ul>
-<h3 id="3-切断引用"><a href="#3-切断引用" class="headerlink" title="3. 切断引用"></a>3. 切断引用</h3><ul>
-<li>在 js 中造成内存泄都是由于被引用，GC 没办法回收引起。虽然大部分框架在页面销毁时都会这么做。但并非都是简单 <code>nulling</code> 对象或者清空数组，所以安全起见还是手动 <strong>切断引用</strong>。</li>
-</ul>
-<h3 id="4-实例"><a href="#4-实例" class="headerlink" title="4. 实例:"></a>4. 实例:</h3><h4 id="4-1-事件绑定"><a href="#4-1-事件绑定" class="headerlink" title="4.1 事件绑定"></a>4.1 事件绑定</h4><p>Poorly:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs</span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  element.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    scope.selected = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-<p>这里我们在事件回调函数的闭包中，引用到了 <code>scope</code>,如果我们未解绑该事件，<code>scope</code> 将会被一直引用。<br>Fix:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs</span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  element.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    scope.selected = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  scope.$on(<span class="string">'$destroy'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">      element.off(); <span class="comment">// deregister all event handlers</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  &#125;)<span class="string">''</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>** 注意，removeEventListener 方法移除的监听函数，必须与对应的 addEventListener 方法的参数完全一致，而且必须在同一个元素节点，否则无效。**</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以正常解绑</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>,hello,<span class="literal">false</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.removeEventListener(<span class="string">'click'</span>,hello,<span class="literal">false</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果是匿名的回调函数则，不能正常解绑</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;,<span class="literal">false</span>);</span></pre></td></tr></table></figure>
-
-<h4 id="4-2-Watchers"><a href="#4-2-Watchers" class="headerlink" title="4.2 Watchers"></a>4.2 Watchers</h4><p>Poorly:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">'someEvent'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    $scope.refresh();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr></table></figure>
-<p>虽然框架会自动帮我们清楚，但是建议还是手动添加相应的解绑函数<br>Fix:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cleanup = $scope.$on(<span class="string">'someEvent'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    $scope.refresh();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">'$destroy'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    cleanup();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr></table></figure>
-
-<h4 id="4-3-解耦长短生命周期函数相互引用"><a href="#4-3-解耦长短生命周期函数相互引用" class="headerlink" title="4.3 解耦长短生命周期函数相互引用"></a>4.3 解耦长短生命周期函数相互引用</h4><ul>
-<li><p>Suggest one:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// poorly:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">UserService.onNameChange(<span class="function"><span class="keyword">function</span>(<span class="params">newName</span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    $scope.userName = newName;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过回调函数容易造成引用释放问题</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// fix:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// change and name and wait for the result</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">UserService.changeName(<span class="string">"Fry"</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">newName</span>) </span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    $scope.name = newName;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-</li>
-<li><p>Suggest two:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// more like our original example</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">'NotificationService:ChangeName'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    $scope.name = data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-<p>虽然不建议这么做，代价会比较高。但是这也是一个解耦方法，框架会自动清理。</p>
-</li>
-</ul>
-<h4 id="4-4-rootScope-new"><a href="#4-4-rootScope-new" class="headerlink" title="4.4 $rootScope.$new()"></a>4.4 $rootScope.$new()</h4><p>如果在 servcie 中有使用到 <code>$rootScope.$new()</code>,一定要记得在不需要时，销毁创建的子作用域。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> childScope = $rootScope.$<span class="keyword">new</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// do some thing</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">childScope.$destroy();</span></pre></td></tr></table></figure>
-
-<h4 id="4-5-定时器"><a href="#4-5-定时器" class="headerlink" title="4.5 定时器"></a>4.5 定时器</h4><p>定时器在使用完时需要取消，尤其是 <code>$interval</code> 定时器，如果没取消会在后台一直运行。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer_1 = $timeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;,<span class="number">1000</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer_2 = $interval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">//...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;,<span class="number">1000</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">'$destroy'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  $timeout.cancel(timer_1);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  $interval.cancel(timer_2);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://www.dwmkerr.com/fixing-memory-leaks-in-angularjs-applications/#identifyingmemoryleaks" target="_blank" rel="noopener">Fixing Memory Leaks in AngularJS and other JavaScript Applications</a></li>
-<li><a href="http://zccst.iteye.com/blog/2172803" target="_blank" rel="noopener">Document、Node、Element、HTMLDocument 、HTMLCollection、HTMLElement、NodeList</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
 			<div class="date"> 2017-02-13 </div>
 			<div class="article-title"><a href="/2017/02/13/2017-02-13-搭建-nodejs-https-服务器/" >搭建 Node.js Https 服务器</a></div>						
 		</h3>
@@ -1702,6 +1532,267 @@
 
            
 		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-12-13 </div>
+			<div class="article-title"><a href="/2016/12/13/2016-12-13-console/" >Console对象</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p><code>console</code>对象是JavaScript的原生对象，它有点像Unix系统的标准输出<code>stdout</code>和标准错误<code>stderr</code>，可以输出各种信息到控制台，并且还提供了很多额外的有用方法。</p>
+<p>它的常见用途有两个。</p>
+<ul>
+<li>调试程序，显示网页代码运行时的错误信息。</li>
+<li>提供了一个命令行接口，用来与网页代码互动。</li>
+</ul>
+<h2 id="浏览器实现"><a href="#浏览器实现" class="headerlink" title="浏览器实现"></a>浏览器实现</h2><p><code>console</code>对象的浏览器实现，包含在浏览器自带的开发工具之中。以Chrome浏览器的“开发者工具”（Developer Tools）为例，可以使用下面三种方法的一种打开它。</p>
+<ol>
+<li>按F12或者<code>Control + Shift + i</code>（PC平台）/ <code>Alt + Command + i</code>（Mac平台）。</li>
+<li>在菜单中选择“工具/开发者工具”。</li>
+<li>在一个页面元素上，打开右键菜单，选择其中的“Inspect Element”。</li>
+</ol>
+<p>打开“开发者工具”以后，可以在顶端看到，有多个面板可供选择，主要如下。</p>
+<ul>
+<li><strong>Elements</strong>：查看网页的HTML源码和CSS代码。</li>
+<li><strong>Resources</strong>：查看网页加载的各种资源文件（比如代码文件、字体文件、css文件等），以及在硬盘上创建的各种内容（比如本地缓存、Cookie、Local Storage等）。</li>
+<li><strong>Network</strong>：查看网页的HTTP通信情况。</li>
+<li><strong>Sources</strong>：查看网页加载的所有源码。</li>
+<li><strong>Timeline</strong>：查看各种网页行为随时间变化的情况。</li>
+<li><strong>Profiles</strong>：查看网页的性能情况，比如CPU和内存消耗。</li>
+<li><strong>Console</strong>：用来运行JavaScript命令。</li>
+</ul>
+<p>这些面板都有各自的用途，以下只介绍<code>Console</code>面板（又称为控制台）。</p>
+<p><code>Console</code>面板基本上就是一个命令行窗口，你可以在提示符下，键入各种命令。</p>
+<h2 id="console对象的方法"><a href="#console对象的方法" class="headerlink" title="console对象的方法"></a>console对象的方法</h2><p><code>console</code>对象提供的各种方法，用来与控制台窗口互动。</p>
+<h3 id="log-，info-，debug"><a href="#log-，info-，debug" class="headerlink" title="log()，info()，debug()"></a>log()，info()，debug()</h3><p><code>console.log</code>方法用于在console窗口输出信息。它可以接受多个参数，将它们的结果连接起来输出。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hello World'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Hello World</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// a b c</span></span></pre></td></tr></table></figure>
+
+<p><code>console.log</code>方法会自动在每次输出的结尾，添加换行符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3</span></span></pre></td></tr></table></figure>
+
+<p>如果第一个参数是格式字符串（使用了格式占位符），<code>console.log</code>方法将依次用后面的参数替换占位符，然后再进行输出。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">' %s + %s = %s'</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//  1 + 1 = 2</span></span></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>console.log</code>方法的第一个参数有三个占位符（<code>%s</code>），第二、三、四个参数会在显示时，依次替换掉这个三个占位符。</p>
+<p><code>console.log</code>方法支持以下占位符，不同格式的数据必须使用对应格式的占位符。</p>
+<ul>
+<li><code>%s</code> 字符串</li>
+<li><code>%d</code> 整数</li>
+<li><code>%i</code> 整数</li>
+<li><code>%f</code> 浮点数</li>
+<li><code>%o</code> 对象的链接</li>
+<li><code>%c</code> CSS格式字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number = <span class="number">11</span> * <span class="number">9</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">'red'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'%d %s balloons'</span>, number, color);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 99 red balloons</span></span></pre></td></tr></table></figure>
+
+<p>上面代码中，第二个参数是数值，对应的占位符是<code>%d</code>，第三个参数是字符串，对应的占位符是<code>%s</code>。</p>
+<p>使用<code>%c</code>占位符时，对应的参数必须是CSS语句，用来对输出内容进行CSS渲染。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'%cThis text is styled!'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="string">'color: red; background: yellow; font-size: 24px;'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">)</span></pre></td></tr></table></figure>
+
+<p>上面代码运行后，输出的内容将显示 <em>黄底红字</em>。</p>
+<p><code>console.log</code>方法的两种参数格式，可以结合在一起使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">' %s + %s '</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="string">'= 2'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1 + 1  = 2</span></span></pre></td></tr></table></figure>
+
+<p>如果参数是一个对象，<code>console.log</code>会显示该对象的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(&#123;<span class="attr">foo</span>: <span class="string">'bar'</span>&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object &#123;foo: "bar"&#125;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Date</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// function Date() &#123; [native code] &#125;</span></span></pre></td></tr></table></figure>
+
+<p>上面代码输出<code>Date</code>对象的值，结果为一个构造函数。</p>
+<p><code>console.info()</code>和<code>console.debug()</code>都是<code>console.log</code>方法的别名，用法完全一样。只不过<code>console.info</code>方法会在输出信息的前面，加上一个蓝色图标。</p>
+<p><code>console</code>对象的所有方法，都可以被覆盖。因此，可以按照自己的需要，定义<code>console.log</code>方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[<span class="string">'log'</span>, <span class="string">'info'</span>, <span class="string">'warn'</span>, <span class="string">'error'</span>].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">method</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>[method] = <span class="built_in">console</span>[method].bind(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">console</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  );</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"出错了！"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2014-05-18T09:00.000Z 出错了！</span></span></pre></td></tr></table></figure>
+
+<p>上面代码表示，使用自定义的<code>console.log</code>方法，可以在显示结果添加当前时间。</p>
+<h3 id="warn-，error"><a href="#warn-，error" class="headerlink" title="warn()，error()"></a>warn()，error()</h3><p><code>warn</code>方法和<code>error</code>方法也是在控制台输出信息，它们与<code>log</code>方法的不同之处在于，<code>warn</code>方法输出信息时，在最前面加一个黄色三角，表示警告；<code>error</code>方法输出信息时，在最前面加一个红色的叉，表示出错，同时会显示错误发生的堆栈。其他方面都一样。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.error(<span class="string">'Error: %s (%i)'</span>, <span class="string">'Server is not responding'</span>, <span class="number">500</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Error: Server is not responding (500)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.warn(<span class="string">'Warning! Too few nodes (%d)'</span>, <span class="built_in">document</span>.childNodes.length)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Warning! Too few nodes (1)</span></span></pre></td></tr></table></figure>
+
+<p>可以这样理解，<code>log</code>方法是写入标准输出（<code>stdout</code>），<code>warn</code>方法和<code>error</code>方法是写入标准错误（<code>stderr</code>）。</p>
+<h3 id="table"><a href="#table" class="headerlink" title="table()"></a>table()</h3><p>对于某些复合类型的数据，<code>console.table</code>方法可以将其转为表格显示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> languages = [</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"JavaScript"</span>, <span class="attr">fileExtension</span>: <span class="string">".js"</span> &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"TypeScript"</span>, <span class="attr">fileExtension</span>: <span class="string">".ts"</span> &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"CoffeeScript"</span>, <span class="attr">fileExtension</span>: <span class="string">".coffee"</span> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.table(languages);</span></pre></td></tr></table></figure>
+
+<p>上面代码的<code>language</code>变量，转为表格显示如下。</p>
+<table>
+<thead>
+<tr>
+<th>(index)</th>
+<th>name</th>
+<th>fileExtension</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>“JavaScript”</td>
+<td>“.js”</td>
+</tr>
+<tr>
+<td>1</td>
+<td>“TypeScript”</td>
+<td>“.ts”</td>
+</tr>
+<tr>
+<td>2</td>
+<td>“CoffeeScript”</td>
+<td>“.coffee”</td>
+</tr>
+</tbody></table>
+<p>复合型数据转为表格显示的条件是，必须拥有主键。对于数组来说，主键就是数字键。对于对象来说，主键就是它的最外层键。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> languages = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  csharp: &#123; <span class="attr">name</span>: <span class="string">"C#"</span>, <span class="attr">paradigm</span>: <span class="string">"object-oriented"</span> &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  fsharp: &#123; <span class="attr">name</span>: <span class="string">"F#"</span>, <span class="attr">paradigm</span>: <span class="string">"functional"</span> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.table(languages);</span></pre></td></tr></table></figure>
+
+<p>上面代码的<code>language</code>，转为表格显示如下。</p>
+<table>
+<thead>
+<tr>
+<th>(index)</th>
+<th>name</th>
+<th>paradigm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>csharp</td>
+<td>“C#”</td>
+<td>“object-oriented”</td>
+</tr>
+<tr>
+<td>fsharp</td>
+<td>“F#”</td>
+<td>“functional”</td>
+</tr>
+</tbody></table>
+<h3 id="count"><a href="#count" class="headerlink" title="count()"></a>count()</h3><p><code>count</code>方法用于计数，输出它被调用了多少次。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params">user</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.count();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="string">'hi '</span> + user;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">greet(<span class="string">'bob'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//  : 1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// "hi bob"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">greet(<span class="string">'alice'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//  : 2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// "hi alice"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">greet(<span class="string">'bob'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//  : 3</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// "hi bob"</span></span></pre></td></tr></table></figure>
+
+<p>上面代码每次调用<code>greet</code>函数，内部的<code>console.count</code>方法就输出执行次数。</p>
+<p>该方法可以接受一个字符串作为参数，作为标签，对执行次数进行分类。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params">user</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.count(user);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="string">"hi "</span> + user;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">greet(<span class="string">'bob'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// bob: 1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// "hi bob"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">greet(<span class="string">'alice'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// alice: 1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// "hi alice"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">greet(<span class="string">'bob'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// bob: 2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// "hi bob"</span></span></pre></td></tr></table></figure>
+
+<p>上面代码根据参数的不同，显示<code>bob</code>执行了两次，<code>alice</code>执行了一次。</p>
+<h3 id="dir-，dirxml"><a href="#dir-，dirxml" class="headerlink" title="dir()，dirxml()"></a>dir()，dirxml()</h3><p><code>dir</code>方法用来对一个对象进行检查（inspect），并以易于阅读和打印的格式显示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(&#123;<span class="attr">f1</span>: <span class="string">'foo'</span>, <span class="attr">f2</span>: <span class="string">'bar'</span>&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object &#123;f1: "foo", f2: "bar"&#125;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(&#123;<span class="attr">f1</span>: <span class="string">'foo'</span>, <span class="attr">f2</span>: <span class="string">'bar'</span>&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   f1: "foo"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   f2: "bar"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   __proto__: Object</span></span></pre></td></tr></table></figure>
+
+<p>上面代码显示<code>dir</code>方法的输出结果，比<code>log</code>方法更易读，信息也更丰富。</p>
+<p>该方法对于输出DOM对象非常有用，因为会显示DOM对象的所有属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(<span class="built_in">document</span>.body)</span></pre></td></tr></table></figure>
+
+<p><code>dirxml</code>方法主要用于以目录树的形式，显示DOM节点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dirxml(<span class="built_in">document</span>.body)</span></pre></td></tr></table></figure>
+
+<p>如果参数不是DOM节点，而是普通的JavaScript对象，<code>console.dirxml</code>等同于<code>console.dir</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dirxml([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等同于</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr></table></figure>
+
+<h3 id="assert"><a href="#assert" class="headerlink" title="assert()"></a>assert()</h3><p><code>assert</code>方法接受两个参数，第一个参数是表达式，第二个参数是字符串。只有当第一个参数为<code>false</code>，才会输出第二个参数，否则不会有任何结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.assert(<span class="literal">true</span> === <span class="literal">false</span>, <span class="string">'判断条件不成立'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Assertion failed: 判断条件不成立</span></span></pre></td></tr></table></figure>
+
+<p>下面是另一个例子，判断子节点的个数是否大于等于500。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.assert(list.childNodes.length &lt; <span class="number">500</span>, <span class="string">'节点个数大于等于500'</span>)</span></pre></td></tr></table></figure>
+
+<p>上面代码中，如果符合条件的节点小于500个，不会有任何输出；只有大于等于500时，才会显示指定文本。</p>
+<h3 id="time-，timeEnd"><a href="#time-，timeEnd" class="headerlink" title="time()，timeEnd()"></a>time()，timeEnd()</h3><p>这两个方法用于计时，可以算出一个操作所花费的准确时间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.time(<span class="string">'Array initialize'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array= <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = array.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    array[i] = <span class="keyword">new</span> <span class="built_in">Object</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Array initialize'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Array initialize: 1914.481ms</span></span></pre></td></tr></table></figure>
+
+<p>time方法表示计时开始，timeEnd方法表示计时结束。它们的参数是计时器的名称。调用timeEnd方法之后，console窗口会显示“计时器名称: 所耗费的时间”。</p>
+<h3 id="profile-，profileEnd"><a href="#profile-，profileEnd" class="headerlink" title="profile()，profileEnd()"></a>profile()，profileEnd()</h3><p><code>console.profile</code>方法用来新建一个性能测试器（profile），它的参数是性能测试器的名字。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.profile(<span class="string">'p'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Profile 'p' started.</span></span></pre></td></tr></table></figure>
+
+<p><code>console.profileEnd</code>方法用来结束正在运行的性能测试器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.profileEnd()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Profile 'p' finished.</span></span></pre></td></tr></table></figure>
+
+<p>打开浏览器的开发者工具，在<code>profile</code>面板中，可以看到这个性能调试器的运行结果。</p>
+<h3 id="group-，groupend-，groupCollapsed"><a href="#group-，groupend-，groupCollapsed" class="headerlink" title="group()，groupend()，groupCollapsed()"></a>group()，groupend()，groupCollapsed()</h3><p><code>console.group</code>和<code>console.groupend</code>这两个方法用于将显示的信息分组。它只在输出大量信息时有用，分在一组的信息，可以用鼠标折叠/展开。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.group(<span class="string">'Group One'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.group(<span class="string">'Group Two'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// some code</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.groupEnd(); <span class="comment">// Group Two 结束</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.groupEnd(); <span class="comment">// Group One 结束</span></span></pre></td></tr></table></figure>
+
+<p><code>console.groupCollapsed</code>方法与<code>console.group</code>方法很类似，唯一的区别是该组的内容，在第一次显示时是收起的（collapsed），而不是展开的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.groupCollapsed(<span class="string">'Fetching Data'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'Request Sent'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.error(<span class="string">'Error: Server not responding (500)'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.groupEnd();</span></pre></td></tr></table></figure>
+
+<p>上面代码只显示一行”Fetching Data“，点击后才会展开，显示其中包含的两行。</p>
+<h3 id="trace-，clear"><a href="#trace-，clear" class="headerlink" title="trace()，clear()"></a>trace()，clear()</h3><p><code>console.trace</code>方法显示当前执行的代码在堆栈中的调用路径。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.trace()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// console.trace()</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   (anonymous function)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   InjectedScript._evaluateOn</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   InjectedScript._evaluateAndWrap</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//   InjectedScript.evaluate</span></span></pre></td></tr></table></figure>
+
+<p><code>console.clear</code>方法用于清除当前控制台的所有输出，将光标回置到第一行。</p>
+<h2 id="命令行API"><a href="#命令行API" class="headerlink" title="命令行API"></a>命令行API</h2><p>在控制台中，除了使用console对象，还可以使用一些控制台自带的命令行方法。</p>
+<p>（1）<code>$_</code></p>
+<p><code>$_</code>属性返回上一个表达式的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>+<span class="number">2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 4</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">$_</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 4</span></span></pre></td></tr></table></figure>
+
+<p>（2）<code>$0</code> - <code>$4</code></p>
+<p>控制台保存了最近5个在Elements面板选中的DOM元素，$0代表倒数第一个，<code>$1</code>代表倒数第二个，以此类推直到<code>$4</code>。</p>
+<p>（3）<code>$(selector)</code></p>
+<p><code>$(selector)</code>返回一个数组，包括特定的CSS选择器匹配的所有DOM元素。该方法实际上是<code>document.querySelectorAll</code>方法的别名。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> images = $(<span class="string">'img'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (each <span class="keyword">in</span> images) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(images[each].src);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>上面代码打印出网页中所有<code>img</code>元素的<code>src</code>属性。</p>
+<p>（4）<code>$$(selector)</code></p>
+<p><code>$$(selector)</code>返回一个选中的DOM对象，等同于<code>document.querySelectorAll</code>。</p>
+<p>（5）<code>$x(path)</code></p>
+<p><code>$x(path)</code>方法返回一个数组，包含匹配特定XPath表达式的所有DOM元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$x(<span class="string">"//p[a]"</span>)</span></pre></td></tr></table></figure>
+
+<p>上面代码返回所有包含<code>a</code>元素的<code>p</code>元素。</p>
+<p>（6）<code>inspect(object)</code></p>
+<p><code>inspect(object)</code>方法打开相关面板，并选中相应的元素：DOM元素在<code>Elements</code>面板中显示，JavaScript对象在<code>Profiles</code>面板中显示。</p>
+<p>（7）<code>getEventListeners(object)</code></p>
+<p><code>getEventListeners(object)</code>方法返回一个对象，该对象的成员为登记了回调函数的各种事件（比如<code>click</code>或<code>keydown</code>），每个事件对应一个数组，数组的成员为该事件的回调函数。</p>
+<p>（8）<code>keys(object)</code>，<code>values(object)</code></p>
+<p><code>keys(object)</code>方法返回一个数组，包含特定对象的所有键名。</p>
+<p><code>values(object)</code>方法返回一个数组，包含特定对象的所有键值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;<span class="string">'p1'</span>: <span class="string">'a'</span>, <span class="string">'p2'</span>: <span class="string">'b'</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">keys(o)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ["p1", "p2"]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">values(o)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ["a", "b"]</span></span></pre></td></tr></table></figure>
+
+<p>（9）<code>monitorEvents(object[, events]) ，unmonitorEvents(object[, events])</code></p>
+<p><code>monitorEvents(object[, events])</code>方法监听特定对象上发生的特定事件。当这种情况发生时，会返回一个Event对象，包含该事件的相关信息。unmonitorEvents方法用于停止监听。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">monitorEvents(<span class="built_in">window</span>, <span class="string">"resize"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">monitorEvents(<span class="built_in">window</span>, [<span class="string">"resize"</span>, <span class="string">"scroll"</span>])</span></pre></td></tr></table></figure>
+
+<p>上面代码分别表示单个事件和多个事件的监听方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">monitorEvents($<span class="number">0</span>, <span class="string">'mouse'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">unmonitorEvents($<span class="number">0</span>, <span class="string">'mousemove'</span>);</span></pre></td></tr></table></figure>
+
+<p>上面代码表示如何停止监听。</p>
+<p><code>monitorEvents</code>允许监听同一大类的事件。所有事件可以分成四个大类。</p>
+<ul>
+<li>mouse：”mousedown”, “mouseup”, “click”, “dblclick”, “mousemove”, “mouseover”, “mouseout”, “mousewheel”</li>
+<li>key：”keydown”, “keyup”, “keypress”, “textInput”</li>
+<li>touch：”touchstart”, “touchmove”, “touchend”, “touchcancel”</li>
+<li>control：”resize”, “scroll”, “zoom”, “focus”, “blur”, “select”, “change”, “submit”, “reset”</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">monitorEvents($(<span class="string">"#msg"</span>), <span class="string">"key"</span>);</span></pre></td></tr></table></figure>
+
+<p>上面代码表示监听所有key大类的事件。</p>
+<p>（10）<code>profile([name])</code>，<code>profileEnd()</code></p>
+<p><code>profile</code>方法用于启动一个特定名称的CPU性能测试，<code>profileEnd</code>方法用于结束该性能测试。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">profile(<span class="string">'My profile'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">profileEnd(<span class="string">'My profile'</span>)</span></pre></td></tr></table></figure>
+
+<p>（11）其他方法</p>
+<p>命令行API还提供以下方法。</p>
+<ul>
+<li><code>clear()</code>：清除控制台的历史。</li>
+<li><code>copy(object)</code>：复制特定DOM元素到剪贴板。</li>
+<li><code>dir(object)</code>：显示特定对象的所有属性，是<code>console.dir</code>方法的别名。</li>
+<li><code>dirxml(object)</code>：显示特定对象的XML形式，是<code>console.dirxml</code>方法的别名。</li>
+</ul>
+<h2 id="debugger语句"><a href="#debugger语句" class="headerlink" title="debugger语句"></a>debugger语句</h2><p><code>debugger</code>语句主要用于除错，作用是设置断点。如果有正在运行的除错工具，程序运行到<code>debugger</code>语句时会自动停下。如果没有除错工具，<code>debugger</code>语句不会产生任何结果，JavaScript引擎自动跳过这一句。</p>
+<p>在Chrome浏览器中，当代码运行到<code>debugger</code>语句时，就会暂停运行，自动打开控制台界面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (i === <span class="number">2</span>) <span class="keyword">debugger</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>上面代码打印出0，1，2以后，就会暂停，自动打开控制台，等待进一步处理。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>Chrome Developer Tools, <a href="https://developers.google.com/chrome-developer-tools/docs/console" target="_blank" rel="noopener">Using the Console</a></li>
+<li>Matt West, <a href="http://blog.teamtreehouse.com/mastering-developer-tools-console" target="_blank" rel="noopener">Mastering The Developer Tools Console</a></li>
+<li>Firebug Wiki, <a href="https://getfirebug.com/wiki/index.php/Console_API" target="_blank" rel="noopener">Console API</a></li>
+<li>Axel Rauschmayer, <a href="http://www.2ality.com/2013/10/console-api.html" target="_blank" rel="noopener">The JavaScript console API</a></li>
+<li>Marius Schulz, <a href="http://blog.mariusschulz.com/2013/11/13/advanced-javascript-debugging-with-consoletable" target="_blank" rel="noopener">Advanced JavaScript Debugging with console.table()</a></li>
+<li>Google Developer, <a href="https://developers.google.com/chrome-developer-tools/docs/commandline-api" target="_blank" rel="noopener">Command Line API Reference</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
 
 		</div>
 
@@ -1776,8 +1867,6 @@
 		
 			<li><a href="/categories/Design/">Design<span>1</span></a></li>
 		
-			<li><a href="/categories/Docker/">Docker<span>1</span></a></li>
-		
 			<li><a href="/categories/Flutter/">Flutter<span>1</span></a></li>
 		
 			<li><a href="/categories/Git/">Git<span>1</span></a></li>
@@ -1825,45 +1914,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Android/">Android<span>3</span></a></li>
+			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
 		
-			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
+			<li><a href="/tags/Karma/">Karma<span>1</span></a></li>
 		
-			<li><a href="/tags/Document/">Document<span>8</span></a></li>
+			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
 		
 			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
 		
-			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
-		
 			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
-		
-			<li><a href="/tags/django/">django<span>1</span></a></li>
-		
-			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
 		
 			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
 		
-			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
-		
-			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
-		
-			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
-		
-			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
+			<li><a href="/tags/Document/">Document<span>8</span></a></li>
 		
 			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
 		
-			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
+			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
 		
-			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
+			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
+		
+			<li><a href="/tags/Android/">Android<span>3</span></a></li>
+		
+			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+		
+			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
+		
+			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
 		
 			<li><a href="/tags/synology/">synology<span>1</span></a></li>
 		
+			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+		
+			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
+		
+			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
+		
 			<li><a href="/tags/MySQL/">MySQL<span>1</span></a></li>
 		
-			<li><a href="/tags/Performence/">Performence<span>1</span></a></li>
-		
-			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
+			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>25</span></a></li>
