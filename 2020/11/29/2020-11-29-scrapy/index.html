@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Gantt Project Start - Cease to struggle and you cease to live</title>
+  <title>Scrapy - Cease to struggle and you cease to live</title>
   <meta name="author" content="JesseChiu">
   
-  <meta name="description" content="GanttProject 是以 JAVA 编写的开源软件。可让你轻松绘出甘特图，可输出 PNG/JPG 图片格式、HTML 网页，或是 PDF 档案格式。你能输入项目的可用资源、里程碑、任务/子任务，以及任务的起始日期、持续时间、相依性、进度、备注等等，并且在甘特图上显示出来。
+  <meta name="description" content="Command line tool
+创建 sprider 工程1scrapy startproject myproject [project_dir]
+创建具体的 spider 文件1scrapy genspider mydomain mydomain.com
 
-文章介绍
-甘特图绘">
+
+
+Global commands:">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Gantt Project Start"/>
+  <meta property="og:title" content="Scrapy"/>
   <meta property="og:site_name" content="Cease to struggle and you cease to live"/>
 
   
@@ -111,7 +114,7 @@
 
 	
 		<div class="page-header page-header-inverse ">		
-			<h1 class="title title-inverse "> Gantt Project Start</h1>
+			<h1 class="title title-inverse "> Scrapy</h1>
 		</div>		
 	
 
@@ -139,21 +142,29 @@
 	<div class="mypage">		
 	  		
 
-	  <blockquote>
-<p>GanttProject 是以 JAVA 编写的开源软件。可让你轻松绘出甘特图，可输出 PNG/JPG 图片格式、HTML 网页，或是 PDF 档案格式。你能输入项目的可用资源、里程碑、任务/子任务，以及任务的起始日期、持续时间、相依性、进度、备注等等，并且在甘特图上显示出来。</p>
-</blockquote>
-<h2 id="文章介绍"><a href="#文章介绍" class="headerlink" title="文章介绍"></a>文章介绍</h2><ul>
-<li><a href="https://www.mifengtd.cn/articles/creat-a-gantt-chart-with-ganttproject.html" target="_blank" rel="noopener">甘特图绘制软件GanttProject</a></li>
+	  <h2 id="Command-line-tool"><a href="#Command-line-tool" class="headerlink" title="Command line tool"></a>Command line tool</h2><ul>
+<li>创建 sprider 工程<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">scrapy startproject myproject [project_dir]</span></pre></td></tr></table></figure></li>
+<li>创建具体的 spider 文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">scrapy genspider mydomain mydomain.com</span></pre></td></tr></table></figure>
+
+</li>
 </ul>
-<h2 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h2><ul>
-<li><a href="https://www.youtube.com/watch?v=MEIYzfDGHCw" target="_blank" rel="noopener">GanttProject操作方法教學影片 (Part 1)</a></li>
-<li><a href="https://www.youtube.com/watch?v=p7Rhbknsf2g" target="_blank" rel="noopener">GanttProject操作方法教學影片 (Part 2)</a></li>
+<h3 id="Global-commands"><a href="#Global-commands" class="headerlink" title="Global commands:"></a>Global commands:</h3><ul>
+<li>startproject</li>
+<li>genspider</li>
+<li>settings</li>
+<li>runspider</li>
+<li>shell</li>
+<li>fetch<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">--spider=SPIDER: bypass spider autodetection and force use of specific spider</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">--headers: <span class="built_in">print</span> the response’s HTTP headers instead of the response’s body</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">--no-redirect: <span class="keyword">do</span> not follow HTTP 3xx redirects (default is to follow them)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">$ scrapy fetch --nolog http://www.example.com/some/page.html</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">[ ... html content here ... ]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">$ scrapy fetch --nolog --headers http://www.example.com/</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'Accept-Ranges'</span>: [<span class="string">'bytes'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Age'</span>: [<span class="string">'1263   '</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Connection'</span>: [<span class="string">'close     '</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Content-Length'</span>: [<span class="string">'596'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Content-Type'</span>: [<span class="string">'text/html; charset=UTF-8'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Date'</span>: [<span class="string">'Wed, 18 Aug 2010 23:59:46 GMT'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Etag'</span>: [<span class="string">'"573c1-254-48c9c87349680"'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Last-Modified'</span>: [<span class="string">'Fri, 30 Jul 2010 15:30:18 GMT'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> <span class="string">'Server'</span>: [<span class="string">'Apache/2.2.3 (CentOS)'</span>]&#125;</span></pre></td></tr></table></figure></li>
+<li>view</li>
+<li>version</li>
 </ul>
-<h2 id="常用布局"><a href="#常用布局" class="headerlink" title="常用布局"></a>常用布局</h2><ul>
-<li>左边栏: 名称-产出-期间-开始时间-结束时间-资源</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.ganttproject.biz/" target="_blank" rel="noopener">官网</a></li>
+<h3 id="Project-only-commands"><a href="#Project-only-commands" class="headerlink" title="Project-only commands:"></a>Project-only commands:</h3><ul>
+<li>crawl</li>
+<li>check</li>
+<li>list</li>
+<li>edit</li>
+<li>parse</li>
+<li>bench</li>
 </ul>
 	  
 
@@ -171,13 +182,13 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2019/09/17/2019-09--17.golang/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+    	<li class="prev"><a href="/2020/11/30/2020-11-30-android-gradle/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2018/12/03/2018-12-03-mermaid/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2020/11/26/2020-11-26-database-sqlite-exercise/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -199,7 +210,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-03-25 
+	2020-11-29 
 	</div>
 	
 
@@ -210,7 +221,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/Tools/">Tools<span>16</span></a></li>
+    <li><a href="/categories/Python/">Python<span>4</span></a></li>
   </li>
 
     </ul>
@@ -218,6 +229,14 @@
 	
 
 	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/scrapy/">scrapy<span>1</span></a></li>
+    </ul>
+	</div>
 		
 
 	<!-- toc -->
@@ -287,7 +306,7 @@
 
 
 <span>
-  &copy; 2020 JesseChiu
+  &copy; 2021 JesseChiu
   
 </span>
 

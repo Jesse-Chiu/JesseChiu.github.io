@@ -128,6 +128,441 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2017-06-22 </div>
+			<div class="article-title"><a href="/2017/06/22/2017-06-22-express-常用中间件/" >Express 常用中间件</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>本文主要收集 Express 中常用的中间件的使用方法</p>
+</blockquote>
+<h2 id="一、cookie-parse"><a href="#一、cookie-parse" class="headerlink" title="一、cookie-parse"></a>一、<code>cookie-parse</code></h2><p>基础用法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = express();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cookieParser = <span class="built_in">require</span>(<span class="string">'cookie-parser'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果在 res.cookie 设置 signed:true，在这里必需传人一个 secret 用于签名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">app.use(cookieParser(<span class="string">'3d48ed43942b031f995cf34b1419a2fe'</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认首页加载页面</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\name: <span class="subst">$&#123;req.cookies.name&#125;</span> sex: <span class="subst">$&#123;req.signedCookies.sex&#125;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="string">    car1: <span class="subst">$&#123;req.cookies.car1&#125;</span> car2: <span class="subst">$&#123;req.signedCookies.car2&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 设置明文 cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  res.cookie(<span class="string">'name'</span>,<span class="string">'jesse'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 设置带签名 cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  res.cookie(<span class="string">'sex'</span>,<span class="string">'man'</span>,&#123;<span class="attr">signed</span>:<span class="literal">true</span>&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 设置加密 cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">  res.cookie(<span class="string">'age'</span>,<span class="string">'18'</span>,&#123;<span class="attr">secure</span>:<span class="literal">true</span>&#125;); <span class="comment">// 这个值对 https 有效</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 设置明文 JSON 类型 cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">  res.cookie(<span class="string">'car1'</span>,<span class="built_in">JSON</span>.stringify(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    color:<span class="string">'red'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    speed:<span class="number">100</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">  &#125;)); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 设置签名 JSON 类型 cookie</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">  res.cookie(<span class="string">'car2'</span>,<span class="built_in">JSON</span>.stringify(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">    color:<span class="string">'blue'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    speed: <span class="number">200</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">  &#125;),&#123;<span class="attr">signed</span>:<span class="literal">true</span>&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">  res.render(<span class="string">'index'</span>, &#123;<span class="attr">currentTime</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//-----------------------------------------------</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">在浏览器的开发工具中查看到的值：</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">name: <span class="string">'jesse'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">sex: <span class="string">'s%3Aman.bgKlzHHA5q%2B6jEdT%2BbwiJTLoYdvUX7plg3AAdcH1oW8'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">	- <span class="built_in">decodeURIComponent</span>(<span class="string">'s%3Aman.bgKlzHHA5q%2B6jEdT%2BbwiJTLoYdvUX7plg3AAdcH1oW8'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">	- <span class="string">"s:man.bgKlzHHA5q+6jEdT+bwiJTLoYdvUX7plg3AAdcH1oW8"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">car1: %<span class="number">7</span>B%<span class="number">22</span>color%<span class="number">22</span>%<span class="number">3</span>A%<span class="number">22</span>red%<span class="number">22</span>%<span class="number">2</span>C%<span class="number">22</span>speed%<span class="number">22</span>%<span class="number">3</span>A100%<span class="number">7</span>D</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">car2: s%<span class="number">3</span>A%<span class="number">7</span>B%<span class="number">22</span>color%<span class="number">22</span>%<span class="number">3</span>A%<span class="number">22</span>blue%<span class="number">22</span>%<span class="number">2</span>C%<span class="number">22</span>speed%<span class="number">22</span>%<span class="number">3</span>A200%<span class="number">7</span>D.pjlpa%<span class="number">2</span>Bvo9Ujms2kpq5BFbsHrjZBAHGPBUc5OHeZHBIQ</span></pre></td></tr></table></figure>
+<p>从上面的设置 <code>cookie</code> 结果可以看出,不管是设置明文还是签名的 cookie，都会使用 <code>encodeURIComponent</code> 进行编码，当然也可在初始化时使用自定义的加解密函数处理。</p>
+<p>使用中需要注意的点：</p>
+<ul>
+<li>设置 <code>req.cookie(key,value,options)</code></li>
+<li>取值 <code>res.cookies(key)/res.singedCookies(key)</code> // 注意： cookie 有加 s</li>
+<li>删除可以统一使用：<code>res.clearCookie(key)</code>; 如果设置的时候有设置 <code>path</code>,删除时也需要带上: <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">res.cookie(<span class="string">'name'</span>, <span class="string">'tobi'</span>, &#123; <span class="attr">path</span>: <span class="string">'/admin'</span> &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">res.clearCookie(<span class="string">'name'</span>, &#123; <span class="attr">path</span>: <span class="string">'/admin'</span> &#125;);</span></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="二、express-session"><a href="#二、express-session" class="headerlink" title="二、express-session"></a>二、<code>express-session</code></h2><p>使用前须知：</p>
+<ul>
+<li>session 数据并没有存储在 cookie 中，只是存储了 session_id 值在 cookie 中.</li>
+<li>session 如果和 <code>cookie-parse</code> 中间件使用的 secret 不一样，可能会有一些问题。<br>简单配置使用<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 挂载 session</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">app.use(session(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  cookie: &#123;<span class="attr">maxAge</span>:  <span class="number">1000</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">2</span>&#125;,<span class="comment">// 有效时间 2 个小时</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 强制没有“初始化”的 session 保存到 storage中，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 没有初始化的 session 指的是：刚被创建没有被修改</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  saveUninitialized: <span class="literal">false</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Use the session middleware</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">app.use(session(&#123; <span class="attr">secret</span>: <span class="string">'keyboard cat'</span>, <span class="attr">cookie</span>: &#123; <span class="attr">maxAge</span>: <span class="number">60000</span> &#125;&#125;))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Access the session as req.session</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> sess = req.session</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (sess.views) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    sess.views++</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    res.setHeader(<span class="string">'Content-Type'</span>, <span class="string">'text/html'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    res.write(<span class="string">'&lt;p&gt;views: '</span> + sess.views + <span class="string">'&lt;/p&gt;'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    res.write(<span class="string">'&lt;p&gt;expires in: '</span> + (sess.cookie.maxAge / <span class="number">1000</span>) + <span class="string">'s&lt;/p&gt;'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    res.end()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">  &#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    sess.views = <span class="number">1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    res.end(<span class="string">'welcome to the session demo. refresh!'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>注意这里的取值和设置都是在 <code>req</code> 对象上，和 cookie 有所差别</strong><br>如果要删除 session 值: <code>delete req.session.xxxx;</code></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
+<li><a href="https://github.com/expressjs/cookie-parser" target="_blank" rel="noopener">cookie-parse star:727</a></li>
+<li><a href="https://github.com/expressjs/session#compatible-session-stores" target="_blank" rel="noopener">express-session star:2379</a></li>
+<li><a href="http://blog.csdn.net/liangklfang/article/details/50998959" target="_blank" rel="noopener"> node.js中express-session配置项详解</a> 讲解非常详细，配合源码解析</li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-06-21 </div>
+			<div class="article-title"><a href="/2017/06/21/2017-06-21-log4js/" >log4js</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>log4js 是老牌的日子库，功能也很强大，我这里只是备忘了结合 express 的使用。</p>
+<h2 id="配置代码"><a href="#配置代码" class="headerlink" title="配置代码"></a>配置代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// log.js</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> log4js = <span class="built_in">require</span>(<span class="string">'log4js'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">app</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">`\n### init log4js`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 初始化日志配置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	log4js.configure(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">		appenders: [&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">			type: <span class="string">'console'</span> <span class="comment">// 控制台输出</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">		&#125;, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">			type: <span class="string">"dateFile"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">			filename: <span class="string">"./log/date.log"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">			pattern: <span class="string">"-yyyy-MM-dd"</span>, <span class="comment">// 生成的日子文件名：date.log-2017-06-01</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">			alwaysIncludePattern: <span class="literal">true</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">		&#125;, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">			type: <span class="string">'file'</span>, <span class="comment">// 文件输出</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">			filename: <span class="string">'./log/lpt-error.log'</span>, <span class="comment">// 注意日志存放的慕</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">			maxLogSize: <span class="number">1024</span>*<span class="number">1024</span>*<span class="number">10</span>, <span class="comment">// 设置文件大小</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">			backups: <span class="number">10</span>, <span class="comment">// 当日志超过限制，最多可以备份多少个文件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">			compress: <span class="literal">true</span>, <span class="comment">// compress the backups</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">      encoding: <span class="string">'utf-8'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">			category: <span class="string">'lpt'</span> <span class="comment">// 设置日志类名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">		&#125;],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">		replaceConsole: <span class="literal">true</span> <span class="comment">// 使用 log4js 代替 console 的显示输出，但是不会记录到文件中</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">	&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">let</span> logger = log4js.getLogger(<span class="string">'lpt'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">	logger.setLevel(<span class="string">'error'</span>); <span class="comment">// 设置 写入 日志级别</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 配置到 espress 中</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">	app.use(log4js.connectLogger(logger, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">		level: <span class="string">'auto'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">		format: <span class="string">':method :url :status'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">	&#125;));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">	global.logger = logger; <span class="comment">// 挂载到全局中</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实际打印效果 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2017</span><span class="number">-06</span><span class="number">-21</span> <span class="number">23</span>:<span class="number">19</span>:<span class="number">14.592</span>] [INFO] <span class="built_in">console</span> -</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">menuEvent -&gt; openId: o<span class="number">-3</span>i-t6B8q4u899ZGtmjrxTPt99s</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2017</span><span class="number">-06</span><span class="number">-21</span> <span class="number">23</span>:<span class="number">19</span>:<span class="number">14.595</span>] [INFO] <span class="built_in">console</span> -</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">_viewEvent -&gt; openId: o<span class="number">-3</span>i-t6B8q4u899ZGtmjrxTPt99s</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2017</span><span class="number">-06</span><span class="number">-21</span> <span class="number">23</span>:<span class="number">19</span>:<span class="number">14.611</span>] [INFO] <span class="built_in">console</span> -</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">!!! not  found</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2017</span><span class="number">-06</span><span class="number">-21</span> <span class="number">23</span>:<span class="number">19</span>:<span class="number">14.614</span>] [INFO] <span class="built_in">console</span> -</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">!!! error handers</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2017</span><span class="number">-06</span><span class="number">-21</span> <span class="number">23</span>:<span class="number">19</span>:<span class="number">14.632</span>] [ERROR] lpt - POST /weichat/?signature=<span class="number">24</span>db9fbb577b909</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">bdccf4a077d0e93140519bc6a&amp;timestamp=<span class="number">1498058001</span>&amp;nonce=<span class="number">49030191</span>&amp;openid=o<span class="number">-3</span>i-t6B8q4</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">u899ZGtmjrxTPtwGs <span class="number">404</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2017</span><span class="number">-06</span><span class="number">-21</span> <span class="number">23</span>:<span class="number">19</span>:<span class="number">14.699</span>] [INFO] <span class="built_in">console</span> -</span></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/nomiddlename/log4js-node/tree/v1.1.1" target="_blank" rel="noopener">log4js-v.1.1.1</a></li>
+<li><a href="https://github.com/nomiddlename/log4js-node/wiki" target="_blank" rel="noopener">nomiddlename/log4js-node 说明文档</a></li>
+<li><a href="http://www.blogways.net/blog/2014/06/09/node-log4js.html" target="_blank" rel="noopener">node 日志管理log4js</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-06-20 </div>
+			<div class="article-title"><a href="/2017/06/20/2017-06-20-Ajax-post-content-type-的取值类型/" >Ajax 中 post content-type 的取值类型</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>我们知道，HTTP 协议是以 ASCII 码传输，建立在 TCP/IP 协议之上的应用层规范。规范把 HTTP 请求分为三个部分：状态行、请求头、消息主体。类似于下面这样： </p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">method</span>&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">request-url</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">			<span class="tag">&lt;<span class="name">headers</span>&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">				<span class="tag">&lt;<span class="name">entity-body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">				<span class="tag">&lt;/<span class="name">entity-body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">			<span class="tag">&lt;/<span class="name">headers</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">		<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;/<span class="name">request-url</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">method</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>协议规定 POST 提交的数据必须放在消息主体（entity-body）中，但协议并没有规定数据必须使用什么编码方式。实际上，开发者完全可以自己决定消息主体的格式，只要最后发送的 HTTP 请求满足上面的格式就可以。 </p>
+<p>但是，数据发送出去，还要服务端解析成功才有意义。一般服务端语言如 <code>php</code>、<code>python</code> 等，以及它们的 framework，都内置了自动解析常见数据格式的功能。服务端通常是根据请求头（headers）中的 <code>Content-Type</code> 字段来获知请求中的消息主体是用何种方式编码，再对主体进行解析。所以说到 POST 提交数据方案，包含了 <code>Content-Type</code> 和消息主体编码方式两部分。下面就正式开始介绍它们。 </p>
+<p>四种常见的 POST 提交数据方式 </p>
+<h2 id="一、application-x-www-form-urlencoded"><a href="#一、application-x-www-form-urlencoded" class="headerlink" title="一、application/x-www-form-urlencoded"></a>一、<code>application/x-www-form-urlencoded</code></h2><p>这应该是最常见的 POST 提交数据的方式了。浏览器的原生 form 表单，如果不设置 <code>enctype</code> 属性，那么最终就会以 <code>application/x-www-form-urlencoded</code> 方式提交数据。请求类似于下面这样（无关的请求头在本文中都省略掉了）： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">POST http:<span class="comment">//www.example.com HTTP/1.1 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Content-Type: application/x-www-form-urlencoded;charset=utf<span class="number">-8</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">title=test&amp;sub%<span class="number">5</span>B%<span class="number">5</span>D=<span class="number">1</span>&amp;sub%<span class="number">5</span>B%<span class="number">5</span>D=<span class="number">2</span>&amp;sub%<span class="number">5</span>B%<span class="number">5</span>D=<span class="number">3</span></span></pre></td></tr></table></figure>
+
+<p>首先，<code>Content-Type</code> 被指定为 <code>application/x-www-form-urlencoded</code>；其次，提交的数据按照 <code>key1=val1&amp;key2=val2</code> 的方式进行编码，key 和 val 都进行了 URL 转码。大部分服务端语言都对这种方式有很好的支持。例如 PHP 中，<code>$_POST[&#39;title&#39;]</code> 可以获取到 title 的值，<code>$_POST[&#39;sub&#39;]</code> 可以得到 sub 数组。 </p>
+<p>很多时候，我们用 Ajax 提交数据时，也是使用这种方式。例如 JQuery 和 QWrap 的 Ajax，<code>Content-Type</code> 默认值都是 <code>application/x-www-form-urlencoded;charset=utf-8</code>。 </p>
+<h2 id="二、multipart-form-data"><a href="#二、multipart-form-data" class="headerlink" title="二、multipart/form-data"></a>二、<code>multipart/form-data</code></h2><p>这又是一个常见的 POST 数据提交的方式。我们使用表单上传文件时，必须让 form 的 enctype 等于这个值。直接来看一个请求示例： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">POST http:<span class="comment">//www.example.com HTTP/1.1 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryrGKCBY7qhFd3TrwA </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name=<span class="string">"text"</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">title </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name=<span class="string">"file"</span>; filename=<span class="string">"chrome.png"</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">Content-Type: image/png </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">PNG ... content <span class="keyword">of</span> chrome.png ... </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA--</span></pre></td></tr></table></figure>
+
+<p>这个例子稍微复杂点。首先生成了一个 boundary 用于分割不同的字段，为了避免与正文内容重复，boundary 很长很复杂。然后 <code>Content-Type</code> 里指明了数据是以 <code>multipart/form-data</code> 来编码，本次请求的 boundary 是什么内容。消息主体里按照字段个数又分为多个结构类似的部分，每部分都是以 –boundary 开始，紧接着内容描述信息，然后是回车，最后是字段具体内容（文本或二进制）。如果传输的是文件，还要包含文件名和文件类型信息。消息主体最后以 –boundary– 标示结束。关于 <code>multipart/form-data</code> 的详细定义，请前往 <a href="http://www.faqs.org/rfcs/rfc1867.html" target="_blank" rel="noopener">rfc1867</a> 查看。 </p>
+<p>这种方式一般用来上传文件，各大服务端语言对它也有着良好的支持。 </p>
+<p>上面提到的这两种 POST 数据的方式，都是浏览器原生支持的，而且现阶段原生 form 表单也只支持这两种方式。但是随着越来越多的 Web 站点，尤其是 WebApp，全部使用 Ajax 进行数据交互之后，我们完全可以定义新的数据提交方式，给开发带来更多便利。 </p>
+<h2 id="三、application-json"><a href="#三、application-json" class="headerlink" title="三、application/json"></a>三、<code>application/json</code></h2><p><code>application/json</code> 这个 <code>Content-Type</code>作为响应头大家肯定不陌生。实际上，现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串。由于 JSON 规范的流行，<strong>除了低版本 IE 之外</strong>的各大浏览器都原生支持 JSON.stringify，服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。 </p>
+<p>Google 的 AngularJS 中的 Ajax 功能，默认就是提交 JSON 字符串。例如下面这段代码： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = &#123;<span class="string">'title'</span>:<span class="string">'test'</span>, <span class="string">'sub'</span> : [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$http.post(url, data).success(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    ... </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">最终发送的请求是： </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">POST http:<span class="comment">//www.example.com HTTP/1.1 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Content-Type: application/json;charset=utf<span class="number">-8</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"title"</span>:<span class="string">"test"</span>,<span class="string">"sub"</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;</span></pre></td></tr></table></figure>
+
+<p>这种方案，可以方便的提交复杂的结构化数据，特别适合 <code>RESTful</code> 的接口。各大抓包工具如 Chrome 自带的开发者工具、Firebug、Fiddler，都会以树形结构展示 JSON 数据，非常友好。但也有些服务端语言还没有支持这种方式，例如 php 就无法通过 $_POST 对象从上面的请求中获得内容。这时候，需要自己动手处理下：在请求头中 Content-Type 为 application/json 时，从 php://input 里获得原始输入流，再 json_decode 成对象。一些 php 框架已经开始这么做了。 </p>
+<p>当然 AngularJS 也可以配置为使用 x-www-form-urlencoded 方式提交数据。 </p>
+<h2 id="四、text-xml"><a href="#四、text-xml" class="headerlink" title="四、text/xml"></a>四、<code>text/xml</code></h2><p>XML-RPC（XML Remote Procedure Call）是一种使用 HTTP 作为传输协议，XML 作为编码方式的远程调用规范。典型的 XML-RPC 请求是这样的： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">POST http:<span class="comment">//www.example.com HTTP/1.1 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Content-Type: text/xml </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;!--?xml version=<span class="string">"1.0"</span>?--&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&lt;methodcall&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &lt;methodname&gt;examples.getStateName&lt;<span class="regexp">/methodname&gt; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">    &lt;params&gt; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">        &lt;param&gt; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">            &lt;value&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">            &lt;i4&gt;41&lt;/i</span>4&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            &lt;<span class="regexp">/value&gt; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="regexp">    &lt;/</span>params&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&lt;<span class="regexp">/methodcall&gt;</span></span></pre></td></tr></table></figure>
+<p>XML-RPC 协议简单、功能够用，各种语言的实现都有。它的使用也很广泛，如 WordPress 的 XML-RPC Api，搜索引擎的 ping 服务等等。JavaScript 中，也有现成的库支持以这种方式进行数据交互，能很好的支持已有的 XML-RPC 服务。不过，我个人觉得 XML 结构还是过于臃肿，一般场景用 JSON 会更灵活方便。 </p>
+<h2 id="五、应用实例"><a href="#五、应用实例" class="headerlink" title="五、应用实例"></a>五、应用实例</h2><h3 id="1-后台如果指定了解析数据类型为-Content-Type-application-json-utf-8-编码的数据，前端在发起-ajax-请求时就需要明确指出"><a href="#1-后台如果指定了解析数据类型为-Content-Type-application-json-utf-8-编码的数据，前端在发起-ajax-请求时就需要明确指出" class="headerlink" title="1. 后台如果指定了解析数据类型为 Content-Type:application/json;utf-8 编码的数据，前端在发起 ajax 请求时就需要明确指出"></a>1. 后台如果指定了解析数据类型为 <code>Content-Type:application/json;utf-8</code> 编码的数据，前端在发起 ajax 请求时就需要明确指出</h3><p>jquery 的 ajax 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sendData&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	name: <span class="string">'jesse'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  url: <span class="string">'http://xxx.com'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  type: <span class="string">'POST'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  data: <span class="built_in">JSON</span>.stringify(sendData), <span class="comment">// 这里需要把数据 JSON 序列化</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  contentType:<span class="string">'application/json;charset=utf-8'</span>, <span class="comment">// 显示指定编码格式</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  datatype: <span class="string">'json'</span> <span class="comment">// 期望后台返回的数据格式</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>如果是 nodejs 后台，并使用了 <code>bodyParser</code> 中间件，如下<br>Node.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// bodyParser 设置解析数据</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">app.use(bodyParser.json());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取数据</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">router.use(<span class="string">'/xxx'</span>,(req,res,next)=&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">let</span> name = body.name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>前端</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sendData&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	xxx:xxx</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  url: <span class="string">'http://xxx.com'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  type: <span class="string">'POST'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  data: sendData, <span class="comment">// 可以不需要 JSON 序列化</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  datatype: <span class="string">'json'</span> <span class="comment">// 期望后台返回的数据格式</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 由于 Node.js 已经使用了 bodyParser 中间件，我们在使用 ajax post 数据时可以使用默认编码格式。</span></span></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://zccst.iteye.com/blog/2180127" target="_blank" rel="noopener">jquery post时content-type的几种取值</a></li>
+<li><a href="https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data" target="_blank" rel="noopener">stack overflow</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-06-14 </div>
+			<div class="article-title"><a href="/2017/06/14/2017-06-14-前端实战开发技巧总结/" >前端实战开发技巧总结</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>本文主要是记录前端开发中用到的一些编程技巧，以备后期归纳提炼和查阅。<br>陆续的更新…</p>
+</blockquote>
+<h2 id="一、网页部分"><a href="#一、网页部分" class="headerlink" title="一、网页部分"></a>一、网页部分</h2><h3 id="1-巧用-es6-的-模板替换"><a href="#1-巧用-es6-的-模板替换" class="headerlink" title="1. 巧用 es6 的 `` 模板替换"></a>1. 巧用 es6 的 `` 模板替换</h3><p>如下面的代码，动态生成 <code>html</code> 页面元素，里面的的变量替换就是使用了 Es6 的语法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">invoiceData.forEach((item)=&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  item.formatRequestTime = item.requestTime.replace(/(\d&#123;4&#125;)(\d&#123;2&#125;)(\d&#123;2&#125;)/g, '$1-$2-$3').substr(0,10);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  invoiceListHtml += `<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"weui-cell weui-cell_access"</span> <span class="attr">href</span>=<span class="string">"$&#123;invoiceDetailUrl&#125;?from=web&amp;openId=$&#123;openId&#125;&amp;orderNo=$&#123;item.orderNo&#125;&amp;termId=$&#123;item.termId&#125;&amp;requestTime=$&#123;item.requestTime&#125;"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"weui-cell__bd"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>$&#123;item.invoice.producer.name&#125;($&#123;item.formatRequestTime&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"weui-cell__ft"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color:red"</span>&gt;</span>&amp;yen;$&#123;item.invoice.totalAmountAndTax&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;&amp;nbsp;详细<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>`</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">$invoiceList.empty();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">$invoiceList.append(invoiceListHtml);</span></pre></td></tr></table></figure>
+
+<h3 id="2-可以使用-ejs-的模板渲染传递参数"><a href="#2-可以使用-ejs-的模板渲染传递参数" class="headerlink" title="2. 可以使用 ejs 的模板渲染传递参数"></a>2. 可以使用 ejs 的模板渲染传递参数</h3><p>后端部分代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">'/invoice-list'</span>, (req, res, next) =&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">let</span> configObj = &#123;&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	configObj.name = <span class="string">'jesse'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	configObj.age= <span class="number">18</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	res.render(<span class="string">'xxx.ejs'</span>,&#123;configObj&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>前端部分代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">		<span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">%=configObj.name%</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> // html 代码中使用</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">		<span class="keyword">let</span> age = <span class="string">'&lt;%=configObj.age%&gt;'</span> <span class="comment">// js 代码中使用</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></pre></td></tr></table></figure>
+
+
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-06-11 </div>
+			<div class="article-title"><a href="/2017/06/11/2017-06-11-Css-学习札记/" >Css 学习札记</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>主要是记录学习极客学员的 CSS3 视频教程笔记，知识点比较零散，主要是为了做个备忘</p>
+</blockquote>
+<h3 id="一、选择器"><a href="#一、选择器" class="headerlink" title="一、选择器"></a>一、选择器</h3><ul>
+<li><code>*{}</code> 通配符选中所有 <strong>元素</strong></li>
+<li>h1,h2…{} 元素选择器</li>
+<li>.className{} 类选择器</li>
+<li>#idName{} id 选择器，只能有一个，不能结合使用</li>
+<li>后代选择器 空格</li>
+<li>第一子代选择器 &gt;</li>
+<li>相邻兄弟选择器</li>
+</ul>
+<ul>
+<li>h1+p{} // 如果需要选择紧接在另一个元素后的元素，而且二者有相同的父元素，可以使用相邻兄弟选择器<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">例1：如果要增加紧接在 <span class="selector-tag">h1</span> 元素后出现的段落的上边距，可以这样写：</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> + <span class="selector-tag">p</span> &#123;<span class="attribute">margin-top</span>:<span class="number">50px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">这个选择器读作：“选择紧接在 <span class="selector-tag">h1</span> 元素后出现的段落，<span class="selector-tag">h1</span> 和 <span class="selector-tag">p</span> 元素拥有共同的父元素”</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">例2：</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">div</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  &lt;<span class="selector-tag">ul</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &lt;li&gt;List item 1&lt;/li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &lt;li&gt;List item 2&lt;/li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &lt;li&gt;List item 3&lt;/li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  &lt;/ul&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  &lt;<span class="selector-tag">ol</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &lt;li&gt;List item 1&lt;/li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &lt;li&gt;List item 2&lt;/li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    &lt;li&gt;List item 3&lt;/li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  &lt;/ol&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&lt;/div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">在上面的片段中，<span class="selector-tag">div</span> 元素中包含两个列表：一个无序列表，一个有序列表，每个列表都包含三个列表项。这两个列表是相邻兄弟，列表项本身也是相邻兄弟。不过，第一个列表中的列表项与第二个列表中的列表项不是相邻兄弟，因为这两组列表项不属于同一父元素（最多只能算堂兄弟）。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">请记住，用一个结合符只能选择两个相邻兄弟中的第二个元素。请看下面的选择器：</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> + <span class="selector-tag">li</span> &#123;<span class="attribute">font-weight</span>:bold;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">上面这个选择器只会把列表中的第二个和第三个列表项变为粗体。第一个列表项不受影响。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">// ref: http://www.w3school.com.cn/css/css_selector_adjacent_sibling.asp</span></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>多类元素选择器<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">.p1&#123;color:blue&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">.p2&#123;font-size:30px&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">.p1.p2&#123;font-style:italic&#125; // 这个就是多类选择器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pp</span> <span class="attr">class</span>=<span class="string">"p1"</span>&gt;</span>hello jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pp</span> <span class="attr">class</span>=<span class="string">"p2"</span>&gt;</span>hello jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pp</span> <span class="attr">class</span>=<span class="string">"p1 p2"</span>&gt;</span>hello jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span> // 会具有，blue、30px、italic 这三个样式</span></pre></td></tr></table></figure></li>
+<li>属性选择器</li>
+</ul>
+<ul>
+<li>[title]{} // 选择元素具有 title 属性的元素 </li>
+<li>[href=”<a href="http://jessechiu.com&quot;]{}" target="_blank" rel="noopener">http://jessechiu.com&quot;]{}</a> // 只匹配属性 href 值为 “Jessechiu.com” 的元素</li>
+<li>[value~=”jesse”]{} // 匹配只要属性有 value 且值中有包含 “jesse”，类似 [value*=”jesse”]<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pp</span> <span class="attr">value</span>=<span class="string">"jesse"</span>&gt;</span>hello jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span> // 匹配</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pp</span> <span class="attr">value</span>=<span class="string">"hello jesse"</span>&gt;</span>hello jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span>// 匹配</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pp</span> <span class="attr">value</span>=<span class="string">"hello je"</span>&gt;</span>hello jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span>// 不匹配</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">``` </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">#### CSS3 选择器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">- 属性选择器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"> * [id*=jesse]&#123;&#125; // 包含 jesse </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> * [id^=jesse]&#123;&#125; // 以 jesse 开头</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"> * [id$=jesse]&#123;&#125; // 以 jesse 为结束字符</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> 注意：这里是用 id ，因为它也是元素的属性，</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">- 结构性伪类选择器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">* p:first-line&#123;&#125; // 选择第一行元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">* p:first-letter&#123;&#125; // 选择首字母</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">* li:before/after&#123; // 元素前面/后面添加内容</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">		content:"--";</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">		font-size:30px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">	&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">- 结构元素选择器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">* :root&#123;background-color:darker;&#125; // 选择文档中的 root 元素，也就是 html 部分</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">* div *:not(h1)&#123;&#125; // not 排除选择，该列是选择 div 中所有 **子类** 元素，但是不包含 h1 元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">* :empty&#123;&#125; // 用来选择没有内容的元素，通常可以来设置 table 中无值得单元格</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">* target&#123;&#125; // 用来设置用户所选择的元素样式，例如 a 元素在页内跳转</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">- li:first-child&#123;&#125; // 选择第一个元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">- li:last-child&#123;&#125; // 选择最后一个元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">- li:nth-child(3)&#123;&#125; // 根据当前元素选择下一个元素，可以传人参数：数字，odd:奇数，even:偶数，可以是 an+b 的方式来循环设置样式</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">- li:nth-last-child(3)&#123;&#125; // 上面的相反，是从尾部开始数</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">注意，如果要以组的方式计算同类元素，应该使用下面的选择器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">- h1:nth-of-type(odd)&#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">```css</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">h1</span>&gt;</span> // 设置 nth-of-type</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>kuku<span class="tag">&lt;/<span class="name">p</span>&gt;</span>	</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>kuku<span class="tag">&lt;/<span class="name">p</span>&gt;</span>	</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">h1</span>&gt;</span> // 设置 nth-of-type</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>kuku<span class="tag">&lt;/<span class="name">p</span>&gt;</span>	</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>kuku<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>li:only-child{} // 选择只有一个 li 子元素的 li 元素</p>
+</li>
+<li><p>伪类元素选择器(css3 中总共有 17 个)</p>
+</li>
+</ul>
+<ul>
+<li>input[name=”jesse”]:hover/focus/active/checked/invalid/valid{} // </li>
+<li>input[name=”jesse”]:enabled/disabled/required/selection/optional{} // </li>
+<li>input[name=”jesse”]:read-only/default/indeterminate/in-range{} // </li>
+</ul>
+<ul>
+<li>通用兄弟选择器<br>div ~ p{} // 同一父元素之中，某个元素之后，所有其它其它元素，例如<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span> // 相同的父级元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span> // 这个 div 就是指某个元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>kuku<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>kuku<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span> // 选中</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span> // 选中</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>jesse<span class="tag">&lt;/<span class="name">p</span>&gt;</span> // 选中</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3 id="二、文本样式"><a href="#二、文本样式" class="headerlink" title="二、文本样式"></a>二、文本样式</h3><ul>
+<li>text-align: center/left/right;</li>
+<li>text-wrap: normal;// 正常是换行，当时必须和 width 一起设置使用</li>
+<li>text-shadow: 1px 1px 1px blue;// 阴影距离 左、顶、清晰度、颜色，可以同时设置多个阴影</li>
+</ul>
+<h3 id="三、字体样式"><a href="#三、字体样式" class="headerlink" title="三、字体样式"></a>三、字体样式</h3><ul>
+<li>font-size: xxpx;</li>
+<li>font-family: ‘微软’ ‘宋体’;</li>
+<li>设置自定义字体<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">// 定义</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">@font-face&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	font-family: myFont</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	src:local(),url(); // 如果本地有先使用本地字体，如果没有则使用 url 地址字体</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">// 在样式中使用</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">div&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	font-family:myFont;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	// 如果在使用不同字体时，需要保持字体大小一致，可以通过下面两个属性调整</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	font-size:xpx;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	font-size-adjust:0.xxpx;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="四、a-标签样式"><a href="#四、a-标签样式" class="headerlink" title="四、a 标签样式"></a>四、a 标签样式</h3><ul>
+<li>a:link 普通的，未被访问的链接</li>
+<li>a:visisted</li>
+<li>a:hover</li>
+<li>a:active 链接被点击时</li>
+<li>text-decoration:none 用于去掉 a 标签下划线</li>
+</ul>
+<h3 id="五、list-样式"><a href="#五、list-样式" class="headerlink" title="五、list 样式"></a>五、list 样式</h3><ul>
+<li>list-style-type: none; // 可以设置列表前面的点样式，none 为无。</li>
+<li>list-style-image:url();// 可以设置列表项图标</li>
+</ul>
+<h3 id="六、表格样式"><a href="#六、表格样式" class="headerlink" title="六、表格样式"></a>六、表格样式</h3><ul>
+<li>设置表格边框为折叠边框，这样边框只显示一条线<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">table,th,td&#123;// 这里可以不用设置 tr</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	border:1px solid blue; // 表格和表头，表内容设置边框</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">table&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	border-collapse: collapse;// 折叠边框为一条线</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="七、CSS-轮廓-主要用来突出元素作用"><a href="#七、CSS-轮廓-主要用来突出元素作用" class="headerlink" title="七、CSS 轮廓 // 主要用来突出元素作用"></a>七、CSS 轮廓 // 主要用来突出元素作用</h3><ul>
+<li>outline-style:dotted;</li>
+<li>outline-color:blue;</li>
+<li>outline-width:2px; // 设置轮廓粗细</li>
+</ul>
+<h3 id="八、CSS-定位"><a href="#八、CSS-定位" class="headerlink" title="八、CSS 定位"></a>八、CSS 定位</h3><ul>
+<li>position: static/relative/absolute/fixed</li>
+<li>float: left/right/none/inherite</li>
+<li>clear: left/right/both; // 去掉浮动，受影响的元素</li>
+</ul>
+<h3 id="九、盒子模型"><a href="#九、盒子模型" class="headerlink" title="九、盒子模型"></a>九、盒子模型</h3><ul>
+<li>宽、高：是指 <strong>内容</strong> 的宽、高</li>
+<li>内边距</li>
+</ul>
+<ul>
+<li>border-style: none/silid/…; 有十种边框样式</li>
+<li>border-radius: 1px;</li>
+<li>border-shadow:1px 1px 1px blue; // 类似 text-shadow</li>
+<li>border-image: url();</li>
+</ul>
+<ul>
+<li>外边距</li>
+</ul>
+<ul>
+<li>默认为透明区域</li>
+<li>通过 margin 属性设置</li>
+<li>两个外边距合并，取大的值</li>
+</ul>
+<h3 id="十、对齐操作"><a href="#十、对齐操作" class="headerlink" title="十、对齐操作"></a>十、对齐操作</h3><ul>
+<li>margin: 0px auto; // 水平居中，前提条件需要设置 width</li>
+<li>position</li>
+<li>float</li>
+</ul>
+<h3 id="十一、常用操作"><a href="#十一、常用操作" class="headerlink" title="十一、常用操作"></a>十一、常用操作</h3><ul>
+<li>line-height: normal/200%/50%; 设置行高</li>
+<li>max-width/height: 1px; // 设置最大值，在换行是会自动拆分单词 </li>
+<li>cursor: point; // 设置鼠标样式</li>
+<li>display: inline/block; // 设置显示方式，可以把 li 设置显示为水平方式，用于导航栏</li>
+<li>visibility: visible/hidden; // 设置是否可见</li>
+<li>opacity: 0-1; // 设置图片透明度，0：完全透明，1：不透明</li>
+</ul>
+<h3 id="十二、CSS-动画"><a href="#十二、CSS-动画" class="headerlink" title="十二、CSS 动画"></a>十二、CSS 动画</h3><ul>
+<li><p>transform: translate(100px,100px); // 表示向 X 坐标、向 Y 坐标，移动</p>
+</li>
+<li><p>transform: rotate(45deg); // 旋转角度</p>
+</li>
+<li><p>transform: scale(1,2);  // 放大，第一个是 宽度，第二是高度 倍数</p>
+</li>
+<li><p>transform: skew(45deg,30deg); // 倾斜角度，向 x 轴，向 y 轴</p>
+</li>
+<li><p>transform: rotateX/Y(45deg); // 3D 旋转效果</p>
+</li>
+<li><p>过渡</p>
+</li>
+</ul>
+<ul>
+<li>transition: 5s;// 过渡时间<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">background-color</span>:blue;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	-webkit-transition:5s; // 这里设置过渡时间</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="selector-tag">transition</span>: 5<span class="selector-tag">s</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	-weibkit-transition-delay:2s; // 这里可以设置延时 2s 开始,这会导致每次触发都有延时，包含过程状态</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	<span class="selector-tag">transition-delay</span><span class="selector-pseudo">:2s</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">div:hover&#123;// 这里设置触发条件</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	<span class="selector-tag">width</span>: 200<span class="selector-tag">px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	<span class="selector-tag">height</span>: 200<span class="selector-tag">px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	-webkit-transform: rotate(300deg);// 添加过渡效果</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">	<span class="selector-tag">transform</span>: <span class="selector-tag">rotate</span>(300<span class="selector-tag">deg</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>动画</li>
+</ul>
+<ul>
+<li>animation: anim 5s infinite alternate; // anim 是动画名称，对应下面的 @keyframes 动画帧名，infinite 是无限循环，alternate 可以让动画往返动作</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div1</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">background-color</span>: green;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">-webkit-animation</span>: anim <span class="number">3s</span> infinite alternate;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="attribute">animation</span>: anim <span class="number">3s</span> infinite alternate;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	position: relative; // 这句是为了可以移动，如果不设置，动不了</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">@<span class="keyword">keyframes</span> anim&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	// 也可以使用 from、to 来设置过程变化</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	0%&#123;<span class="attribute">background</span>: green;<span class="attribute">left</span>:<span class="number">0px</span>; <span class="attribute">top</span>:<span class="number">200px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	50%&#123;<span class="attribute">background</span>: blue;<span class="attribute">left</span>:<span class="number">200px</span>; <span class="attribute">top</span>:<span class="number">200px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	100%&#123;<span class="attribute">background</span>: black;<span class="attribute">left</span>:<span class="number">200px</span>; <span class="attribute">top</span>:<span class="number">400px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">@-<span class="keyword">webkiy</span>-<span class="keyword">keyframes</span> anim&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">	0%&#123;<span class="attribute">background</span>: green;<span class="attribute">left</span>:<span class="number">0px</span>; <span class="attribute">top</span>:<span class="number">200px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">	50%&#123;<span class="attribute">background</span>: blue;<span class="attribute">left</span>:<span class="number">200px</span>; <span class="attribute">top</span>:<span class="number">200px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">	100%&#123;<span class="attribute">background</span>: black;<span class="attribute">left</span>:<span class="number">200px</span>; <span class="attribute">top</span>:<span class="number">400px</span>;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">// ref：http://www.w3school.com.cn/css3/css3_animation.asp</span></pre></td></tr></table></figure>
+
+<ul>
+<li>多</li>
+</ul>
+<ul>
+<li>columns: 200px 3; // 列宽度、列数</li>
+<li>column-gap: 10px; // 列间距</li>
+<li>column-rule：2px outset red; // 规定列之间的宽度、样式和颜色<br>// ref：<a href="http://www.w3school.com.cn/cssref/pr_columns.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/cssref/pr_columns.asp</a></li>
+</ul>
+<h3 id="十三、CSS3-盒子模型"><a href="#十三、CSS3-盒子模型" class="headerlink" title="十三、CSS3 盒子模型"></a>十三、CSS3 盒子模型</h3><ul>
+<li><p>display:inline/inline-block/block</p>
+</li>
+<li><p>display:inline-table // 可以设置 table 以 inline 方式显示</p>
+</li>
+<li><p>display:list-item// 可以设置元素按照 li 方式显示，这样就有 li 相对应的样式属性设置</p>
+</li>
+<li><p>overflow:hidden/scroll/auto // auto 会自动根据文字内容，在水平和垂直方向添加滚动条</p>
+</li>
+<li><p>overfolow-x/y:hidden/scroll/auto // 也可以单独在 x或者y 轴上设置</p>
+</li>
+<li><p>box-shadow: 1px 1px 1px red;// 设置盒子阴影，使用方法和 text-shadow 相同。</p>
+</li>
+<li><p>指定盒子大小计算方法</p>
+</li>
+</ul>
+<ul>
+<li>box-sizing: border-box;// border 和 padding 包含在盒子大小中</li>
+<li>box-sizing: content-box;// border 和 padding 不包含在盒子大小中，显示会大</li>
+</ul>
+<h3 id="十四、CSS3-背景相关属性"><a href="#十四、CSS3-背景相关属性" class="headerlink" title="十四、CSS3 背景相关属性"></a>十四、CSS3 背景相关属性</h3><ul>
+<li><p>background-clip: border-box;// 背景色充满 border 和 padding</p>
+</li>
+<li><p>background-clip: padding-box;// 背景色充满 padding</p>
+</li>
+<li><p>background-clip: content-box;// 背景色 只填充内容部分</p>
+</li>
+<li><p>background-origin:border/padding/content-box; // 代表背景从那个区域块开始绘制</p>
+</li>
+<li><p>同一元素绘制多张图片</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">div&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	background-image:url(),url();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	background-repeat:repeat-x,no-repeat;// 这里设置第一张图片 x 轴重复，第二张不重复</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	background-position: 100%,100%,center,center;// 100% 绘制，居中</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">// 显示效果，第一张图片在上面</span></pre></td></tr></table></figure></li>
+<li><p>使用图片边框，背景图片会根据里面内容自动撑开</p>
+</li>
+<li><p>-webkit-border-image:url() 10 20 10 30;<br>// ref: <a href="http://www.w3school.com.cn/cssref/pr_border-image.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/cssref/pr_border-image.asp</a></p>
+</li>
+</ul>
+<h3 id="十五、Css-使用技巧"><a href="#十五、Css-使用技巧" class="headerlink" title="十五、Css 使用技巧"></a>十五、Css 使用技巧</h3><h4 id="背景图片自适应填充"><a href="#背景图片自适应填充" class="headerlink" title="背景图片自适应填充"></a>背景图片自适应填充</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">'../../../static/img/bg_login.png'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">background-image</span>: no-repeat;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">-webkit-background-size</span>: <span class="number">100%</span> <span class="number">100%</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">100%</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">position</span>: relative;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">width</span>:<span class="number">100%</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="attribute">height</span>:<span class="number">100%</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h4 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h4><p>利用 <code>top: 50%</code>(让元素的上边界定位到父元素的50%位置)和<code>transform: translateY(-50%)</code>(让元素往上移动元素自身高度的50%).</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.vertical-center</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">position</span>: relative;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-50%);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h4 id="垂直水平居中"><a href="#垂直水平居中" class="headerlink" title="垂直水平居中"></a>垂直水平居中</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.center</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">position</span>:relative;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">top</span>:<span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">left</span>:<span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">right</span>:<span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">bottom</span>:<span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="attribute">width</span>:<span class="number">30px</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  height;30px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  <span class="selector-tag">margin</span><span class="selector-pseudo">:auto</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h4 id="加载动画框"><a href="#加载动画框" class="headerlink" title="加载动画框"></a>加载动画框</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"loadingToast"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mask_transparent"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"toast"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"loading icon-toast"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"toast-content"</span>&gt;</span>加载中...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="css"><span class="selector-class">.mask_transparent</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  position: fixed;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  z-index: 3000;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  top: 0;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  right: 0;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  left: 0;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  bottom: 0;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="css">  <span class="selector-tag">background</span>: <span class="selector-tag">rgba</span>(17, 17, 17, 0<span class="selector-class">.3</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="css"><span class="selector-class">.toast</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  position: fixed;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">  z-index: 5000;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">  width: 200px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">  height: 200px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">  top: 40%;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">  left: 50%;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="css">  <span class="selector-tag">transform</span>: <span class="selector-tag">translate</span>(<span class="selector-tag">-50</span>%,<span class="selector-tag">-50</span>%); <span class="comment">/*水平垂直居中*/</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="css">  <span class="selector-tag">background</span>: <span class="selector-tag">rgba</span>(17, 17, 17, 0<span class="selector-class">.7</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">  text-align: center;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">  border-radius: 10px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="css">  <span class="selector-tag">color</span>: <span class="selector-id">#FFFFFF</span>;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="css">  <span class="comment">/*border: 1px solid red;*/</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"><span class="css"><span class="selector-class">.loading</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">  width: 40%;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">  height: 40%;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">  display: inline-block;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">  vertical-align: middle;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">  -webkit-animation: loadingFrames 1s steps(12, end) infinite;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">          animation: loadingFrames 1s steps(12, end) infinite;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">  background-size: 100%;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"><span class="css"><span class="selector-class">.icon-toast</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">  position: relative;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">  top: 15%;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">  margin: 0 auto;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">  display: block;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line"><span class="css"><span class="selector-class">.toast-content</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">  position: relative;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line"><span class="css">  <span class="selector-tag">top</span><span class="selector-pseudo">:25</span>%;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line"><span class="css">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> loadingFrames &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">  0% &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform: rotate3d(0, 0, 1, 0deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">            transform: rotate3d(0, 0, 1, 0deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">  100% &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform: rotate3d(0, 0, 1, 360deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">            transform: rotate3d(0, 0, 1, 360deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line"><span class="css">@<span class="keyword">keyframes</span> loadingFrames &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">  0% &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform: rotate3d(0, 0, 1, 0deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line">            transform: rotate3d(0, 0, 1, 0deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line">  100% &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform: rotate3d(0, 0, 1, 360deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line">            transform: rotate3d(0, 0, 1, 360deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></pre></td></tr></table></figure>
+<h4 id="常用的-metea-设置"><a href="#常用的-metea-设置" class="headerlink" title="常用的 metea 设置"></a>常用的 metea 设置</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h4 id="relative-对-absolute-的限制"><a href="#relative-对-absolute-的限制" class="headerlink" title="relative 对 absolute 的限制"></a>relative 对 absolute 的限制</h4><ul>
+<li>限制 left/right/top/bottom 定位。// 参考位置为 relative 设置位置。</li>
+<li>限制 z-index 层级显示。// 父级 relative 的 z-index 覆盖 absolate 的设置。</li>
+<li>限制 overflow 显示。</li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-06-04 </div>
+			<div class="article-title"><a href="/2017/06/04/2017-06-04-让进程长住后台的方法/" >让进程常驻后台方法</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>我们经常会碰到这样的问题，用 telnet/ssh 登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口/网络断开连接的干扰呢？请看下面的方法介绍。</p>
+</blockquote>
+<h2 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h2><p>如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定运行呢？<br>主要有下面三个方法：</p>
+<h3 id="1-nohup"><a href="#1-nohup" class="headerlink" title="1. nohup"></a>1. <code>nohup</code></h3><p><code>nohup</code> 的用途就是让提交的命令忽略 <code>hangup</code> 信号，也就是窗口关闭时发出的信号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">nohup ping www.jessechiu.com &amp;</span></pre></td></tr></table></figure>
+
+<h3 id="2-setsid"><a href="#2-setsid" class="headerlink" title="2. setsid"></a>2. <code>setsid</code></h3><p><code>setsid</code> 是直接把进程的父进程设置为初始进场，<code>ppid:1</code>;这样即使窗口(父进程关闭)也不会受影响。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">setsid ping www.jessechiu.com</span></pre></td></tr></table></figure>
+
+<h3 id="3-ping-www-jessechou-com-amp"><a href="#3-ping-www-jessechou-com-amp" class="headerlink" title="3. (ping www.jessechou.com &amp;)"></a>3. <code>(ping www.jessechou.com &amp;)</code></h3><p>效果同 第二种 方法一样。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">(ping www.jessechou.com &amp;)</span></pre></td></tr></table></figure>
+
+<h2 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h2><p>如果事先在命令前加上 nohup 或者 setsid 就可以避免 HUP 信号的影响。但是如果我们未加任何处理就已经提交了命令，该如何补救才能让它避免 HUP 信号的影响呢？<br>可以使用 <code>disown</code> 命令解决，具体看下面两个实例</p>
+<h3 id="例-1："><a href="#例-1：" class="headerlink" title="例 1："></a>例 1：</h3><p>如果提交命令时已经用 <code>&amp;</code> 将命令放入后台运行，则可以直接使用 <code>disown</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># cp -r testLargeFile largeFile &amp;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">[1] 4825</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># jobs</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">[1]+  Running                 cp -i -r testLargeFile largeFile &amp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># disown -h %1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># ps -ef |grep largeFile</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">root      4825   968  1 09:46 pts/4    00:00:00 cp -i -r testLargeFile largeFile</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">root      4853   968  0 09:46 pts/4    00:00:00 grep largeFile</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># logout</span></span></pre></td></tr></table></figure>
+<h3 id="例-2："><a href="#例-2：" class="headerlink" title="例 2："></a>例 2：</h3><p>如果提交命令时未使用<code>&amp;</code> 将命令放入后台运行，可使用 <code>CTRL-z</code> 和 <code>bg</code> 将其放入后台，再使用 <code>disown</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># cp -r testLargeFile largeFile2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">[1]+  Stopped                 cp -i -r testLargeFile largeFile2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># bg %1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">[1]+ cp -i -r testLargeFile largeFile2 &amp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># jobs</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">[1]+  Running                 cp -i -r testLargeFile largeFile2 &amp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># disown -h %1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment"># ps -ef |grep largeFile2</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">root      5790  5577  1 10:04 pts/3    00:00:00 cp -i -r testLargeFile largeFile2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">root      5824  5577  0 10:05 pts/3    00:00:00 grep largeFile2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">[root@pvcent107 build]<span class="comment">#</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="comment">## 场景三</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">如果想在开机时自动启动，可以把需要执行的命令放到 `/etc/rc.local` 文件中</span></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/" target="_blank" rel="noopener">让进程在后台可靠运行的几种方法</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2017-06-01 </div>
 			<div class="article-title"><a href="/2017/06/01/2017-06-01-微信公众号后台服务器配置/" >微信公众号后台服务器配置</a></div>						
 		</h3>
@@ -388,474 +823,6 @@
 
            
 		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-20 </div>
-			<div class="article-title"><a href="/2017/05/20/2017-05-20-SSH-工具使用/" >SSH 工具使用</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="一、什么是-SSH"><a href="#一、什么是-SSH" class="headerlink" title="一、什么是 SSH"></a>一、什么是 SSH</h2><ul>
-<li>SSH 是英文 Secure Shell 简写，是一种加密协议</li>
-<li>是 C/S 架构</li>
-<li>可以把所有传输的数据进行加密</li>
-<li>防止攻击和 DNS\IP 欺骗</li>
-<li>传输的数据是经过压缩的，所以可以加快传输的速度</li>
-<li>可以代替Telnet，又可以为FTP、Pop、甚至为PPP提供一个安全的”通道”。</li>
-</ul>
-<h2 id="二、SSH-配置文件"><a href="#二、SSH-配置文件" class="headerlink" title="二、SSH 配置文件"></a>二、SSH 配置文件</h2><h3 id="1-liunux-中-ssh-服务端配置文件"><a href="#1-liunux-中-ssh-服务端配置文件" class="headerlink" title="1. liunux 中 ssh 服务端配置文件"></a>1. liunux 中 ssh 服务端配置文件</h3><ul>
-<li>默认路径：<code>/etc/ssh/sshd_config</code></li>
-<li>注意，如果在该目录下有 <code>/etc/ssh/ssh_config</code> 少了一个 <code>d</code> 的文件，这个是 linux 服务器中也安装了 ssh 客户端，指的就是该客户端配置文件。</li>
-</ul>
-<h3 id="2-常用的配置项说明"><a href="#2-常用的配置项说明" class="headerlink" title="2. 常用的配置项说明"></a>2. 常用的配置项说明</h3><ul>
-<li><code>Port     22</code>                                          #SSH端口设置，这里默认使用的是22端口</li>
-<li><code>Protocol    2，1</code>                                #选择SSH协议版本</li>
-<li><code>ListenAddress     0.0.0.0</code>                  #监听的网卡IP</li>
-<li><code>PermitRootLogin     no</code>                        #是否允许root登入，默认是允许的</li>
-<li><code>PasswordAuthentication yes</code>            #是否开启密码验证</li>
-<li><code>PermitEmptyPasswords no</code>              #是否允许密码为空</li>
-<li><code>PrintMotd no</code>                                        #登入后是否显示一些信息，如上次登入时间及地点等。</li>
-<li><code>PrintLastLog yes</code>                                #显示上次登入的信息</li>
-<li><code>KeepAlive yes</code>                                        #发送KeepAlive信息给客户端</li>
-<li><code>MaxStartups 10</code>                                    #允许尚未登入的联机画面数</li>
-<li><code>DenyUsers *</code>                                            #禁止用户登录，*表示所有用户</li>
-<li><code>AllowUsers *</code>                                        #允许用户登录</li>
-</ul>
-<h2 id="三、操作实战"><a href="#三、操作实战" class="headerlink" title="三、操作实战"></a>三、操作实战</h2><h3 id="1-基于口令方式认证"><a href="#1-基于口令方式认证" class="headerlink" title="1. 基于口令方式认证"></a>1. 基于口令方式认证</h3><ul>
-<li><img src="http://od6sd4xau.bkt.clouddn.com/ssh-1.png" alt="putty 输入登入 ip 地址"><br>其中的 4，5 步骤可选择跳过，建议保存，这样下次只要点击保存的会话名称，就可以直接登入到 <code>cmd</code> 界面，不用每次都输入一串 id 地址。</li>
-<li><img src="http://od6sd4xau.bkt.clouddn.com/ssh-2.png" alt="输入用户名和密码"></li>
-</ul>
-<h3 id="2-基于密钥方式认证"><a href="#2-基于密钥方式认证" class="headerlink" title="2. 基于密钥方式认证"></a>2. 基于密钥方式认证</h3><p>在 SSH 2.0 协议中支持使用密钥方式登入</p>
-<ul>
-<li><p>在 linux 服务器中使用 <code>ssh-keygen</code> 命令生成公钥与密钥<br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-3.png" alt="生成 rsa 密钥"><br>注意，在这步中生成的 <strong>authroized_keys</strong> 文件名称必须一样，不能错。</p>
-</li>
-<li><p>修改 <strong>authroized_keys</strong> 文件权限<br><code>chmod 600 authroized_keys</code>，不然会限制访问</p>
-</li>
-<li><p>通过 winscp 把生成的 <strong>id_rsa</strong> 文件拷贝到本地<br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-4.png" alt="使用 winscp 拷贝文件"><br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-5.png" alt="使用 winscp 拷贝文件"></p>
-</li>
-<li><p>使用 <code>puttygen.exe</code> 软件转换上一步的 <code>id_rsa</code> 文件为 <code>*.ppk</code> 文件,因为 <code>putty</code> 不能识别 <code>ras</code> 文件，所有需要转换下<br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-6.png" alt="puttygen.exe 转换文件"></p>
-</li>
-<li><p>设置 putty 为密钥认证方式登入<br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-7.png" alt="密钥方式登入-1"><br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-8.png" alt="密钥方式登入-2"><br><img src="http://od6sd4xau.bkt.clouddn.com/ssh-9.png" alt="密钥方式登入-3"></p>
-</li>
-<li><p>保存登入信息<br><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/ssh-10.png" alt="保存登入会话信息"></p>
-</li>
-</ul>
-<h2 id="四、对应的客户端软件"><a href="#四、对应的客户端软件" class="headerlink" title="四、对应的客户端软件"></a>四、对应的客户端软件</h2><ul>
-<li><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank" rel="noopener">putty 官网下载地址</a></li>
-<li>[Xshell]</li>
-<li>[SecureCRT]</li>
-<li>[Plink] 如果安装了 putty 客户端，默认就有该文件</li>
-<li><a href="http://winscp.net/eng/docs/lang:chs" target="_blank" rel="noopener">winscp</a> windows 图形界面操作 linux 的文件传输</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://blog.csdn.net/macrossdzh/article/details/5691924" target="_blank" rel="noopener">ssh 协议介绍</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-20 </div>
-			<div class="article-title"><a href="/2017/05/20/2017-05-20-vim-常用命令/" >Vim 常用命令</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="Vim命令合集"><a href="#Vim命令合集" class="headerlink" title="Vim命令合集"></a>Vim命令合集</h2><h3 id="命令历史"><a href="#命令历史" class="headerlink" title="命令历史"></a>命令历史</h3><p>以:和/开头的命令都有历史纪录，可以首先键入:或/然后按上下箭头来选择某个历史命令。</p>
-<h3 id="启动vim"><a href="#启动vim" class="headerlink" title="启动vim"></a>启动vim</h3><p>在命令行窗口中输入以下命令即可<br>-vim 直接启动vim<br>-vim filename 打开vim并创建名为filename的文件</p>
-<h3 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h3><p>打开单个文件</p>
-<ul>
-<li>vim file</li>
-</ul>
-<p>同时打开多个文件</p>
-<ul>
-<li>vim file1 file2 file3 …</li>
-</ul>
-<p>在 vim 窗口中打开一个新文件</p>
-<ul>
-<li>:open file</li>
-</ul>
-<p>在新窗口中打开文件</p>
-<ul>
-<li>:split file</li>
-</ul>
-<p>切换到下一个文件</p>
-<ul>
-<li>:bn</li>
-</ul>
-<p>切换到上一个文件</p>
-<ul>
-<li>:bp</li>
-</ul>
-<p>查看当前打开的文件列表，当前正在编辑的文件会用[]括起来。</p>
-<ul>
-<li>:args</li>
-</ul>
-<p>打开远程文件，比如 ftp 或者 share folder</p>
-<ul>
-<li>:e <a href="ftp://192.168.10.76/abc.txt" target="_blank" rel="noopener">ftp://192.168.10.76/abc.txt</a></li>
-<li>:e \qadrive\test\1.txt</li>
-</ul>
-<h3 id="vim-的模式"><a href="#vim-的模式" class="headerlink" title="vim 的模式"></a>vim 的模式</h3><ul>
-<li>正常模式（按Esc或Ctrl+[进入） 左下角显示文件名或为空  </li>
-<li>插入模式（按i键进入） 左下角显示–INSERT–  </li>
-<li>可视模式（不知道如何进入） 左下角显示–VISUAL–</li>
-</ul>
-<h3 id="导航命令"><a href="#导航命令" class="headerlink" title="导航命令"></a>导航命令</h3><ul>
-<li>% 括号匹配</li>
-</ul>
-<h3 id="插入命令"><a href="#插入命令" class="headerlink" title="插入命令"></a>插入命令</h3><ul>
-<li>i 在当前位置生前插入</li>
-<li>I 在当前行首插入</li>
-<li>a 在当前位置后插入</li>
-<li>A 在当前行尾插入</li>
-<li>o 在当前行之后插入一行</li>
-<li>O 在当前行之前插入一行</li>
-</ul>
-<h3 id="查找命令"><a href="#查找命令" class="headerlink" title="查找命令"></a>查找命令</h3><ul>
-<li>/text　　查找text，按n健查找下一个，按N健查找前一个。</li>
-<li>?text　　查找text，反向查找，按n健查找下一个，按N健查找前一个。</li>
-</ul>
-<p>vim 中有一些特殊字符在查找时需要转义　　.*[]^%/?~$</p>
-<ul>
-<li>:set ignorecase　　忽略大小写的查找</li>
-<li>:set noignorecase　　不忽略大小写的查找</li>
-</ul>
-<p>查找很长的词，如果一个词很长，键入麻烦，可以将光标移动到该词上，按*或#键即可以该单词进行搜索，相当于/搜索。而#命令相当于?搜索。</p>
-<ul>
-<li>:set hlsearch　　高亮搜索结果，所有结果都高亮显示，而不是只显示一个匹配。</li>
-<li>:set nohlsearch　　关闭高亮搜索显示</li>
-<li>:nohlsearch　　关闭当前的高亮显示，如果再次搜索或者按下n或N键，则会再次高亮。</li>
-<li>:set incsearch　　逐步搜索模式，对当前键入的字符进行搜索而不必等待键入完成。</li>
-<li>:set wrapscan　　重新搜索，在搜索到文件头或尾时，返回继续搜索，默认开启。</li>
-</ul>
-<h3 id="替换命令"><a href="#替换命令" class="headerlink" title="替换命令"></a>替换命令</h3><ul>
-<li>ra 将当前字符替换为a，当期字符即光标所在字符。</li>
-<li>s/old/new/ 用old替换new，替换当前行的第一个匹配</li>
-<li>s/old/new/g 用old替换new，替换当前行的所有匹配</li>
-<li>%s/old/new/ 用old替换new，替换所有行的第一个匹配</li>
-<li>%s/old/new/g 用old替换new，替换整个文件的所有匹配</li>
-<li>:10,20 s/^/    /g 在第10行知第20行每行前面加四个空格，用于缩进。</li>
-<li>ddp 交换光标所在行和其下紧邻的一行。</li>
-</ul>
-<h3 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h3><ul>
-<li><p>h 左移一个字符  </p>
-</li>
-<li><p>l 右移一个字符，这个命令很少用，一般用w代替。  </p>
-</li>
-<li><p>k 上移一个字符  </p>
-</li>
-<li><p>j 下移一个字符<br>以上四个命令可以配合数字使用，比如20j就是向下移动20行，5h就是向左移动5个字符，在Vim中，很多命令都可以配合数字使用，比如删除10个字符10x，在当前位置后插入3个！，3a！<Esc>，这里的Esc是必须的，否则命令不生效。</p>
-</li>
-<li><p>w 向前移动一个单词（光标停在单词首部），如果已到行尾，则转至下一行行首。此命令快，可以代替l命令。</p>
-</li>
-<li><p>b 向后移动一个单词 2b 向后移动2个单词</p>
-</li>
-<li><p>e，同w，只不过是光标停在单词尾部</p>
-</li>
-<li><p>ge，同b，光标停在单词尾部。</p>
-</li>
-<li><p>^ 移动到本行第一个非空白字符上。</p>
-</li>
-<li><p>0（数字0）移动到本行第一个字符上，</p>
-</li>
-<li><p><HOME> 移动到本行第一个字符。同0健。</p>
-</li>
-<li><p>$ 移动到行尾 3$ 移动到下面3行的行尾</p>
-</li>
-<li><p>gg 移动到文件头。 = [[ </p>
-</li>
-<li><p>G（shift + g） 移动到文件尾。 = ]] </p>
-</li>
-<li><p>f（find）命令也可以用于移动，fx将找到光标后第一个为x的字符，3fd将找到第三个为d的字符。</p>
-</li>
-<li><p>F 同f，反向查找。</p>
-</li>
-</ul>
-<p>跳到指定行，冒号+行号，回车，比如跳到240行就是 :240回车。另一个方法是行号+G，比如230G跳到230行。</p>
-<ul>
-<li>Ctrl + e 向下滚动一行</li>
-<li>Ctrl + y 向上滚动一行</li>
-<li>Ctrl + d 向下滚动半屏</li>
-<li>Ctrl + u 向上滚动半屏</li>
-<li>Ctrl + f 向下滚动一屏</li>
-<li>Ctrl + b 向上滚动一屏</li>
-</ul>
-<h3 id="撤销和重做"><a href="#撤销和重做" class="headerlink" title="撤销和重做"></a>撤销和重做</h3><ul>
-<li>u 撤销（Undo）  </li>
-<li>U 撤销对整行的操作  </li>
-<li>Ctrl + r 重做（Redo），即撤销的撤销。</li>
-</ul>
-<h3 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h3><ul>
-<li>x 删除当前字符</li>
-<li>3x 删除当前光标开始向后三个字符</li>
-<li>X 删除当前字符的前一个字符。X=dh</li>
-<li>dl 删除当前字符， dl=x</li>
-<li>dh 删除前一个字符</li>
-<li>dd 删除当前行</li>
-<li>dj 删除上一行</li>
-<li>dk 删除下一行</li>
-<li>10d 删除当前行开始的10行。</li>
-<li>D 删除当前字符至行尾。D=d$</li>
-<li>d$ 删除当前字符之后的所有字符（本行）</li>
-<li>kdgg 删除当前行之前所有行（不包括当前行）</li>
-<li>jdG（jd shift + g）   删除当前行之后所有行（不包括当前行）</li>
-<li>:1,10d 删除1-10行</li>
-<li>:11,$d 删除11行及以后所有的行</li>
-<li>:1,$d 删除所有行</li>
-<li>J(shift + j)　　删除两行之间的空行，实际上是合并两行。</li>
-</ul>
-<h3 id="拷贝和粘贴"><a href="#拷贝和粘贴" class="headerlink" title="拷贝和粘贴"></a>拷贝和粘贴</h3><ul>
-<li>yy 拷贝当前行</li>
-<li>nyy 拷贝当前后开始的n行，比如2yy拷贝当前行及其下一行。</li>
-<li>p  在当前光标后粘贴,如果之前使用了yy命令来复制一行，那么就在当前行的下一行粘贴。</li>
-<li>shift+p 在当前行前粘贴</li>
-<li>:1,10 co 20 将1-10行插入到第20行之后。</li>
-<li>:1,$ co $ 将整个文件复制一份并添加到文件尾部。</li>
-</ul>
-<p>正常模式下按v（逐字）或V（逐行）进入可视模式，然后用jklh命令移动即可选择某些行或字符，再按y即可复制</p>
-<ul>
-<li>ddp交换当前行和其下一行</li>
-<li>xp交换当前字符和其后一个字符</li>
-</ul>
-<h3 id="剪切命令"><a href="#剪切命令" class="headerlink" title="剪切命令"></a>剪切命令</h3><ul>
-<li>正常模式下按v（逐字）或V（逐行）进入可视模式，然后用jklh命令移动即可选择某些行或字符，再按d即可剪切</li>
-<li>ndd 剪切当前行之后的n行。利用p命令可以对剪切的内容进行粘贴</li>
-<li>:1,10d 将1-10行剪切。利用p命令可将剪切后的内容进行粘贴。</li>
-<li>:1, 10 m 20 将第1-10行移动到第20行之后。</li>
-</ul>
-<h3 id="退出命令"><a href="#退出命令" class="headerlink" title="退出命令"></a>退出命令</h3><ul>
-<li>:wq 保存并退出</li>
-<li>ZZ 保存并退出</li>
-<li>:q! 强制退出并忽略所有更改</li>
-<li>:e! 放弃所有修改，并打开原来文件。</li>
-</ul>
-<h3 id="窗口命令"><a href="#窗口命令" class="headerlink" title="窗口命令"></a>窗口命令</h3><p>:split或new 打开一个新窗口，光标停在顶层的窗口上<br>:split file或:new file 用新窗口打开文件<br>split打开的窗口都是横向的，使用vsplit可以纵向打开窗口。<br>Ctrl+ww 移动到下一个窗口<br>Ctrl+wj 移动到下方的窗口<br>Ctrl+wk 移动到上方的窗口</p>
-<h3 id="关闭窗口"><a href="#关闭窗口" class="headerlink" title="关闭窗口"></a>关闭窗口</h3><ul>
-<li>:close 最后一个窗口不能使用此命令，可以防止意外退出vim。</li>
-<li>:q 如果是最后一个被关闭的窗口，那么将退出vim。</li>
-<li>ZZ 保存并退出。</li>
-</ul>
-<p>关闭所有窗口，只保留当前窗口</p>
-<ul>
-<li>:only</li>
-</ul>
-<p>录制宏</p>
-<ul>
-<li>按q键加任意字母开始录制，再按q键结束录制（这意味着vim中的宏不可嵌套），使用的时候@加宏名，比如qa。。。q录制名为a的宏，@a使用这个宏。</li>
-</ul>
-<h3 id="执行shell命令"><a href="#执行shell命令" class="headerlink" title="执行shell命令"></a>执行shell命令</h3><ul>
-<li>:!command</li>
-<li>:!ls 列出当前目录下文件</li>
-<li>:!perl -c script.pl 检查perl脚本语法，可以不用退出vim，非常方便。</li>
-<li>:!perl script.pl 执行perl脚本，可以不用退出vim，非常方便。</li>
-<li>:suspend或Ctrl - Z 挂起vim，回到shell，按fg可以返回vim。</li>
-</ul>
-<h3 id="注释命令"><a href="#注释命令" class="headerlink" title="注释命令"></a>注释命令</h3><ul>
-<li>perl程序中#开始的行为注释，所以要注释某些行，只需在行首加入#</li>
-<li>3,5 s/^/#/g 注释第3-5行</li>
-<li>3,5 s/^#//g 解除3-5行的注释</li>
-<li>1,$ s/^/#/g 注释整个文档。</li>
-<li>:%s/^/#/g 注释整个文档，此法更快。</li>
-</ul>
-<h3 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h3><ul>
-<li>:help or F1 显示整个帮助  </li>
-<li>:help xxx 显示xxx的帮助，比如 :help i, :help CTRL-[（即Ctrl+[的帮助）。  </li>
-<li>:help ‘number’ Vim选项的帮助用单引号括起  </li>
-<li>:help <Esc> 特殊键的帮助用&lt;&gt;扩起  </li>
-<li>:help -t Vim启动参数的帮助用-  </li>
-<li>：help i_<Esc> 插入模式下Esc的帮助，某个模式下的帮助用模式_主题的模式<br>帮助文件中位于||之间的内容是超链接，可以用Ctrl+]进入链接，Ctrl+o（Ctrl + t）返回</li>
-</ul>
-<h3 id="其他非编辑命令"><a href="#其他非编辑命令" class="headerlink" title="其他非编辑命令"></a>其他非编辑命令</h3><ul>
-<li>. 重复前一次命令</li>
-<li>:set ruler?　　查看是否设置了ruler，在.vimrc中，使用set命令设制的选项都可以通过这个命令查看</li>
-<li>:scriptnames　　查看vim脚本文件的位置，比如.vimrc文件，语法文件及plugin等。</li>
-<li>:set list 显示非打印字符，如tab，空格，行尾等。如果tab无法显示，请确定用set - lcs=tab:&gt;-命令设置了.vimrc文件，并确保你的文件中的确有tab，如果开启了expendtab，那么tab将被扩展为空格。</li>
-</ul>
-<h3 id="Vim-教程"><a href="#Vim-教程" class="headerlink" title="Vim 教程"></a>Vim 教程</h3><p>在Unix系统上  </p>
-<ul>
-<li>$ vimtutor  </li>
-</ul>
-<p>在Windows系统上  </p>
-<ul>
-<li>:help tutor  </li>
-<li>:syntax 列出已经定义的语法项  </li>
-<li>:syntax clear 清除已定义的语法规则  </li>
-<li>:syntax case match 大小写敏感，int和Int将视为不同的语法元素  </li>
-<li>:syntax case ignore 大小写无关，int和Int将视为相同的语法元素，并使用同样的配色方案</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://www.cnblogs.com/softwaretesting/archive/2011/07/12/2104435.html" target="_blank" rel="noopener">vim 命令集合</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-03 </div>
-			<div class="article-title"><a href="/2017/05/03/2017-05-03-微信-JSSDK-调用实例/" >微信 JSSDK 调用实例</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>有时我们需要在网页中调用微信的一些功能，例如，打开摄像头扫描，分享好友的微信功能，这时就需要在网页中调用 <code>jssdk</code>,但是这需要一个认证过程，本文主要就会是对微信公众号网页开发中调用 <code>jssdk</code> 备忘，后台语言 <code>nodejs</code>。</p>
-<h2 id="一、JS-接口安全域名填写"><a href="#一、JS-接口安全域名填写" class="headerlink" title="一、JS 接口安全域名填写"></a>一、JS 接口安全域名填写</h2><p>登入公众号后台管理系统 -&gt; 公众号设置 -&gt; 功能设置，设置 <strong>JS接口安全域名设置</strong>。这里需要注意的是，域名必须是 <strong>一级域名</strong>，且只能是域名部分，例如: <code>jessechiu.com</code>,不能包含有 <code>http://</code> 等其它部分。<br>ps: 回测验证可以支持二级域名: <code>test.jessechiu.com</code></p>
-<h2 id="二、后端代码部分"><a href="#二、后端代码部分" class="headerlink" title="二、后端代码部分"></a>二、后端代码部分</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// nodejs 部分</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 config 签名认证信息入口</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">router.all(<span class="string">'/jssdk-config'</span>,(req,res,next)=&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">'req.body.url: '</span> \+ req.body.url);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	tools.getJsConfig(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">		debug: <span class="literal">false</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">		jsApiList: [<span class="string">'scanQRCode'</span>, <span class="string">'chooseImage'</span>],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">		url: req.body.url</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">		res.send(result)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	.catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要调用 jssdk 函数的页面入口</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">'/jssdk-demo'</span>, (req, res, next) =&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">	res.render(<span class="string">'jssdk-demo'</span>, &#123;&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-
-<h2 id="三、网页部分代码"><a href="#三、网页部分代码" class="headerlink" title="三、网页部分代码"></a>三、网页部分代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>绑定手机号<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,user-scalable=0"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/static/stylesheets/style.css"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://res.wx.qq.com/open/js/jweixin-1.0.0.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"scan"</span>&gt;</span>调用扫描<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"uploadImg"</span>&gt;</span>上传图片<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">        $.ajax(&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            url: <span class="string">'http://jessechiu.com/jssdk-config/'</span>, <span class="comment">// 请求签名认证数据地址</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            type: <span class="string">'POST'</span>,</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">            data: &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                <span class="string">'cmd'</span>: <span class="string">'get_js_config'</span>,</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                <span class="string">'url'</span>: <span class="string">'http://jessechiu.com/jssdk-demo/'</span> <span class="comment">// 这里的地址需要更换为你要使用 jssk api 的网页地址，也就是本文件的网址</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            &#125;, <span class="comment">// 需要调用 jssdk 的地址，也就是本网页地址</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            datatype: <span class="string">'json'</span>,</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">                handleJsConfig(data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">handleJsConfig</span><span class="params">(data)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'handleJsConfig(): '</span>\ + <span class="built_in">JSON</span>.stringify(data));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            <span class="comment">// 从后台得到签名认证信息，进行认证</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">            wx.config(data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            <span class="comment">// 认证出错时调用</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            wx.error(<span class="function"><span class="keyword">function</span><span class="params">(res)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">'wx.error(): '</span>\ + <span class="built_in">JSON</span>.stringify(res));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                <span class="comment">// alert('wx.error: ' \+ JSON.stringify(res));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">            &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            <span class="comment">// 认证结束时调用，所以调用 sdk 中的函数需要写在此回调函数中</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            wx.ready(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">'wx.ready()'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">                wx.checkJsApi(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                    jsApiList: [<span class="string">'scanQRCode'</span>, <span class="string">'chooseImage'</span>], <span class="comment">// 需要检测的JS接口列表，所有JS接口列表见附录2,</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                    success: <span class="function"><span class="keyword">function</span><span class="params">(res)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                        <span class="built_in">console</span>.log(<span class="string">'success: '</span>\ + <span class="built_in">JSON</span>.stringify(res));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        <span class="comment">// alert(JSON.stringify(res));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">                    &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                    fail: <span class="function"><span class="keyword">function</span><span class="params">(err)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        <span class="comment">// alert('fail: ' \+ JSON.stringify(err));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                        <span class="built_in">console</span>.log(<span class="string">'fail: '</span>\ + <span class="built_in">JSON</span>.stringify(err));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">                    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">                &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                <span class="keyword">let</span> scanBtn = <span class="built_in">document</span>.getElementById(<span class="string">'scan'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                <span class="keyword">let</span> uploadImgBtn = <span class="built_in">document</span>.getElementById(<span class="string">'uploadImg'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                scanBtn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">                    wx.scanQRCode(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        needResult: <span class="number">0</span>, <span class="comment">// 默认为0，扫描结果由微信处理，1则直接返回扫描结果，</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        scanType: [<span class="string">"qrCode"</span>, <span class="string">"barCode"</span>], <span class="comment">// 可以指定扫二维码还是一维码，默认二者都有</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        success: <span class="function"><span class="keyword">function</span><span class="params">(res)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                            <span class="keyword">var</span> result = res.resultStr; <span class="comment">// 当ne</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">                            edResult 为 1 时， 扫码返回的结果</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                            <span class="built_in">console</span>.log(<span class="string">'success: '</span>\ + <span class="built_in">JSON</span>.stringify(res));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                            <span class="comment">// alert('success: ' \+ JSON.stringify(res));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line">                        &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        fail: <span class="function"><span class="keyword">function</span><span class="params">(err)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                            <span class="comment">// alert('fail: ' \+ JSON.stringify(err));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                            <span class="built_in">console</span>.log(<span class="string">'fail: '</span>\ + <span class="built_in">JSON</span>.stringify(err));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line">                        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line">                    &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">73</span></pre></td><td class="code"><pre><span class="line">                &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">74</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                uploadImgBtn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">75</span></pre></td><td class="code"><pre><span class="line">                    wx.chooseImage(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">76</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        count: <span class="number">1</span>, <span class="comment">// 默认9</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">77</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        sizeType: [<span class="string">'original'</span>, <span class="string">'compressed'</span>], <span class="comment">// 可以指定是原图还是压缩图，默认二者都有</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">78</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        sourceType: [<span class="string">'album'</span>, <span class="string">'camera'</span>], <span class="comment">// 可以指定来源是相册还是相机，默认二者都有</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">79</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        success: <span class="function"><span class="keyword">function</span><span class="params">(res)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">80</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                            <span class="keyword">var</span> localIds = res.localIds; <span class="comment">//返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">81</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                            <span class="built_in">console</span>.log(<span class="string">'success: '</span>\ + <span class="built_in">JSON</span>.stringify(res));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">82</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                            <span class="comment">// alert('success: ' \+ JSON.stringify(res));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">83</span></pre></td><td class="code"><pre><span class="line">                        &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">84</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                        fail: <span class="function"><span class="keyword">function</span><span class="params">(err)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">85</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">                            <span class="comment">// alert('fail: ' \+ JSON.stringify(err));</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">86</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">                            <span class="built_in">console</span>.log(<span class="string">'fail: '</span>\ + <span class="built_in">JSON</span>.stringify(err));</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">87</span></pre></td><td class="code"><pre><span class="line">                        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">88</span></pre></td><td class="code"><pre><span class="line">                    &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">89</span></pre></td><td class="code"><pre><span class="line">                &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">90</span></pre></td><td class="code"><pre><span class="line">            &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">91</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">92</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">93</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">94</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">95</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></pre></td></tr></table></figure>
-
-<h2 id="四、错误排查"><a href="#四、错误排查" class="headerlink" title="四、错误排查"></a>四、错误排查</h2><h3 id="1-config-invalid-signature"><a href="#1-config-invalid-signature" class="headerlink" title="1. config:invalid signature"></a>1. <code>config:invalid signature</code></h3><p>如果是invalid signature签名错误。建议按如下顺序检查：<br>1.确认签名算法正确，可用 <code>http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign</code> 页面工具进行校验。<br>2.确认 <code>config</code> 中 <code>nonceStr（js中驼峰标准大写S）</code>, <code>timestamp</code> 与用以签名中的对应 <code>noncestr</code>, <code>timestamp</code> 一致。<br>3.确认 <code>url</code> 是页面完整的 <code>url(请在当前页面 alert(location.href.split(&#39;#&#39;)[0])</code> 确认，包括 <code>http(s)://</code> 部分，以及 <code>?</code> 后面的 <code>GET</code> 参数部分,但不包括 <code>#hash</code>后面的部分。<br>4.确认 <code>config</code> 中的 <code>appid</code> 与用来获取 <code>jsapi_ticket</code> 的 <code>appid</code> 一致。<br>5.确保一定缓存 <code>access_token</code> 和 <code>jsapi_ticket</code></p>
-<h3 id="2-分享给朋友接口没反应"><a href="#2-分享给朋友接口没反应" class="headerlink" title="2. 分享给朋友接口没反应"></a>2. 分享给朋友接口没反应</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shareMessage</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  wx.onMenuShareAppMessage(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">      title: <span class="string">''</span>, <span class="comment">// 分享标题</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      desc: <span class="string">''</span>, <span class="comment">// 分享描述</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      link: <span class="string">''</span>, <span class="comment">// 分享链接，该链接域名必须与当前企业的可信域名一致</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">      imgUrl: <span class="string">''</span>, <span class="comment">// 分享图标</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">      type: <span class="string">''</span>, <span class="comment">// 分享类型,music、video或link，不填默认为link</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">      dataUrl: <span class="string">''</span>, <span class="comment">// 如果type是music或video，则要提供数据链接，默认为空</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      success: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">          <span class="comment">// 用户确认分享后执行的回调函数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">      &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">      cancel: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">          <span class="comment">// 用户取消分享后执行的回调函数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-<p>jssdk 的认证都 ok，但是点击调用上面的的函数界面就是没有反应。如果你也碰到这个问题，说明没理解该 API 的用处，也算是个坑吧。<br>正确的理解应该是: <code>分享给朋友 接口不是指直接能够分享朋友圈，而是指它会改变右上角菜单里的分享内容</code>; <a href="http://qydev.weixin.qq.com/qa/index.php?qa=6428&qa_1=%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%B2%A1%E6%9C%89%E4%BB%BB%E4%BD%95%E5%8F%8D%E5%BA%94%EF%BC%8C%E4%BD%BF%E7%94%A8checkjsapi%E6%A3%80%E6%B5%8B%E6%8E%A5%E5%8F%A3%EF%BC%8C%E8%BF%94%E5%9B%9Etrue&show=6428#q6428" target="_blank" rel="noopener">参考</a></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html" target="_blank" rel="noopener">微信JS-SDK说明文档</a></li>
-<li><a href="http://blog.csdn.net/sinat_29843547/article/details/49357193" target="_blank" rel="noopener">nodejs jssdk 调用参考实例</a></li>
-<li><a href="http://www.thinkphp.cn/code/1568.html" target="_blank" rel="noopener">微信config:invalid signature这个错误的解决办法</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-02 </div>
-			<div class="article-title"><a href="/2017/05/02/2017-05-02-微信网页授权认证实例/" >微信网页授权认证实例</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>本文记录，微信网页认证调试过程，开发环境 <code>node.js</code></p>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">bash $ npm install wechat-oauth</span></pre></td></tr></table></figure>
-
-<h2 id="二、node-js-中引入"><a href="#二、node-js-中引入" class="headerlink" title="二、node.js 中引入"></a>二、node.js 中引入</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> OAuth = <span class="built_in">require</span>(<span class="string">'wechat-oauth'</span>); <span class="keyword">var</span> client = <span class="keyword">new</span> OAuth(<span class="string">'your appid'</span>, <span class="string">'your secret'</span>);</span></pre></td></tr></table></figure>
-
-<p>上面的 <code>your appid</code> 是你公众号的 id，<code>your secret</code> 是你公众号密钥，在公众号后台都可以查看到</p>
-<h2 id="三、转换网址"><a href="#三、转换网址" class="headerlink" title="三、转换网址"></a>三、转换网址</h2><p>在微信中跳转到外部链接，如果需要在该页面获取到微信用户的 <code>openid</code> 或者 <code>userinfo</code> 就需要微信授权。 所以首先需要把跳转的页面地址转换为带参数的认证过的网址。 <code>js let authUrl = client.getAuthorizeURL(redirect, state, scope);</code></p>
-<ul>
-<li>redirect: 需要跳转的页面地址</li>
-<li>state: 可自定义传递参数，长度不能超过 128 字节</li>
-<li>scope：<code>snsapi_base</code>：只获取 <code>openid</code> ; <code>snsapi_userinfo</code>: 还可以获取微信用户信息。</li>
-</ul>
-<p>例如: </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> authUrl = client.getAuthorizeURL(<span class="string">'http://jessechiu.com/wechat'</span>, <span class="string">'hello'</span>, <span class="string">'userinfo'</span>); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// authUrl: https://open.weixin.qq.com/connect/oauth2/authorize?appi d=wx7a1c56bbd19d157e&amp;redirect_uri=http%3A%2F%2Fjessechiu.com%2Fwechat&amp;response_ type=code&amp;scope=snsapi_userinfo&amp;state=hello#wechat_redirect</span></span></pre></td></tr></table></figure>
-
-<p><strong>注意：官方文档规定，转换后的网址长度不能超过 256 字节</strong></p>
-<h2 id="四、获取用户信息"><a href="#四、获取用户信息" class="headerlink" title="四、获取用户信息"></a>四、获取用户信息</h2><p>在上步生成的 <code>authUrl</code> 地址，当用户点击或者从菜单 <code>VIEW</code> 事件进入时，可以通过后台的对应路由获取对应的参数信息，进而获取用户的 <code>openid</code> 和 <code>userinfo</code> 信息。 </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">'/wechat'</span>,(req,res,next)=&gt;&#123; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">let</span> code = req.query.code; <span class="comment">// 该值有微信后台生成，用来后面函数操作 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">let</span> state = req.query.state;<span class="comment">// 网址转换时传人的参数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">'\n /wechat -&gt; req.query.code: '</span> \+ code); <span class="built_in">console</span>.log(<span class="string">'\n /wechat -&gt; req.query.state: '</span> \+ state);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	tools.getAuthorizeOpenid(code)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	.then(tools.getAuthorizeUserinfo)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	.then(<span class="function">(<span class="params">userinfo</span>)=&gt;</span>&#123; res.render(<span class="string">'wechat'</span>,&#123;&#125;); &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	.catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.error(<span class="string">'\n err: '</span> \+ <span class="built_in">JSON</span>.stringify(err)); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	&#125;); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://mp.weixin.qq.com/wiki/9/01f711493b5a02f24b04365ac5d8fd95.html" target="_blank" rel="noopener">网页授权获取用户基本信息</a></li>
-<li><a href="https://github.com/node-webot/wechat-oauth" target="_blank" rel="noopener">wechat-oauth git</a></li>
-<li><a href="http://doxmate.cool/node-webot/wechat-oauth/api.html" target="_blank" rel="noopener">微信公共平台 OAuth API 文档</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-04-14 </div>
-			<div class="article-title"><a href="/2017/04/14/2017-04-14-node-js-repl/" >repl 模块</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>repl</code>模块用于在程序内提供REPL在线环境。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> repl = <span class="built_in">require</span>(<span class="string">'repl'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">i</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> context = repl.start(<span class="string">'repl&gt; '</span>).context;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  context.pi  = <span class="number">3.14</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  context.arg = i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">a(<span class="number">3</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// repl&gt; pi</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.14</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// repl&gt; arg</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// repl&gt;</span></span></pre></td></tr></table></figure>
-
-<p>上面代码通过<code>repl.start</code>方法，启动REPL环境。<code>repl.start</code>方法还可以通过参数，定制提示符。REPL实例对象的<code>context</code>对象的属性，可以在REPL环境内读取。</p>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-04-14 </div>
-			<div class="article-title"><a href="/2017/04/14/2017-04-14-node-js-url/" >url 模块</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p><code>url</code>模块用于生成和解析URL。该模块使用前，必须加载。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────────────────────────────────────────────────────────┐</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">│                                            href                                             │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">├──────────┬──┬─────────────────────┬─────────────────────┬───────────────────────────┬───────┤</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">│ protocol │  │        auth         │        host         │           path            │ hash  │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">│          │  │                     ├──────────────┬──────┼──────────┬────────────────┤       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">│          │  │                     │   hostname   │ port │ pathname │     search     │       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">│          │  │                     │              │      │          ├─┬──────────────┤       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">│          │  │                     │              │      │          │ │    query     │       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="string">"  https:   //    user   :   pass   @ sub.host.com : 8080   /p/a/t/h  ?  query=string   #hash "</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">│          │  │          │          │   hostname   │ port │          │                │       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">│          │  │          │          ├──────────────┴──────┤          │                │       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">│ protocol │  │ username │ password │        host         │          │                │       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">├──────────┴──┼──────────┴──────────┼─────────────────────┤          │                │       │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">│   origin    │                     │       origin        │ pathname │     search     │ hash  │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">├─────────────┴─────────────────────┴─────────────────────┴──────────┴────────────────┴───────┤</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">│                                            href                                             │</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">└─────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">'url'</span>);</span></pre></td></tr></table></figure>
-
-<h2 id="url-parse"><a href="#url-parse" class="headerlink" title="url.parse()"></a>url.parse()</h2><p><code>url.parse()</code> 将一个 URL 字符串转换为URL对象</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">url.parse(<span class="string">'http://user:pass@host.com:8080/p/a/t/h?query=string#hash'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">protocol</span>: <span class="string">'http:'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  auth: <span class="string">'user:pass'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  host: <span class="string">'host.com:8080'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  port: <span class="string">'8080'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  hostname: <span class="string">'host.com'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  hash: <span class="string">'#hash'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  search: <span class="string">'?query=string'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  query: <span class="string">'query=string'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  pathname: <span class="string">'/p/a/t/h'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  path: <span class="string">'/p/a/t/h?query=string'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  href: <span class="string">'http://user:pass@host.com:8080/p/a/t/h?query=string#hash'</span> &#125;</span></pre></td></tr></table></figure>
-
-<h2 id="url-format"><a href="#url-format" class="headerlink" title="url.format()"></a>url.format()</h2><p><code>url.format()</code> 方法允许将一个 URL 对象转换为 URL 字符串</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">url.format(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">     protocol: <span class="string">'http:'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">     host: <span class="string">'www.example.com'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">     pathname: <span class="string">'/p/a/t/h'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">     search: <span class="string">'query=string'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"> &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="string">'http://www.example.com/p/a/t/h?query=string'</span></span></pre></td></tr></table></figure>
-
-<h2 id="url-resolve-from-to"><a href="#url-resolve-from-to" class="headerlink" title="url.resolve(from, to)"></a>url.resolve(from, to)</h2><p><code>url.resolve</code>方法用于生成URL。它的第一个参数是基准URL，其余参数依次根据基准URL，生成对应的位置。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">url.resolve(<span class="string">'/one/two/three'</span>, <span class="string">'four'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// '/one/two/four'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">url.resolve(<span class="string">'http://example.com/'</span>, <span class="string">'/one'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 'http://example.com/one'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">url.resolve(<span class="string">'http://example.com/one/'</span>, <span class="string">'two'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 'http://example.com/one/two'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">url.resolve(<span class="string">'http://example.com/one'</span>, <span class="string">'/two'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 'http://example.com/two'</span></span></pre></td></tr></table></figure>
-
-	
-	</div>
-</div>
-
-           
-		
 
 		</div>
 
@@ -908,7 +875,7 @@
 		
 			<li><a href="/categories/AliPay/">AliPay<span>1</span></a></li>
 		
-			<li><a href="/categories/Android/">Android<span>14</span></a></li>
+			<li><a href="/categories/Android/">Android<span>15</span></a></li>
 		
 			<li><a href="/categories/AngularJS/">AngularJS<span>4</span></a></li>
 		
@@ -926,7 +893,7 @@
 		
 			<li><a href="/categories/Css3/">Css3<span>4</span></a></li>
 		
-			<li><a href="/categories/Database/">Database<span>4</span></a></li>
+			<li><a href="/categories/Database/">Database<span>7</span></a></li>
 		
 			<li><a href="/categories/Design/">Design<span>1</span></a></li>
 		
@@ -952,7 +919,9 @@
 		
 			<li><a href="/categories/Powershell/">Powershell<span>1</span></a></li>
 		
-			<li><a href="/categories/Python/">Python<span>3</span></a></li>
+			<li><a href="/categories/Programming/">Programming<span>1</span></a></li>
+		
+			<li><a href="/categories/Python/">Python<span>4</span></a></li>
 		
 			<li><a href="/categories/Read/">Read<span>9</span></a></li>
 		
@@ -977,48 +946,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
 			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
 		
-			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
-		
-			<li><a href="/tags/Karma/">Karma<span>1</span></a></li>
-		
-			<li><a href="/tags/Document/">Document<span>8</span></a></li>
-		
-			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
-		
-			<li><a href="/tags/Performence/">Performence<span>1</span></a></li>
-		
-			<li><a href="/tags/synology/">synology<span>1</span></a></li>
-		
-			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
-		
-			<li><a href="/tags/Library/">Library<span>7</span></a></li>
-		
-			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
-		
-			<li><a href="/tags/django/">django<span>1</span></a></li>
-		
-			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
-		
-			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
-		
-			<li><a href="/tags/Android/">Android<span>3</span></a></li>
-		
-			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
-		
-			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
+			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
 		
 			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
 		
+			<li><a href="/tags/children/">children<span>1</span></a></li>
+		
+			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+		
+			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
+		
+			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
+		
+			<li><a href="/tags/sqlite/">sqlite<span>3</span></a></li>
+		
+			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
+		
+			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
+		
+			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
+		
+			<li><a href="/tags/gradle/">gradle<span>1</span></a></li>
+		
+			<li><a href="/tags/scrapy/">scrapy<span>1</span></a></li>
+		
+			<li><a href="/tags/Document/">Document<span>8</span></a></li>
+		
+			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+		
+			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
+		
+			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
+		
 			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
 		
-			<li><a href="/tags/MySQL/">MySQL<span>1</span></a></li>
+			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>25</span></a></li>
+		   <li><a href="/tags">...<span>29</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1031,23 +1000,23 @@
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2020/11/12/2020-11-10-django.starting/" ><i class="fa fa-file-o"></i>Django Starting</a>
+        <a href="/2021/01/15/2021-01-15-children-programming/" ><i class="fa fa-file-o"></i>Children Programming</a>
       </li>
     
       <li>
-        <a href="/2020/11/10/2020-11-10-docker.starting/" ><i class="fa fa-file-o"></i>Docker Starting</a>
+        <a href="/2020/11/30/2020-11-30-android-gradle/" ><i class="fa fa-file-o"></i>Gradle</a>
       </li>
     
       <li>
-        <a href="/2020/11/09/2020-11-09-android.sparseArray.arrayMap/" ><i class="fa fa-file-o"></i>性能优化:使用SparseArray和ArrayMap...</a>
+        <a href="/2020/11/29/2020-11-29-scrapy/" ><i class="fa fa-file-o"></i>Scrapy</a>
       </li>
     
       <li>
-        <a href="/2020/09/10/2020-09-10-synology/" ><i class="fa fa-file-o"></i>Synology</a>
+        <a href="/2020/11/26/2020-11-26-database-sqlite-exercise/" ><i class="fa fa-file-o"></i>SQLite Exercises</a>
       </li>
     
       <li>
-        <a href="/2019/12/10/2019-12-10-android-compile-target-min-sdkversion/" ><i class="fa fa-file-o"></i>CompileSdkVersion、TargetSdk...</a>
+        <a href="/2020/11/25/2020-11-25-database-sqlite-optimization/" ><i class="fa fa-file-o"></i>SQLite 性能优化</a>
       </li>
     
   </ul>
@@ -1096,7 +1065,7 @@
 
 
 <span>
-  &copy; 2020 JesseChiu
+  &copy; 2021 JesseChiu
   
 </span>
 
