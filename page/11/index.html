@@ -128,6 +128,203 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2017-08-05 </div>
+			<div class="article-title"><a href="/2017/08/05/2017-08-05-css-3d/" >Css 3D</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="主要属性"><a href="#主要属性" class="headerlink" title="主要属性"></a>主要属性</h2><ul>
+<li>perspective 属性定义 3D 元素距视图的距离，以像素计。该属性允许您改变 3D 元素查看 3D 元素的视图</li>
+<li><code>-webkit-transform-style: preserve-3d</code> // 设置转换模式为 3d</li>
+<li><code>-webkit-transform-origin: bottom</code></li>
+<li><code>-webkit-transition: -webkit-transform 1s linear</code></li>
+</ul>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="1-数字翻转"><a href="#1-数字翻转" class="headerlink" title="1. 数字翻转"></a>1. 数字翻转</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  &lt;title&gt;&lt;&#x2F;title&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &lt;style&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  &#x2F;*创建 3d 场景*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  #my3dspace &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*屏幕到 3d 物体距离*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    -webkit-perspective: 800; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*观察的视角，x,y轴*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    -webkit-perspective-origin: 50% 50%; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*目的是让翻过的页面看不见*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    overflow: hidden;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">  #pagegroup &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    width: 400px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    height: 400px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    margin: 0 auto;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*设置转换模式为 3d*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform-style: preserve-3d; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    position: relative;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">  .page &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    width: 360px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">    height: 360px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">    padding: 20px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">    background-color: black;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">    color: white;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">    font-weight: bold;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">    font-size: 360px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">    line-height: 360px;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">    text-align: center;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">    position: absolute;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">  &#x2F;*设置首页显示样式，正常显示*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">  #page1 &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*设置旋转的中心轴，还可以是，left，right，top*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform-origin: bottom; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*设置动画效果，动画的动作为 transform*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">    -webkit-transition: -webkit-transform 1s linear; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">  &#x2F;*设置其它页样式沿 x 轴顺时针旋转 90 度*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">  #page2,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">  #page3,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">  #page4,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">  #page5,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">  #page6 &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform-origin: bottom;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">    -webkit-transition: -webkit-transform 1s linear;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">    -webkit-transform: rotateX(90deg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">  #op &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">    text-align: center;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line">    margin: 40px auto;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line">  &lt;&#x2F;style&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line">  var curIndex &#x3D; 1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line">  function next() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">73</span></pre></td><td class="code"><pre><span class="line">    if (curIndex &#x3D;&#x3D; 6)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">74</span></pre></td><td class="code"><pre><span class="line">        return;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">75</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">76</span></pre></td><td class="code"><pre><span class="line">    var curPage &#x3D; document.getElementById(&quot;page&quot; + curIndex);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">77</span></pre></td><td class="code"><pre><span class="line">    &#x2F;*设置当前页样式沿 x 轴逆时针旋转 90 度,产生翻页效果*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">78</span></pre></td><td class="code"><pre><span class="line">    curPage.style.webkitTransform &#x3D; &quot;rotateX(-90deg)&quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">79</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">80</span></pre></td><td class="code"><pre><span class="line">    curIndex++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">81</span></pre></td><td class="code"><pre><span class="line">    var nextPage &#x3D; document.getElementById(&quot;page&quot; + curIndex);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">82</span></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; 后面一页向前翻转</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">83</span></pre></td><td class="code"><pre><span class="line">    nextPage.style.webkitTransform &#x3D; &quot;rotateX(0deg)&quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">84</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">85</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">86</span></pre></td><td class="code"><pre><span class="line">  function prev() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">87</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">88</span></pre></td><td class="code"><pre><span class="line">    if (curIndex &#x3D;&#x3D; 1)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">89</span></pre></td><td class="code"><pre><span class="line">        return;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">90</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">91</span></pre></td><td class="code"><pre><span class="line">    var curPage &#x3D; document.getElementById(&quot;page&quot; + curIndex);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">92</span></pre></td><td class="code"><pre><span class="line">    curPage.style.webkitTransform &#x3D; &quot;rotateX(90deg)&quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">93</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">94</span></pre></td><td class="code"><pre><span class="line">    curIndex--;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">95</span></pre></td><td class="code"><pre><span class="line">    var prevPage &#x3D; document.getElementById(&quot;page&quot; + curIndex);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">96</span></pre></td><td class="code"><pre><span class="line">    prevPage.style.webkitTransform &#x3D; &quot;rotateX(0deg)&quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">97</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">98</span></pre></td><td class="code"><pre><span class="line">  &lt;&#x2F;script&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">99</span></pre></td><td class="code"><pre><span class="line">&lt;&#x2F;head&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">100</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">101</span></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">102</span></pre></td><td class="code"><pre><span class="line">  &lt;div id&#x3D;&quot;my3dspace&quot;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">103</span></pre></td><td class="code"><pre><span class="line">      &lt;div id&#x3D;&quot;pagegroup&quot;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">104</span></pre></td><td class="code"><pre><span class="line">          &lt;div class&#x3D;&quot;page&quot; id&#x3D;&quot;page1&quot;&gt;1&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">105</span></pre></td><td class="code"><pre><span class="line">          &lt;div class&#x3D;&quot;page&quot; id&#x3D;&quot;page2&quot;&gt;2&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">106</span></pre></td><td class="code"><pre><span class="line">          &lt;div class&#x3D;&quot;page&quot; id&#x3D;&quot;page3&quot;&gt;3&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">107</span></pre></td><td class="code"><pre><span class="line">          &lt;div class&#x3D;&quot;page&quot; id&#x3D;&quot;page4&quot;&gt;4&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">108</span></pre></td><td class="code"><pre><span class="line">          &lt;div class&#x3D;&quot;page&quot; id&#x3D;&quot;page5&quot;&gt;5&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">109</span></pre></td><td class="code"><pre><span class="line">          &lt;div class&#x3D;&quot;page&quot; id&#x3D;&quot;page6&quot;&gt;6&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">110</span></pre></td><td class="code"><pre><span class="line">      &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">111</span></pre></td><td class="code"><pre><span class="line">  &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">112</span></pre></td><td class="code"><pre><span class="line">  &lt;div id&#x3D;&quot;op&quot;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">113</span></pre></td><td class="code"><pre><span class="line">      &lt;a href&#x3D;&quot;javascript:next()&quot;&gt;next&lt;&#x2F;a&gt;&amp;nbsp;&lt;a href&#x3D;&quot;javascript:prev()&quot;&gt;previous&lt;&#x2F;a&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">114</span></pre></td><td class="code"><pre><span class="line">  &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">115</span></pre></td><td class="code"><pre><span class="line">&lt;&#x2F;body&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">116</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">117</span></pre></td><td class="code"><pre><span class="line">&lt;&#x2F;html&gt;</span></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.imooc.com/learn/77" target="_blank" rel="noopener">CSS3 3D 特效</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-07-28 </div>
+			<div class="article-title"><a href="/2017/07/28/2017-07-28-微信填坑/" >微信填坑</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>在微信开发过程中，经常会碰到各种坑，本文主要是记录在开发过程中遇到的坑，以便后期查询。</p>
+</blockquote>
+<h2 id="一、遇到的坑"><a href="#一、遇到的坑" class="headerlink" title="一、遇到的坑"></a>一、遇到的坑</h2><h3 id="1-1-端口"><a href="#1-1-端口" class="headerlink" title="1.1 端口"></a>1.1 端口</h3><p>公众平台接口调用仅支持 <code>80</code> 端口</p>
+<h3 id="1-2-access-token"><a href="#1-2-access-token" class="headerlink" title="1.2 access_token"></a>1.2 access_token</h3><p>公众平台以 access_token 为接口调用凭据，来调用接口，所有接口的调用需要先获取 access_token，access_token 在 2 小时内有效，过期需要重新获取，但1天内获取次数有限，开发者需自行存储，详见获取接口调用凭据（access_token）文档。</p>
+<h3 id="1-3-40037"><a href="#1-3-40037" class="headerlink" title="1.3 40037"></a>1.3 40037</h3><p>如果后台返回 40037 表示微信测试账号，模板ID只能通过微信测试账号，新增的模板id才有效。<a href="http://zhengyunfei.iteye.com/blog/2228950" target="_blank" rel="noopener">参考</a></p>
+<h3 id="1-4-40163"><a href="#1-4-40163" class="headerlink" title="1.4 40163"></a>1.4 40163</h3><p>参考: <a href="https://segmentfault.com/q/1010000009538036?sort=created" target="_blank" rel="noopener">微信网页授权 40163 code已被使用过</a></p>
+<h3 id="1-5-40164"><a href="#1-5-40164" class="headerlink" title="1.5 40164"></a>1.5 40164</h3><p>是运行的 ip地址不在白公众号配置的 IP<br>白名单中。如果是在本地调试，在白名单里面增加本机IP就可以，如果放到线上了，则需要把白名单内的IP修改为服务器IP。</p>
+<blockquote>
+<p>linux 服务器获取本机外网 ip 地址方法</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">curl ip.cn</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">//当前 IP：59.60.x.x 来自：福建省福州市 电信</span></pre></td></tr></table></figure>
+<blockquote>
+<p>如果可以访问网页，直接访问 <a href="http://ip.qq.com/" target="_blank" rel="noopener">http://ip.qq.com/</a> 会显示你的IP地址</p>
+</blockquote>
+<h3 id="1-6-45047-客服接口下行条数超过上限"><a href="#1-6-45047-客服接口下行条数超过上限" class="headerlink" title="1.6 45047(客服接口下行条数超过上限)"></a>1.6 45047(客服接口下行条数超过上限)</h3><p>主要是微信在 2017-12-12 升级后出现,下面是网上找到的信息。</p>
+<blockquote>
+<p>用户和公众号有过互动后,发送 <code>20</code> 消息后,就会出现 <code>45047</code> ,这应该是微信对单个用户的客服消息做了限制,防止公众号发送垃圾消息。</p>
+</blockquote>
+<ul>
+<li><a href="http://www.codes51.com/itwd/1191950.html" target="_blank" rel="noopener">errcode 45047</a></li>
+</ul>
+<h3 id="1-7-scan-push"><a href="#1-7-scan-push" class="headerlink" title="1.7 scan_push"></a>1.7 scan_push</h3><p>如果需要从菜单的扫一扫跳转页面，需要使用 scan_push 类型，并且二维码内容是 url 地址。</p>
+<h3 id="1-8-jssdk"><a href="#1-8-jssdk" class="headerlink" title="1.8 jssdk"></a>1.8 jssdk</h3><ul>
+<li><a href="http://blog.csdn.net/sinat_29843547/article/details/49357193" target="_blank" rel="noopener">nodejs 微信开发–调用微信 JSSDK</a></li>
+<li>在微信中打开的网页，关闭退出到微信<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">document</span>.getElementById(<span class="string">'back'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">		event.preventDefault();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">		WeixinJSBridge.invoke(<span class="string">'closeWindow'</span>, &#123;&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<h3 id="1-9-wechat-中间件"><a href="#1-9-wechat-中间件" class="headerlink" title="1.9 wechat 中间件"></a>1.9 wechat 中间件</h3></li>
+<li>wechat 中间键会改写 session 和 wxsession(且每次请求的 sessionID 值都会变，但是保存在该 session 中的值不变)这个和 express-session 相互独立，这就导致了 req.session 的内容是不一样的。WeixinJS 接口<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理微信服务器发来的信息和事件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">router.use(<span class="string">'/'</span>, wechat(wechtConfig, (req, res, next) =&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  req.wxsession.openId = message.FromUserName;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  req.session.openId = message.FromUserName;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n\n/wechat sessionID: <span class="subst">$&#123;req.sessionID&#125;</span> \nsession:<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(req.session)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">console</span>.log(<span class="string">`\n\n/wechat wxsessionID: <span class="subst">$&#123;req.wxsessionID&#125;</span> \nwxsession:<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(req.wxsession)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// /wechat sessionID: si2KucNK_3hVFzUBJTijkabot05-4Quw</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">session:&#123;<span class="string">"cookie"</span>:&#123;<span class="string">"originalMaxAge"</span>:<span class="number">86400000</span>,<span class="string">"expires"</span>:<span class="string">"2017-07-29T08:08:25.642Z</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="string">"</span>,<span class="string">"httpOnly"</span>:<span class="literal">true</span>,<span class="string">"path"</span>:<span class="string">"/"</span>&#125;,<span class="string">"openId"</span>:<span class="string">"oS5_7v0W4VtnUASYLjJfl52qzt78"</span>&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"> <span class="comment">// /wechat wxsessionID: undefined</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">wxsession:&#123;<span class="string">"cookie"</span>:&#123;<span class="string">"originalMaxAge"</span>:<span class="number">86400000</span>,<span class="string">"expires"</span>:<span class="string">"2017-07-29T08:08:25.64</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="string">2Z"</span>,<span class="string">"httpOnly"</span>:<span class="literal">true</span>,<span class="string">"path"</span>:<span class="string">"/"</span>&#125;,<span class="string">"openId"</span>:<span class="string">"oS5_7v0W4VtnUASYLjJfl52qzt78"</span>&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后续处理 中间件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">router.use(<span class="string">'/xxx'</span>,(req, res, next) =&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">`\n\n+++authority sessionID: <span class="subst">$&#123;req.sessionID&#125;</span> \nsession:<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(req.session)&#125;</span>`</span> );</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">`\n\n+++authority sessionID: <span class="subst">$&#123;req.wxsessionID&#125;</span> \nwxsession:<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(req.wxsession)&#125;</span>`</span> );</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// +++authority sessionID: oFVDtMqEB94TgXP9X0V6Xz4QmCSCLk4S</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">session:&#123;<span class="string">"cookie"</span>:&#123;<span class="string">"originalMaxAge"</span>:<span class="number">86400000</span>,<span class="string">"expires"</span>:<span class="string">"2017-07-29T08:08:26.406Z</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"><span class="string">"</span>,<span class="string">"httpOnly"</span>:<span class="literal">true</span>,<span class="string">"path"</span>:<span class="string">"/"</span>&#125;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// +++authority wxsessionID: undefined</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">wxsession:<span class="literal">undefined</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr></table></figure>
+从上面的代码可以看出</li>
+<li>wechat 中间件可以使用: session 和 wxsession</li>
+<li>后续路由只能访问 session 且是一个新的 session (从 sessionID 值不同可确定)</li>
+<li>原理：当从 wechat 中间件的 session 和 app 中使用的 session 相互独立，互不影响。</li>
+</ul>
+<blockquote>
+<p>由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了 <code>connect.session</code> 中间件，在业务中就可以访问req.wxsession属性。这个属性与req.session行为类似。</p>
+</blockquote>
+<h3 id="1-10-微信服务器发送三次重复的排重问题"><a href="#1-10-微信服务器发送三次重复的排重问题" class="headerlink" title="1.10 微信服务器发送三次重复的排重问题"></a>1.10 微信服务器发送三次重复的排重问题</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> uniqueMessageSet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkIsUniqueMsg</span>(<span class="params">msgId</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span>(uniqueMessageSet.has(msgId))&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">`\n&lt;&lt;&lt; checkIsUniqueMsg: already have msgId -&gt; <span class="subst">$&#123;uniqueMessageSet.size&#125;</span>\n`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &#125;<span class="keyword">else</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    uniqueMessageSet.add(msgId);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">console</span>.log(<span class="string">`\n&lt;&lt;&lt; checkIsUniqueMsg: add -&gt; <span class="subst">$&#123;uniqueMessageSet.size&#125;</span>\n`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    setTimeout(<span class="function">(<span class="params">msgId</span>)=&gt;</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">      uniqueMessageSet.delete(msgId);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">      <span class="built_in">console</span>.log(<span class="string">`\n&lt;&lt;&lt; checkIsUniqueMsg: timeout -&gt; <span class="subst">$&#123;uniqueMessageSet.size&#125;</span>\n`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#125;,config.deleteUniqueMsgTimeout,msgId);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>参考: <a href="http://blog.csdn.net/langren1353464539/article/details/49898067" target="_blank" rel="noopener">微信服务器发送三次重复的排重问题</a></p>
+<h3 id="1-11-页面跳转"><a href="#1-11-页面跳转" class="headerlink" title="1.11 页面跳转"></a>1.11 页面跳转</h3><p>微信不支持在关注或者扫描处理的逻辑代码中跳转页面；也就是必须先到公众号页面，再从里面点击进入其它页面。</p>
+<h3 id="1-12-发送建议使用-reply"><a href="#1-12-发送建议使用-reply" class="headerlink" title="1.12 发送建议使用 reply"></a>1.12 发送建议使用 reply</h3><p>在 wechat 中间件里发送信息使用 <code>replay</code>，而不使用 <code>wechatApi.sendText</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">res.reply(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  type: <span class="string">"text"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  content: data</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用下面的函数发送会至少需要 5s 时间才能到达微信服务器，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样微信服务器在 5s 内未收到消息，就会连续发送三次</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">wechatApi.sendText(openId,data,(err,data)=&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">if</span>(err)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">		logger.error(err);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">console</span>.log(<span class="string">`\nWechatAPI.sendText() success: <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(data)&#125;</span>`</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+
+<h3 id="1-13-viewEvent-错误"><a href="#1-13-viewEvent-错误" class="headerlink" title="1.13 viewEvent 错误"></a>1.13 viewEvent 错误</h3><p>从菜单点击进入，如果是 <code>viewEvent</code> 页面跳转事件，会报路径查找不到错误</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[ERROR] lpt - POST /wechat/?signature=<span class="number">94</span>b5ac8040ac4919ab2522b15827b4b3ca12573e&amp;\timestamp=<span class="number">1502954629</span>&amp;nonce=<span class="number">737629849</span>&amp;openid=oS5_7v3io3nzrxMIVNWufQk1NrVI <span class="number">404</span></span></pre></td></tr></table></figure>
+<p>这时只要添加一个根级路由，过滤即可解决</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/wechat'</span>, <span class="built_in">require</span>(<span class="string">'./routes/lpt-index'</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// lpt-index.js</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">router.all(<span class="string">'/'</span>,(req,res,next)=&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  res.end();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+
+<h3 id="1-14-禁止网页在浏览器打开"><a href="#1-14-禁止网页在浏览器打开" class="headerlink" title="1.14 禁止网页在浏览器打开"></a>1.14 禁止网页在浏览器打开</h3><p>可以在每个页面的头部，判断下浏览器中是否包含 <code>MicroMessenger</code> 值来确认是否为微信内置浏览器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>((<span class="built_in">window</span>.navigator.userAgent.match(<span class="string">'MicroMessenger'</span>) === <span class="literal">null</span>) &amp;&amp; <span class="built_in">window</span>.location.href.match(<span class="string">'/not-wechat-navigator'</span>) === <span class="literal">null</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      <span class="comment">// 跳转到错误提示界面</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      <span class="built_in">window</span>.location=<span class="string">'/wechat/not-wechat-navigator/'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  &#125;)()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&lt;<span class="regexp">/script&gt;</span></span></pre></td></tr></table></figure>
+<p>参考: <a href="http://www.jb51.net/article/57260.htm" target="_blank" rel="noopener">Javascript限制网页只能在微信内置浏览器中访问</a></p>
+<h3 id="1-15-避免微信信息使用缓存内容"><a href="#1-15-避免微信信息使用缓存内容" class="headerlink" title="1.15 避免微信信息使用缓存内容"></a>1.15 避免微信信息使用缓存内容</h3><p>当我们使用下面的代码发送信息给微信(聊天界面)时，如果微信收到的信息内容是一样(显示时)的，当再次发送同样信息时，链接内容不同时，点击操作还是使用先前的内容，也就是微信内部判断，如果显示内容一样，就是使用了缓存。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendWelcomeMsg</span>(<span class="params">msg</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  res.reply(&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    type: <span class="string">"text"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    content: msg</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  res.end();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>例如:下面代码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sendWelcomeMsg(<span class="string">`&lt;a href="http://xxx.yy.com/?id=1234&amp;name=jesse"&gt;点击开票&lt;/a&gt;`</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">sendWelcomeMsg(<span class="string">`&lt;a href="http://xxx.yy.com/?id=888&amp;name=jesse"&gt;点击开票&lt;/a&gt;`</span>)</span></pre></td></tr></table></figure>
+<p>微信聊天界面收到两条信息，显示的内容都是 <code>点击开票</code>,但是两条信息的链接参数不是一样的。但是点击第二条信息时，跳转链接得到的参数还是第一条的 <code>id=1234&amp;name=jesse</code>，使用了先前的缓存内容。尝试了下面的方法还是一样:</p>
+<ul>
+<li>链接尾部添加一个动态数据(当前时间)</li>
+<li>每次发送前连接地址转换为端网址显示(端网址每次都不同)</li>
+<li>在服务端和网页端，添加清除缓存代码</li>
+</ul>
+<p>解决办法：<br>经过上面的失败尝试后，分析得出是依据显示内容来判断是否使用缓存，而且这个缓存是存在微信服务器内，所有在现实内容时，每次都添加一个不一样的参数，使用当前时间。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sendWelcomeMsg(<span class="string">`&lt;a href="http://xxx.yy.com/?id=1234&amp;name=jesse"&gt;点击开票&lt;/a&gt;\n\n当前时间:new Date()`</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">sendWelcomeMsg(<span class="string">`&lt;a href="http://xxx.yy.com/?id=888&amp;name=jesse"&gt;点击开票&lt;/a&gt;\n\n当前时间:new Date()`</span>)</span></pre></td></tr></table></figure>
+<p>经过测试，解决了微信内部调整使用缓存问题。这个可以算个比较大的坑了。</p>
+<h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><ul>
+<li><a href="http://blog.csdn.net/zt_fucker/article/details/52535407" target="_blank" rel="noopener">微信开发必备外网映射工具—-Ngroke</a></li>
+<li><a href="http://cloud.189.cn/t/6r2emymaI7Jz" target="_blank" rel="noopener">Nodejs实战之7天开发微信公众号</a> 慕课网收费视频下载</li>
+<li><a href="https://pan.baidu.com/share/init?shareid=2851851900&uk=2977776567" target="_blank" rel="noopener">下载地址</a> 提取密码: ejkr</li>
+<li><a href="https://github.com/soldair/node-qrcode" target="_blank" rel="noopener">node-qrcode</a> // js 生成二维码工具</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.imooc.com/learn/368" target="_blank" rel="noopener">初识Java微信公众号开发</a> 慕课网视频教程，有些基础知识讲解</li>
+<li><a href="https://leancloud.cn/docs/webhosting_weixin.html" target="_blank" rel="noopener">leancloud 微信公众平台开发指南</a></li>
+<li><a href="https://mp.weixin.qq.com/wiki/13/8d4957b72037e3308a0ca1b21f25ae8d.html" target="_blank" rel="noopener">公众号类型的接口权限说明</a></li>
+<li><a href="https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html" target="_blank" rel="noopener">全局返回码说明</a></li>
+<li><a href="https://mp.weixin.qq.com/debug" target="_blank" rel="noopener">在线接口调试接口网址</a></li>
+<li><a href="https://leancloud.cn/docs/leanengine_cloudfunction_guide-node.html" target="_blank" rel="noopener">云函数开发指南</a></li>
+<li><a href="https://leancloud.cn/docs/leanengine_webhosting_guide-node.html" target="_blank" rel="noopener">网站托管开发指南</a></li>
+<li><a href="https://leancloud.cn/docs/leanstorage_guide-js.html" target="_blank" rel="noopener">JavaScript 开发指南</a></li>
+<li><a href="https://leancloud.github.io/javascript-sdk/docs/" target="_blank" rel="noopener">JavaScript SDK API</a></li>
+<li><a href="https://github.com/leancloud/leanengine-node-sdk/blob/master/API.md" target="_blank" rel="noopener">Node.js SDK API</a></li>
+<li><a href="https://leancloud.cn/docs/leanengine_cli.html" target="_blank" rel="noopener">命令行工具使用指南</a></li>
+<li><a href="https://leancloud.cn/docs/leanengine_faq.html" target="_blank" rel="noopener">云引擎常见问题和解答</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-07-14 </div>
+			<div class="article-title"><a href="/2017/07/14/2017-07-14-bom-FireReader/" >FileReader()</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据。</p>
+<p>其中File对象可以是来自用户在一个<code>&lt;input&gt;</code>元素上选择文件后返回的FileList对象,也可以来自拖放操作生成的 DataTransfer对象,还可以是来自在一个HTMLCanvasElement上执行mozGetAsFile()方法后返回结果.</p>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Image preview example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">    <span class="keyword">if</span> ( <span class="keyword">typeof</span>(FileReader) === <span class="string">'undefined'</span> )&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">        result.innerHTML = <span class="string">"抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！"</span>; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">        <span class="comment">// input.setAttribute('disabled','disabled'); </span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">        <span class="keyword">return</span> ;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">    <span class="keyword">var</span> oFReader = <span class="keyword">new</span> FileReader();</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">    <span class="keyword">var</span> rFilter = <span class="regexp">/^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i</span>;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">    oFReader.onload = <span class="function"><span class="keyword">function</span><span class="params">(oFREvent)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"uploadPreview"</span>).src = oFREvent.target.result;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"im-base64g"</span>).innerHTML = oFREvent.target.result;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">loadImageFile</span><span class="params">()</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">        <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">"uploadImage"</span>).files.length === <span class="number">0</span>) &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            <span class="keyword">return</span>;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">        <span class="keyword">var</span> oFile = <span class="built_in">document</span>.getElementById(<span class="string">"uploadImage"</span>).files[<span class="number">0</span>];</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        if (!rFilter.test(oFile.type)) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            alert(<span class="string">"You must select a valid image file!"</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">            <span class="keyword">return</span>;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        oFReader.readAsDataURL(oFile);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"loadImageFile();"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">name</span>=<span class="string">"uploadForm"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">table</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"uploadPreview"</span> <span class="attr">style</span>=<span class="string">"width: 100px; height: 100px;"</span> <span class="attr">src</span>=<span class="string">"data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%3F%3E%0A%3Csvg%20width%3D%22153%22%20height%3D%22153%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%20%3Cg%3E%0A%20%20%3Ctitle%3ENo%20image%3C/title%3E%0A%20%20%3Crect%20id%3D%22externRect%22%20height%3D%22150%22%20width%3D%22150%22%20y%3D%221.5%22%20x%3D%221.500024%22%20stroke-width%3D%223%22%20stroke%3D%22%23666666%22%20fill%3D%22%23e1e1e1%22/%3E%0A%20%20%3Ctext%20transform%3D%22matrix%286.66667%2C%200%2C%200%2C%206.66667%2C%20-960.5%2C%20-1099.33%29%22%20xml%3Aspace%3D%22preserve%22%20text-anchor%3D%22middle%22%20font-family%3D%22Fantasy%22%20font-size%3D%2214%22%20id%3D%22questionMark%22%20y%3D%22181.249569%22%20x%3D%22155.549819%22%20stroke-width%3D%220%22%20stroke%3D%22%23666666%22%20fill%3D%22%23000000%22%3E%3F%3C/text%3E%0A%20%3C/g%3E%0A%3C/svg%3E"</span> <span class="attr">alt</span>=<span class="string">"Image preview"</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">                        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"uploadImage"</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"myPhoto"</span> <span class="attr">onchange</span>=<span class="string">"loadImageFile();"</span> /&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">                        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">"im-base64g"</span> <span class="attr">id</span>=<span class="string">"result"</span> <span class="attr">rows</span>=<span class="string">30</span> <span class="attr">cols</span>=<span class="string">100</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align: center"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Send"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader" target="_blank" rel="noopener">FileReader()</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-06-29 </div>
+			<div class="article-title"><a href="/2017/06/29/2017-06-29-server-sent-evernts/" >Sever-Sent Event</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>服务器向浏览器推送信息，除了 WebSocket，还有一种方法：Server-Sent Events（以下简称 SSE）。<br>严格地说，HTTP 协议无法做到服务器主动推送信息。但是，有一种变通方法，就是服务器向客户端声明，接下来要发送的是流信息（streaming）。<br>也就是说，发送的不是一次性的数据包，而是一个数据流，会连续不断地发送过来。这时，客户端不会关闭连接，会一直等着服务器发过来的新的数据流，视频播放就是这样的例子。本质上，这种通信就是以流信息的方式，完成一次用时很长的下载。<br>SSE 就是利用这种机制，使用流信息向浏览器推送信息。它基于 HTTP 协议，目前除了 IE/Edge，其他浏览器都支持</p>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><h3 id="客户端："><a href="#客户端：" class="headerlink" title="客户端："></a>客户端：</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>JS Bin<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">  <span class="keyword">var</span> source = <span class="keyword">new</span> EventSource(<span class="string">'http://127.0.0.1:8844/stream'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="javascript">  <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">  source.onopen = <span class="function"><span class="keyword">function</span> <span class="params">(event)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="handlebars"><span class="xml">    div.innerHTML += '<span class="tag">&lt;<span class="name">p</span>&gt;</span>Connection open ...<span class="tag">&lt;/<span class="name">p</span>&gt;</span>';</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">  source.onerror = <span class="function"><span class="keyword">function</span> <span class="params">(event)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="handlebars"><span class="xml">    div.innerHTML += '<span class="tag">&lt;<span class="name">p</span>&gt;</span>Connection close.<span class="tag">&lt;/<span class="name">p</span>&gt;</span>';</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">  source.addEventListener(<span class="string">'connecttime'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(event)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">    div.innerHTML += (<span class="string">'&lt;p&gt;Start time: '</span> + event.data + <span class="string">'&lt;/p&gt;'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">  &#125;, <span class="literal">false</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">  source.onmessage = <span class="function"><span class="keyword">function</span> <span class="params">(event)</span> </span>&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"><span class="actionscript">    div.innerHTML += (<span class="string">'&lt;p&gt;Ping: '</span> + event.data + <span class="string">'&lt;/p&gt;'</span>);</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></pre></td></tr></table></figure>
+<h3 id="服务器端："><a href="#服务器端：" class="headerlink" title="服务器端："></a>服务器端：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> fileName = <span class="string">"."</span> + req.url;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (fileName === <span class="string">"./stream"</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    res.writeHead(<span class="number">200</span>, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">      <span class="string">"Content-Type"</span>:<span class="string">"text/event-stream"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">      <span class="string">"Cache-Control"</span>:<span class="string">"no-cache"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      <span class="string">"Connection"</span>:<span class="string">"keep-alive"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">      <span class="string">"Access-Control-Allow-Origin"</span>: <span class="string">'*'</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    res.write(<span class="string">"retry: 10000\n"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    res.write(<span class="string">"event: connecttime\n"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    res.write(<span class="string">"data: "</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>()) + <span class="string">"\n\n"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    res.write(<span class="string">"data: "</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>()) + <span class="string">"\n\n"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    interval = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">      res.write(<span class="string">"data: "</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>()) + <span class="string">"\n\n"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    &#125;, <span class="number">1000</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    req.connection.addListener(<span class="string">"close"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">      clearInterval(interval);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;, <span class="literal">false</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">&#125;).listen(<span class="number">8844</span>, <span class="string">"127.0.0.1"</span>);</span></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/05/server-sent_events.html" target="_blank" rel="noopener">Server-Sent Events 教程</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2017-06-22 </div>
 			<div class="article-title"><a href="/2017/06/22/2017-06-22-express-常用中间件/" >Express 常用中间件</a></div>						
 		</h3>
@@ -558,271 +755,6 @@
 
            
 		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-06-01 </div>
-			<div class="article-title"><a href="/2017/06/01/2017-06-01-微信公众号后台服务器配置/" >微信公众号后台服务器配置</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>本文是记录微信公众号后台服务器配置，主要有 服务器地址配置、JSSDK 域名设置、网页授权域名设置。</p>
-<blockquote>
-<p>本文是以主要是以 <code>Node.js</code> 语言开发的后台，其它语言的类似</p>
-</blockquote>
-<h2 id="一、服务器地址配置"><a href="#一、服务器地址配置" class="headerlink" title="一、服务器地址配置"></a>一、服务器地址配置</h2><p>微信公众号开发第一步，就是需要配置开发的服务器地址，如下图<br><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/weichat-server-1.png" alt="weichat-server-1"><br>对应的服务器端代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/weichat'</span>, <span class="built_in">require</span>(<span class="string">'./routes/index'</span>));</span></pre></td></tr></table></figure>
-<p>上面的 <code>./routes/index</code> 是指定 微信相关的处理到统一个文件路口。</p>
-<h2 id="二、JSSDK-域名设置"><a href="#二、JSSDK-域名设置" class="headerlink" title="二、JSSDK 域名设置"></a>二、JSSDK 域名设置</h2><p>当我们需要在页面中调用微信的功能接口时，就需要用到微信提供的 <code>JSSDK</code> 库，这时就需要在服务器端配置对应的域名地址。<br><strong>注意：设置的域名必须是要备案的域名</strong></p>
-<p><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/weichat-jssdk.png" alt="weichat-jssdk"><br>对应的服务器端代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/weichat'</span>,express.static(<span class="string">'src/assets'</span>));</span></pre></td></tr></table></figure>
-<p>如上图所示，我设置的域名是 <code>jessechiu.com/weichat</code>，在后台认证时会去访问 <code>MP_verify_1NbyCgfIxWP76HnW.txt</code> 该文件，这样我们就需要把该文存放的路径设置为可以访问的。这里使用了 <code>express.static()</code> 函数。</p>
-<h2 id="三、网页授权域名设置"><a href="#三、网页授权域名设置" class="headerlink" title="三、网页授权域名设置"></a>三、网页授权域名设置</h2><p>当我们在公众中需要跳转页面时，如果该页面的域名地址没有在微信后台中配置，在每次跳转时都会有个安全提示页面出现，这样用户体验相当不好，这时我们就需要设置对应的域名地址。</p>
-<p><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/weichat-page.png" alt="weichat-jssdk"><br>对应的服务器端代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/weichat'</span>,express.static(<span class="string">'src/assets'</span>));</span></pre></td></tr></table></figure>
-<p>由于用到的 <code>MP_verify_1NbyCgfIxWP76HnW.txt</code> 文件和设置 <code>JSSDK</code> 域名一样，所以域名也设置和 <code>JSSDK</code> 中的一样。</p>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-30 </div>
-			<div class="article-title"><a href="/2017/05/30/2017-05-30-批量下载慕课网视频/" >批量下载慕课网视频</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>本文主要是记录如何通过 脚本和工具批量下载 <a href="http://www.imooc.com/" target="_blank" rel="noopener">慕课网视频</a> 方法，当然其它方法也很多，本文只是其中的一种</p>
-<h2 id="一、使用的工具"><a href="#一、使用的工具" class="headerlink" title="一、使用的工具"></a>一、使用的工具</h2><h3 id="1-IDM-Internet-Download-Manager"><a href="#1-IDM-Internet-Download-Manager" class="headerlink" title="1. IDM (Internet Download Manager)"></a>1. IDM (Internet Download Manager)</h3><blockquote>
-<p>Internet Download Manager（简称“IDM”）是一种将下载速度提高5倍的工具，可以恢复和安排下载。由于连接丢失，网络问题，计算机关机或意外停电等原因，全面的错误恢复和恢复功能将重新启动中断或中断的下载。简单的图形用户界面使IDM用户友好和易于使用.Internet下载管理器具有智能下载逻辑加速器，具有智能动态文件分割和安全的多部分下载技术，以加速您的下载。与其他下载管理器和加速器不同，Internet下载管理器在下载过程中动态下载文件，并重复使用可用的连接，无需额外的连接和登录阶段，以实现最佳的加速性能。<br>Internet Download Manager支持代理服务器，ftp和http协议，防火墙，重定向，Cookie，授权，MP3音频和MPEG视频内容处理。IDM可以无缝集成到Microsoft Internet Explorer，Netscape，MSN Explorer，AOL，Opera，Mozilla，Mozilla Firefox，Mozilla Firebird，Avant Browser，MyIE2等所有流行的浏览器中，以自动处理您的下载。您还可以拖放文件，或从命令行使用Internet Download Manager。互联网下载管理器可以在设定的时间拨打您的调制解调器，下载所需的文件，然后在完成后挂断电脑甚至关闭计算机。</p>
-</blockquote>
-<h3 id="2-IDM-批量导入助手"><a href="#2-IDM-批量导入助手" class="headerlink" title="2. IDM 批量导入助手"></a>2. IDM 批量导入助手</h3><p>这是个绿色小工具，主要用来批量导入下载地址找到 IDM 中,还有就是可以通过它对下载地址重命名。</p>
-<h2 id="二、具体步骤"><a href="#二、具体步骤" class="headerlink" title="二、具体步骤"></a>二、具体步骤</h2><h3 id="1-登入慕课网-gt-下载课程地址页面-gt-打开控制台-gt-把下面的一段脚本复制贴到-console-运行"><a href="#1-登入慕课网-gt-下载课程地址页面-gt-打开控制台-gt-把下面的一段脚本复制贴到-console-运行" class="headerlink" title="1. 登入慕课网 -&gt; 下载课程地址页面 -&gt; 打开控制台 -&gt; 把下面的一段脚本复制贴到 console 运行"></a>1. 登入慕课网 -&gt; 下载课程地址页面 -&gt; 打开控制台 -&gt; 把下面的一段脚本复制贴到 <code>console</code> 运行</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">document</span>.cmd = <span class="string">''</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> dic = &#123;&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getJsonCallback</span>(<span class="params">json</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> result = json.data.result;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> data = &#123; <span class="attr">name</span>: result.name, <span class="attr">id</span>: result.mid, <span class="attr">url</span>: result.mpath[<span class="number">0</span>] &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//替换文件名中的空格为 '-'，避免后面的 idm 批量导入工具文件名截取空格前半部分</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> name = data.name.replace(<span class="regexp">/ /g</span>,<span class="string">'-'</span>); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> cmd = <span class="string">'filename='</span> + dic[data.id] + <span class="string">'-'</span> + name + <span class="string">'&amp;fileurl='</span> + data.url;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(cmd);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">document</span>.cmd += cmd + <span class="string">'\r\n'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> index = <span class="number">1</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    $(<span class="string">'.J-media-item'</span>).each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> url = $(<span class="keyword">this</span>).attr(<span class="string">'href'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> data = url.split(<span class="string">'/'</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> type = data[<span class="number">1</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> id = data[<span class="number">2</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(type != <span class="string">'video'</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> jsonPath = <span class="string">"http://www.imooc.com/course/ajaxmediainfo/?mid="</span> + id + <span class="string">"&amp;mode=flash"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        dic[id] = index;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        $.getJSON(jsonPath, getJsonCallback);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        index++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">&#125;)();</span></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/IDM-20170530173651.png" alt="IDM-20170530173651"></p>
-<h3 id="2-运行结束-gt-document-cmd-gt-拷贝打印出的内容到文本文件-gt-文件后缀为-imooc-downlist"><a href="#2-运行结束-gt-document-cmd-gt-拷贝打印出的内容到文本文件-gt-文件后缀为-imooc-downlist" class="headerlink" title="2. 运行结束 -&gt; document.cmd -&gt; 拷贝打印出的内容到文本文件 -&gt; 文件后缀为 imooc.downlist ;"></a>2. 运行结束 -&gt; <code>document.cmd</code> -&gt; 拷贝打印出的内容到文本文件 -&gt; 文件后缀为 <code>imooc.downlist</code> ;</h3><p>注意这里的文件编码需要保存为 ANSI 格式，不然下载的文件名中有中文的话，会出现乱码。</p>
-<p><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/IDM-20170530173900.png" alt="IDM-20170530173900"></p>
-<h3 id="3-运行IDM批量导入助手"><a href="#3-运行IDM批量导入助手" class="headerlink" title="3. 运行IDM批量导入助手"></a>3. 运行<a href="http://dl.pconline.com.cn/download/496539-1.html" target="_blank" rel="noopener">IDM批量导入助手</a></h3><blockquote>
-<p>注意下载该文件后需要放到 IDM 安装目录下<br>选择上一步保存的 <code>imooc.downlist</code> 文件,这样文件就会自动加入到 IDM 下载列表中，自动开始下载<br>可以输入下载文件格式后缀名 和 下载保存目录</p>
-</blockquote>
-<p><strong>注意，如果有安装 360，该工具会被检测包含有病毒，如果怕死，那就 pass 吧!!!</strong></p>
-<p><img src="https://raw.githubusercontent.com/Jesse-Chiu/images/master/IDM-20170530171718.png" alt="IDM-20170530173900"></p>
-<blockquote>
-<p>导入到 IDM 中下载，地址无误，如果提示错误，可能是下载地址的 <code>auth_key</code> 过期，重复上面的 1、2 两步，再试下。</p>
-</blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.v2ex.com/t/226681" target="_blank" rel="noopener">慕课网视频下载地址生成脚本(Javascript)</a></li>
-<li><a href="http://www.cnblogs.com/xiaoafei1991/p/5092853.html" target="_blank" rel="noopener">使用js脚本批量下载慕课网视频</a></li>
-<li><a href="http://dl.pconline.com.cn/download/496539-1.html" target="_blank" rel="noopener">IDM批量导入助手 1.0.5.3 绿色版</a></li>
-<li><a href="http://www.zdfans.com/575.html" target="_blank" rel="noopener">IDM 绿色下载工具</a></li>
-<li><a href="http://www.internetdownloadmanager.com/" target="_blank" rel="noopener">IDM 官网</a></li>
-<li><a href="https://raw.githubusercontent.com/Jesse-Chiu/images/master/IDM%286.2.7%E7%A0%B4%E8%A7%A3%E4%B8%AD%E6%96%87%29.rar" target="_blank" rel="noopener">IDM(6.2.7破解中文)+批量导入工具</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-21 </div>
-			<div class="article-title"><a href="/2017/05/21/2017-05-21-Linux-部署-Nodejs/" >Linux 部署 Nodejs</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>本文主要是对 nodejs 在 linux 系统部署备忘</p>
-<h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="1-查看-linux-系统版本信息"><a href="#1-查看-linux-系统版本信息" class="headerlink" title="1. 查看 linux 系统版本信息"></a>1. 查看 linux 系统版本信息</h3><p>这里使用 <code>uname</code> 命令,用于打印当前系统相关信息（内核版本号、硬件架构、主机名称和操作系统类型等）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">uname -a</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Linux Jesse 3.10.0-514.2.2.el7.x86_64 <span class="comment">#1 SMP Tue Dec 6 23:06:41 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span></span></pre></td></tr></table></figure>
-
-<h3 id="2-下载-nodejs-软件"><a href="#2-下载-nodejs-软件" class="headerlink" title="2. 下载 nodejs 软件"></a>2. 下载 nodejs 软件</h3><p>从上一步中查看到的系统信息，再去<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">nodejs</a>下载对应的版本<br><img src="http://od6sd4xau.bkt.clouddn.com/linux-nodejs.png" alt="nodjs版本"><br>根据上面的系统版本信息，我选择的是 binarias 版本(可以直接运行的二进制版本)，软件包名为 <code>node-v6.10.3-linux-x64.tar.xz</code></p>
-<h3 id="3-通过-WinSCP-软件上传到-linux-服务"><a href="#3-通过-WinSCP-软件上传到-linux-服务" class="headerlink" title="3. 通过 WinSCP 软件上传到 linux 服务"></a>3. 通过 WinSCP 软件上传到 linux 服务</h3><h3 id="4-解压软件包"><a href="#4-解压软件包" class="headerlink" title="4. 解压软件包"></a>4. 解压软件包</h3><p>这边我把软件放在 <code>/usr/local/</code> 目录下<br>注意，这里的 nodejs 软件包是以 <code>xz</code> 为后缀，而不是 <code>*.gz,*.bz2</code> 为后缀名。所有需要用 xz 工具来解压。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">// 先将 node-v6.10.3-linux-x64.tar.xz 解压成 node-v6.10.3-linux-x64.tar</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">xz -d node-v6.10.3-linux-x64.tar.xz  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">// 再将 tar 解包</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">tar xvf node-v6.10.3-linux-x64.tar</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">mv node-v6.10.3-linux-x64 /usr/<span class="built_in">local</span>/node-v6.10.3-linux-x64</span></pre></td></tr></table></figure>
-<p>ps 因为 xz 工具不能像 gzip 和 bzip2 那要可以通过 <code>j/zxvf</code> 一条命令解压解包，所以要分两步.<br>如果 linux 没有安装 xz 工具可以通过 yum 来安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">yum install xz</span></pre></td></tr></table></figure>
-<p>如果还是不行，可以<a href="http://blog.sina.com.cn/s/blog_ba08e8e00101b1rs.html" target="_blank" rel="noopener">参考</a></p>
-<h3 id="5-测试解压的-nodejs-软件是否可用"><a href="#5-测试解压的-nodejs-软件是否可用" class="headerlink" title="5. 测试解压的 nodejs 软件是否可用"></a>5. 测试解压的 nodejs 软件是否可用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/node-v6.10.3-linux-x64/bin/</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">./node -v</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">// v6.10.3 如果正常显示 nodejs 版本号，说明软件安装正常</span></pre></td></tr></table></figure>
-
-<h3 id="6-添加-node-到环境变量中"><a href="#6-添加-node-到环境变量中" class="headerlink" title="6. 添加 node 到环境变量中"></a>6. 添加 node 到环境变量中</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">exoprt PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/node-v6.10.3-linux-x64/bin/</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">env | grep PATH</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">// 如果可以看到刚添加的环境变量说明添加成功</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">node -v</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">// v6.10.3</span></pre></td></tr></table></figure>
-<p>如果需要永久有效，需要在 <code>/ect/profile</code> 文件中添加</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">// 在文件的尾部添加：PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/node-v6.10.3-linux-x64/bin/</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile // 可以让刚设置马上生效</span></pre></td></tr></table></figure>
-
-<h3 id="7-升级-nodejs"><a href="#7-升级-nodejs" class="headerlink" title="7. 升级 nodejs"></a>7. 升级 nodejs</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">// 安装 node 更新模块</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">npm i -g n</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">// 安装最新稳定版本</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">n stable</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">//[root@fpxt01yht code]<span class="comment"># n stable</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">//install : node-v9.2.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">//mkdir : /usr/<span class="built_in">local</span>/n/versions/node/9.2.0  // 最新的 nodejs 存放位置</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">//fetch : https://nodejs.org/dist/v9.2.0/node-v9.2.0-linux-x64.tar.gz</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">######################################################################## 100.0%</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">//installed : v9.2.0</span></pre></td></tr></table></figure>
-<p>如果使用 <code>node -v</code> 命令显示的还是之前版本，可能是又要之前安装的时候，配置了环境变量指向，只要把相应的环境变量注释掉即可，因为 n 模块以及安装了全局最新版本。<br><strong>注意:如果之前版本的 node 有安装全局的插件，需要重新安装</strong></p>
-<h3 id="8-安装-PM2-插件"><a href="#8-安装-PM2-插件" class="headerlink" title="8. 安装 PM2 插件"></a>8. 安装 PM2 插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ npm i pm2 -g</span></pre></td></tr></table></figure>
-
-<h3 id="9-安装-git-环境"><a href="#9-安装-git-环境" class="headerlink" title="9. 安装 git 环境"></a>9. 安装 git 环境</h3><h4 id="1-git-安装"><a href="#1-git-安装" class="headerlink" title="1. git 安装"></a>1. git 安装</h4><p>在 Linux 上安装预编译好的 Git 二进制安装包，可以直接用系统提供的包管理工具。在 Fedora 上用 yum 安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ yum install git-core</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ git --version</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">// git version 1.8.3.1</span></pre></td></tr></table></figure>
-<h4 id="2-生成-rsa-密钥"><a href="#2-生成-rsa-密钥" class="headerlink" title="2. 生成 rsa 密钥"></a>2. 生成 rsa 密钥</h4><p>首先查看 <code>~/.ssh</code> 目录，看是否已经存在 <code>id_ras</code> 和 <code>id_rsa.pub</code> 两个文件，如果已经有了就不用生成，直接使用。如果没有使用下面的命令生成</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"your.email@example.com"</span> -b 4096</span></pre></td></tr></table></figure>
-
-<h4 id="3-拷贝生成的公钥内容到-github-或者-gitlab-上面"><a href="#3-拷贝生成的公钥内容到-github-或者-gitlab-上面" class="headerlink" title="3. 拷贝生成的公钥内容到 github 或者 gitlab 上面"></a>3. 拷贝生成的公钥内容到 <code>github</code> 或者 <code>gitlab</code> 上面</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span></pre></td></tr></table></figure>
-<p>选中内容 -&gt; 回车 -&gt; 在 git 仓库创建 ssh keys -&gt; 粘贴内容 -&gt; 保存<br><a href="https://gitlab.com/help/ssh/README" target="_blank" rel="noopener">参考 ssh keys generate it</a></p>
-<h4 id="4-克隆仓库工程"><a href="#4-克隆仓库工程" class="headerlink" title="4. 克隆仓库工程"></a>4. 克隆仓库工程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@gitlab.com:JesseChiu/jesse-xxx.git</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> jesse-xxx</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">// 运行命令</span></pre></td></tr></table></figure>
-
-<h4 id="5-同步最新代码"><a href="#5-同步最新代码" class="headerlink" title="5. 同步最新代码"></a>5. 同步最新代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">git pull</span></pre></td></tr></table></figure>
-
-<h3 id="10-运行"><a href="#10-运行" class="headerlink" title="10. 运行"></a>10. 运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">npm run xxx</span></pre></td></tr></table></figure>
-<p><strong>注意:如果使用运行 80 端口必须要 root 权限用户。否则会报 <code>Port 80 requires elevated privileges</code></strong></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">nodejs 下载地址</a></li>
-<li><a href="http://www.cnblogs.com/dubaokun/p/3558848.html" target="_blank" rel="noopener">linux 部署 nodejs</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-05-21 </div>
-			<div class="article-title"><a href="/2017/05/21/2017-05-21-Linux-常用命令/" >Linux 常用命令</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="一、用户和组"><a href="#一、用户和组" class="headerlink" title="一、用户和组"></a>一、用户和组</h2><p>1、Linux 使用 User 和 Group 控制使用者对文件的存取权限<br>2、用户使用账号和口令登录 Linux<br>3、每个文件都有 owner，并且 owner 属于某个 Group<br>4、每个程序都有 owner 和 Group</p>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><p>1、每个用户都有一个唯一的 UserID<br>2、User 的信息存储在 <code>/etc/passwd</code> <strong>文件</strong> 中，可以通过 <code>less /etc/passwd</code> 来查看<br>例如其中的一条：<code>kuku:x:1001:1002:handsome:/home/kuku:/bin/bash</code></p>
-<ul>
-<li>kuku: 用户名</li>
-<li>x: 表示登入时需要密码，可以编辑该文件，把 <code>x</code> 去掉，这样就不需要密码登入</li>
-<li>1001: 用户 id</li>
-<li>1002: 组 id</li>
-<li>handsome: 用户的描述信息</li>
-<li><code>/home/kuku</code>: 登入时默认进入的 <code>home</code> 目录</li>
-<li><code>/bin/bash</code>: 登入时默认允许的程序</li>
-</ul>
-<p>3、用户密码信息文件 <code>/etc/shadow</code>，也是一个文本文件，可用 <code>less</code> 打开查看<br>4、每个 User 都有一个 home 目录<br>5、User 未经授权将禁止读写或执行其他 User 的文件<br>6、root 用户解读</p>
-<ul>
-<li>超级管理员账号，具有至高无上的权限</li>
-<li>一般不要随便用 root 登录并操作系统</li>
-</ul>
-<h3 id="用户权限设置"><a href="#用户权限设置" class="headerlink" title="用户权限设置"></a>用户权限设置</h3><ul>
-<li><img src="http://od6sd4xau.bkt.clouddn.com/linux-1.png" alt="文件权限验证流程"></li>
-<li><img src="http://od6sd4xau.bkt.clouddn.com/linux-2.png" alt="设置文件权限"></li>
-<li>如果想一起设置文件夹和文件夹下所有文件的权限，可以加一个 <code>R</code> 参数，例如：<code>chmod -R 555 jesse</code>。注意这里的 <code>R</code> 是大写的，在 liunux 命令中是区分大小写</li>
-</ul>
-<h2 id="二、文件压缩打包"><a href="#二、文件压缩打包" class="headerlink" title="二、文件压缩打包"></a>二、文件压缩打包</h2><p>1、文件压缩<br>    通过压缩算法将文件的体积缩小，同时会将多个文件合并至一起方便交换、传输。<br>2、文件打包<br>    将多个文件或者整个目录合并成一个文件，用来进行文件的备份、分发、传输等。<br>3、Linux支持的压缩格式<br>    1）<em>.Z ，compress 程序压缩文件 // 目前已被淘汰<br>    2）</em>.gz ，gzip 程序压缩文件 // 目前使用最多<br>    3）<em>.bz2，bzip2 程序压缩文件 // 比 gz 有更好的压缩比，用来取代 gz<br>    4）</em>.tar，tar 程序打包文件，并未压缩<br>    5）<em>.tar.gz，tar 打包的档案，使用 gzip压缩<br>    6）</em>.tar.bz2，tar 打包的文件，使用 bzip2压缩</p>
-<h4 id="压缩指令"><a href="#压缩指令" class="headerlink" title="压缩指令"></a>压缩指令</h4><p>1、gzip [-cdtv#] 文件名称<br>    1）扩展名为*.gz<br>    2）-c：将压缩的数据输出到屏幕上<br>    3）-d：解压缩的参数<br>    4）-t：进行文件的一致性校验看是否损坏<br>    5）-v：显示和原文件相比的压缩比<br>    6）-#：压缩等级，-1最快，-9最慢，默认是-6<br>注意，默认压缩后会把原文件删除，可以通过：<code>gzip -c xxx &gt; xxx.gz</code> 其中的 <code>xxx</code> 是文件名</p>
-<p>2、bzip2 [-cdkzv#] 文件名称<br>    1）扩展名为*.bz2<br>    2）-c：将压缩的数据输出到屏幕上<br>    3）-d：解压缩的参数，该参数代表执行解压缩操作<br>    4）-k：保留原文件并不删除原始文件<br>    5）-z：压缩的参数，该参数代表是执行压缩操作<br>    6）-v：显示和原文件对比的压缩比<br>    7）-#：压缩等级，-1最快，-9最慢，默认是-6</p>
-<p>3、xz [-zk#] 文件名称<br>xz 是大部分 linux 默认的压缩工具，压缩利率比 bzip2 还好，是压缩率之王，就是会慢点<br>    1）扩展名为*.xz<br>    2）-c：将压缩的数据输出到屏幕上<br>    3）-d：解压缩的参数，该参数代表执行解压缩操作<br>    4）-k：保留原文件并不删除原始文件<br>    5）-z：压缩的参数，该参数代表是执行压缩操作<br>    6）-v：显示和原文件对比的压缩比<br>    7）-#：压缩等级，-1最快，-9最慢，默认是-6</p>
-<p>创建 *.tar.xz 压缩文件</p>
-<p>1) <code>tar cvf xxx.tar xxx</code> : 这样创建 xxx.tar 文件先<br>2) <code>xz -z xxx.tar</code> : 将 xxx.tar 压缩成为 xxx.tar.xz</p>
-<p>解压 *.tar.xz 压缩文件</p>
-<p>1) <code>xz -d xxx.tar.xz</code> : 将 xxx.tar.xz 解压成 xxx.tar<br>2) <code>tar xvf xxx.tar</code></p>
-<h4 id="打包指令"><a href="#打包指令" class="headerlink" title="打包指令"></a>打包指令</h4><p>1、tar [-jcv] –f finaname.tar.bz2 待压缩的档案或者目录名<br>将某个文件或者目录打包并使用 bzip2 压缩成一个文件</p>
-<p>2、tar [-jxv] –f filename.tar.bz2 –C 解压缩的目录<br>将压缩文件解压缩至特定的目录</p>
-<p>3、参数解释<br>    1）-c：建立打包档案<br>    2）-t：查看打包的文件都有哪些文件名<br>    3）-x：解压缩或者解打包文件，和-C搭配使用解压缩至特定目录<br>    4）-j：通过bz2支持进行压缩或者解压缩<br>    5）-z：使用gzip进行压缩或者解压缩<br>    6）-v：将正在处理的文件名显示出来<br>    7）-f：紧跟要被处理的文件名，建议单独写一个选项</p>
-<h2 id="三、linux-目录结构"><a href="#三、linux-目录结构" class="headerlink" title="三、linux 目录结构"></a>三、linux 目录结构</h2><h3 id="重要目录"><a href="#重要目录" class="headerlink" title="重要目录"></a>重要目录</h3><p>1、home 目录<br>    1）root 用户的 home 目录是 /root，只用 root 用户的家目录是在跟目录下，其它都在 home 下<br>    2）普通用户的目录是 /home/userx</p>
-<p>2、bin 目录<br>    1）常用的可执行文件<br>    2）/bin、/usr/bin、/sbin(该目录下主要是 root 权限的可执行文件) 等</p>
-<p>3、外部设备 mountpoint<br>    1）/media、/mnt<br>    2）当检测到设备接入会自动产生挂载点</p>
-<p>4、/etc，系统的配置文件<br>5、/tmp，临时文件<br>6、/boot，系统内核和开机必要文件<br>7、/dev，系统所有的设备文件<br>8、/usr<br>    1）unix system resource<br>    2）保存程序的相关文件<br>    ps：类似 window 系统中的 program 和 window 目录结合<br>9、/lost+found<br>1）每个分区都会自动创建<br>10、/var(用户运行时的数据存放点，例如数据库)、/srv<br>11、/proc(存在内存，主要是进程，网络等信息)<br>12、/lib、/usr/lib、/usr/locat/lib</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ul>
-<li><p>set 查看用户自定义变量，如果是要定义变量: <code>key=value</code> 方式，删除变量使用，<code>unset key</code><br>ps: 自定义变量只在当前 <code>shell</code> 环境中有效，如果要把自定义变量转为环境变量使用 <code>export</code>,例如要将 <code>/home/rongdeguo/Code</code> 加入到环境变量中，可以在 shell 中输入<br><code>export PATH=$PATH:/home/rongdeguo/Code</code></p>
-</li>
-<li><p>env 查看环境变量<br>ps: 如果需要一行一行看可以使用 管道和 <code>more</code>，例如：<code>set | more</code>，在整理主机的 <code>shell</code> 环境下有效.如果要删除使用 <code>unset</code> 命令</p>
-</li>
-<li><p>echo 获取变量值，例如：<code>echo $name</code>，前面的 <code>$</code> 是对变量引用</p>
-</li>
-<li><p>设置别名：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> cls=<span class="string">'clear'</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> cls</span></pre></td></tr></table></figure></li>
-<li><p>查看所以别名：<code>alias</code> 类似 <code>set</code> 和 <code>env</code>,删除使用 <code>unalias</code></p>
-</li>
-<li><p>显示当前日历：<code>cal</code>，注意这里是 <strong>日历</strong>信息</p>
-</li>
-<li><p>查看指令存在那个位置：<code>witch</code></p>
-</li>
-<li><p><code>/etc/profile</code> 文件是启动 shell 时自动运行文件，如果需要添加自启动程序，可以添加到该文件中。</p>
-</li>
-<li><p><code>source</code> 命令，重新加载指定脚本变更</p>
-</li>
-<li><p>目录切换</p>
-<ul>
-<li>切换到上次目录：<code>cd -</code></li>
-<li>切换到家目录：<code>cd ~</code></li>
-</ul>
-</li>
-<li><p>拷贝：<code>cp [option] finaname 目标路径</code></p>
-</li>
-<li><p>删除：<code>rm [option] finaname 目标路径</code></p>
-</li>
-<li><p>移动/重命名：<code>mv [option] finaname 目标路径</code><br>ps：上面三个命令参数：</p>
-<ul>
-<li>-i 交付式</li>
-<li>-r 递归，在拷贝删除目录时需要加该参数</li>
-<li>-f 强制，不出现提示，直接操作命令</li>
-</ul>
-</li>
-<li><p>新建：<code>touch、mkdir [option] finaname 目标路径</code></p>
-</li>
-<li><p>确定文件格式：<code>file [option] finaname</code></p>
-</li>
-<li><p>ls，ls[options][file_or_dirs]<br>  1）ls，列出当前目录内容<br>  2）ls / ，显示根目录的内容<br>  3）ls –a，显示隐藏文件<br>  4）ls –l，显示详细内容<br>  5）ls –ld，显示目录本身的属性<br>  6）ls –lh，文件大小可以显示为 <code>k</code> 单位</p>
-</li>
-<li><p>查看系统安装了哪些软件</p>
-<ul>
-<li>查看所有软件: <code>rpm -aq</code> </li>
-<li>查看指定名字的软件：rpm -aq|grep 软件名</li>
-</ul>
-</li>
-<li><p>查看内核/操作系统/CPU信息: <code>uname -a</code>  </p>
-</li>
-<li><p>查看端口占用：<code>netstat –apn | grep 8080</code></p>
-</li>
-<li><p>查看所有进程<br>1) ps aux/-le: 查看系统所有进程<br>2）pstree：查看进程树 </p>
-</li>
-<li><p>查看系统状态<br>top: 可以查看系统运行天数，内存大小，cup 占用率等系统状态信息。</p>
-</li>
-<li><p>杀进程<br>1) kill -HUB(1) 223: 重启进程<br>2) kill -9 223: 强制杀进程<br>2) killall httpd(进程名称): 根据进程名称杀(同时杀相同进程名下多个进程)<br>3) pkill -9 -t putt/1(登入的终端号): 除了具有 <code>killall</code> 的功能，还可以通过参数 <code>t</code> 来提出终端号。可以通过 <code>w</code>命令查看当前登入的用户。</p>
-</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://man.linuxde.net/" target="_blank" rel="noopener">Linux 命令大全</a></li>
-<li><a href="http://www.cnblogs.com/haore147/p/3633116.html" target="_blank" rel="noopener">Linux 设置环境变量</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
 
 		</div>
 
@@ -875,7 +807,7 @@
 		
 			<li><a href="/categories/AliPay/">AliPay<span>1</span></a></li>
 		
-			<li><a href="/categories/Android/">Android<span>15</span></a></li>
+			<li><a href="/categories/Android/">Android<span>16</span></a></li>
 		
 			<li><a href="/categories/AngularJS/">AngularJS<span>4</span></a></li>
 		
@@ -915,15 +847,17 @@
 		
 			<li><a href="/categories/Linux/">Linux<span>8</span></a></li>
 		
+			<li><a href="/categories/NOI/">NOI<span>1</span></a></li>
+		
 			<li><a href="/categories/Node-js/">Node.js<span>40</span></a></li>
 		
 			<li><a href="/categories/Powershell/">Powershell<span>1</span></a></li>
 		
-			<li><a href="/categories/Programming/">Programming<span>1</span></a></li>
-		
-			<li><a href="/categories/Python/">Python<span>4</span></a></li>
+			<li><a href="/categories/Python/">Python<span>5</span></a></li>
 		
 			<li><a href="/categories/Read/">Read<span>9</span></a></li>
+		
+			<li><a href="/categories/STEM/">STEM<span>2</span></a></li>
 		
 			<li><a href="/categories/Synology/">Synology<span>1</span></a></li>
 		
@@ -948,46 +882,46 @@
 		
 			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
-			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
-		
-			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
-		
-			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
-		
-			<li><a href="/tags/children/">children<span>1</span></a></li>
-		
-			<li><a href="/tags/Library/">Library<span>7</span></a></li>
-		
 			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
 		
-			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
+			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
 		
-			<li><a href="/tags/sqlite/">sqlite<span>3</span></a></li>
+			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
 		
-			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
+			<li><a href="/tags/Android/">Android<span>3</span></a></li>
 		
-			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
-		
-			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
-		
-			<li><a href="/tags/gradle/">gradle<span>1</span></a></li>
-		
-			<li><a href="/tags/scrapy/">scrapy<span>1</span></a></li>
-		
-			<li><a href="/tags/Document/">Document<span>8</span></a></li>
-		
-			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
 		
 			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
 		
+			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
+		
+			<li><a href="/tags/Document/">Document<span>8</span></a></li>
+		
+			<li><a href="/tags/Jasmine/">Jasmine<span>1</span></a></li>
+		
+			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
+		
 			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
 		
-			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
+			<li><a href="/tags/docker/">docker<span>1</span></a></li>
 		
-			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
+			<li><a href="/tags/children/">children<span>1</span></a></li>
+		
+			<li><a href="/tags/stem/">stem<span>1</span></a></li>
+		
+			<li><a href="/tags/noi/">noi<span>1</span></a></li>
+		
+			<li><a href="/tags/scrapy/">scrapy<span>1</span></a></li>
+		
+			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
+		
+			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+		
+			<li><a href="/tags/sqlite/">sqlite<span>3</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>29</span></a></li>
+		   <li><a href="/tags">...<span>32</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1000,23 +934,23 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2021/03/22/2021-03-22-noi-introduce/" ><i class="fa fa-file-o"></i>全国青少年信息学奥林匹克竞赛系列活动简介</a>
+      </li>
+    
+      <li>
+        <a href="/2021/02/08/2021-02-08-stem/" ><i class="fa fa-file-o"></i>STEM</a>
+      </li>
+    
+      <li>
+        <a href="/2021/01/19/2021-01-19-kotlin-starting/" ><i class="fa fa-file-o"></i>Kotlin Starting</a>
+      </li>
+    
+      <li>
         <a href="/2021/01/15/2021-01-15-children-programming/" ><i class="fa fa-file-o"></i>Children Programming</a>
       </li>
     
       <li>
         <a href="/2020/11/30/2020-11-30-android-gradle/" ><i class="fa fa-file-o"></i>Gradle</a>
-      </li>
-    
-      <li>
-        <a href="/2020/11/29/2020-11-29-scrapy/" ><i class="fa fa-file-o"></i>Scrapy</a>
-      </li>
-    
-      <li>
-        <a href="/2020/11/26/2020-11-26-database-sqlite-exercise/" ><i class="fa fa-file-o"></i>SQLite Exercises</a>
-      </li>
-    
-      <li>
-        <a href="/2020/11/25/2020-11-25-database-sqlite-optimization/" ><i class="fa fa-file-o"></i>SQLite 性能优化</a>
       </li>
     
   </ul>
