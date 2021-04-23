@@ -129,45 +129,6 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2017-03-12 </div>
-			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-lib-date/" >Datejs</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Datejs 是一个用来操作日期的库，官方网站为 <a href="http://www.datejs.com/" target="_blank" rel="noopener">datejs.com</a>,<a href="https://github.com/datejs/Datejs" target="_blank" rel="noopener">github</a>。</p>
-<p>下载后插入网页，就可以使用。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"date.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span></pre></td></tr></table></figure>
-
-<p>官方还提供多种语言的版本，可以选择使用。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 美国版</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"date-en-US.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 中国版</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"date-zh-CN.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span></pre></td></tr></table></figure>
-
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>Datejs在原生的Date对象上面，定义了许多语义化的方法，可以方便地链式使用。</p>
-<h3 id="日期信息"><a href="#日期信息" class="headerlink" title="日期信息"></a>日期信息</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today() <span class="comment">// 返回当天日期，时间定在这一天开始的00:00 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().getDayName() <span class="comment">// 今天是星期几</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().friday()      <span class="comment">// 今天是否为星期五，返回true或者false</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().fri()         <span class="comment">// 等同于上一行</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().november()    <span class="comment">// 今天是否为11月，返回true或者false</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().nov()         <span class="comment">// 等同于上一行</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().isWeekday() <span class="comment">// 今天是否为工作日（周一到周五）</span></span></pre></td></tr></table></figure>
-
-<h3 id="日期的变更"><a href="#日期的变更" class="headerlink" title="日期的变更"></a>日期的变更</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().next().friday()    <span class="comment">// 下一个星期五</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().last().monday()    <span class="comment">// 上一个星期一</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>().next().march()       <span class="comment">// 下个三月份的今天</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>().last().week()        <span class="comment">// 上星期的今天</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().add(<span class="number">5</span>).days() <span class="comment">// 五天后</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.friday() <span class="comment">// 本周的星期五</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.march() <span class="comment">// 今年的三月</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.january().first().monday() <span class="comment">// 今年一月的第一个星期一</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.dec().final().fri() <span class="comment">// 今年12月的最后一个星期五</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先将日期定在本月15日的下午4点30分，然后向后推90天</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().set(&#123; <span class="attr">day</span>: <span class="number">15</span>, <span class="attr">hour</span>: <span class="number">16</span>, <span class="attr">minute</span>: <span class="number">30</span> &#125;).add(&#123; <span class="attr">days</span>: <span class="number">90</span> &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">(<span class="number">3</span>).days().fromNow() <span class="comment">// 三天后</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">(<span class="number">6</span>).months().ago() <span class="comment">// 6个月前</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">(<span class="number">12</span>).weeks().fromNow() <span class="comment">// 12个星期后</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">(<span class="number">30</span>).days().after(<span class="built_in">Date</span>.today()) <span class="comment">// 30天后</span></span></pre></td></tr></table></figure>
-
-<h3 id="日期的解析"><a href="#日期的解析" class="headerlink" title="日期的解析"></a>日期的解析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'today'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'tomorrow'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'July 8'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'July 8th, 2007'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'July 8th, 2007, 10:30 PM'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'07.15.2007'</span>)</span></pre></td></tr></table></figure>
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a href="http://www.datejs.com/2007/11/27/getting-started-with-datejs/" target="_blank" rel="noopener">Getting Started With Datejs</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-12 </div>
 			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-lib-modernizr/" >Modernizr</a></div>						
 		</h3>
 	
@@ -208,63 +169,6 @@
 
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li>Chris Griffith, <a href="http://www.adobe.com/devnet/html5/articles/up-and-running-with-modernizr.html" target="_blank" rel="noopener">Up and running with Modernizr</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-12 </div>
-			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-plugins/" >JavaScript 函数库和插件列表</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><ul>
-<li><a href="http://velocityjs.org/" target="_blank" rel="noopener">Velocity.js</a>：替代jQuery.animate()的函数库</li>
-<li><a href="http://greensock.com/gsap/" target="_blank" rel="noopener">GSAP</a>：替代jQuery.animate()的函数库</li>
-<li><a href="http://www.attriboot.com/plugins/text-fx" target="_blank" rel="noopener">Attriboot-Text FX</a>：生成文字动画效果的插件</li>
-<li><a href="http://www.attriboot.com/plugins/fx" target="_blank" rel="noopener">Attriboot-Fx Plugin</a>：产生图片抖动和飞入效果的插件</li>
-<li><a href="http://git.blivesta.com/animsition/" target="_blank" rel="noopener">Animsition</a>：页面切换载入的动画库</li>
-</ul>
-<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><ul>
-<li><a href="http://www.attriboot.com/plugins/flip" target="_blank" rel="noopener">Attriboot-Flip Plugin</a>：图片翻转效果的插件</li>
-<li><a href="http://www.attriboot.com/plugins/touch-slider" target="_blank" rel="noopener">Attriboot-Touch Slider Plugin</a>：鼠标拖动图片，产生幻灯片效果的插件</li>
-<li><a href="http://www.attriboot.com/plugins/cycle" target="_blank" rel="noopener">Attriboot-Cycle Plugin</a>：图片循环播放的插件</li>
-<li><a href="http://www.attriboot.com/plugins/image-zoom" target="_blank" rel="noopener">Attriboot-Image Zoom Plugin</a>：图片放大效果的插件</li>
-<li><a href="http://www.attriboot.com/plugins/image-fit" target="_blank" rel="noopener">Attriboot-Image Fit Plugin</a>：使得图片适应容器大小的插件</li>
-</ul>
-<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><ul>
-<li><a href="http://www.attriboot.com/plugins/vertical-align" target="_blank" rel="noopener">Attriboot-Vertical Align Plugin</a>：网页元素垂直居中的插件</li>
-<li><a href="http://www.attriboot.com/plugins/sticky" target="_blank" rel="noopener">Attriboot-Sticky Plugin</a>：使得元素在页面上始终处于固定位置的插件</li>
-</ul>
-<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
-<li><a href="https://github.com/datazenit/sensei-grid/tree/master" target="_blank" rel="noopener">Sensei Grid</a>：生成可编辑数据表格</li>
-<li><a href="http://adodson.com/hello.js/" target="_blank" rel="noopener">hello.js</a>：客户端OAuth 2.0认证的库</li>
-<li><a href="https://github.com/zendesk/cross-storage" target="_blank" rel="noopener">cross-storage</a> ：跨域名在浏览器端储存数据的库</li>
-</ul>
-<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><ul>
-<li><a href="https://github.com/inikulin/ineed" target="_blank" rel="noopener">ineed</a>：一个网页内容获取（Web scraping）的库</li>
-<li><a href="https://github.com/pieroxy/lz-string/" target="_blank" rel="noopener">lz-string</a>：客户端文本压缩的库</li>
-<li><a href="https://github.com/typicode/json-server" target="_blank" rel="noopener">json-server</a>: 快速搭建本地后台服务器，提供完整的 REST API.<blockquote>
-<p>Get a full fake REST API with zero coding in less than 30 seconds (seriously)</p>
-</blockquote>
-</li>
-<li><a href="https://github.com/mzabriskie/axios" target="_blank" rel="noopener">axios</a>: 基于 <code>promise</code> 的 <code>HTTP</code> 库，可以运行在浏览器和 <code>node.js</code> 环境。<blockquote>
-<p>Promise based HTTP client for the browser and node.js</p>
-</blockquote>
-</li>
 </ul>
 
 	
@@ -334,6 +238,122 @@
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li>jquery-boilerplate, <a href="https://github.com/jquery-boilerplate/jquery-boilerplate/wiki/How-did-we-get-here%3F" target="_blank" rel="noopener">How did we get here?</a></li>
 <li>jquery-boilerplate, <a href="https://github.com/jquery-boilerplate/jquery-boilerplate/wiki/How-to-publish-a-plugin-in-jQuery-Plugin-Registry" target="_blank" rel="noopener">How to publish a plugin in jQuery Plugin Registry</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-12 </div>
+			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-history/" >JavaScript 语言的历史</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="JavaScript的诞生"><a href="#JavaScript的诞生" class="headerlink" title="JavaScript的诞生"></a>JavaScript的诞生</h2><p>JavaScript因为互联网而生，紧随着浏览器的出现而问世。回顾它的历史，就要从浏览器的历史讲起。</p>
+<p>1990年底，欧洲核能研究组织（CERN）科学家Tim Berners-Lee，在全世界最大的电脑网络——互联网的基础上，发明了万维网（World Wide Web），从此可以在网上浏览网页文件。最早的网页只能在操作系统的终端里浏览，也就是说只能使用命令行操作，网页都是在字符窗口中显示，这当然非常不方便。</p>
+<p>1992年底，美国国家超级电脑应用中心（NCSA）开始开发一个独立的浏览器，叫做Mosaic。这是人类历史上第一个浏览器，从此网页可以在图形界面的窗口浏览。</p>
+<p>1994年10月，NCSA的一个主要程序员Marc Andreessen联合风险投资家Jim Clark，成立了Mosaic通信公司（Mosaic Communications），不久后改名为Netscape。这家公司的方向，就是在Mosaic的基础上，开发面向普通用户的新一代的浏览器Netscape Navigator。</p>
+<p>1994年12月，Navigator发布了1.0版，市场份额一举超过90%。</p>
+<p>Netscape公司很快发现，Navigator浏览器需要一种可以嵌入网页的脚本语言，用来控制浏览器行为。当时，网速很慢而且上网费很贵，有些操作不宜在服务器端完成。比如，如果用户忘记填写“用户名”，就点了“发送”按钮，到服务器再发现这一点就有点太晚了，最好能在用户发出数据之前，就告诉用户“请填写用户名”。这就需要在网页中嵌入小程序，让浏览器检查每一栏是否都填写了。</p>
+<p>管理层对这种浏览器脚本语言的设想是：功能不需要太强，语法较为简单，容易学习和部署。那一年，正逢Sun公司的Java语言问世，市场推广活动非常成功。Netscape公司决定与Sun公司合作，浏览器支持嵌入Java小程序（后来称为Java applet）。但是，浏览器脚本语言是否就选用Java，则存在争论。后来，还是决定不使用Java，因为网页小程序不需要Java这么“重”的语法。但是，同时也决定脚本语言的语法要接近Java，并且可以支持Java程序。这些设想直接排除了使用现存语言，比如Perl、Python和TCL。</p>
+<p>1995年，Netscape公司雇佣了程序员Brendan Eich开发这种网页脚本语言。Brendan Eich有很强的函数式编程背景，希望以Scheme语言（函数式语言鼻祖LISP语言的一种方言）为蓝本，实现这种新语言。</p>
+<p>1995年5月，Brendan Eich只用了10天，就设计完成了这种语言的第一版。它是一个大杂烩，语法有多个来源：</p>
+<ul>
+<li>基本语法：借鉴C语言和Java语言。</li>
+<li>数据结构：借鉴Java语言，包括将值分成原始值和对象两大类。</li>
+<li>函数的用法：借鉴Scheme语言和Awk语言，将函数当作第一等公民，并引入闭包。</li>
+<li>原型继承模型：借鉴Self语言（Smalltalk的一种变种）。</li>
+<li>正则表达式：借鉴Perl语言。</li>
+<li>字符串和数组处理：借鉴Python语言。</li>
+</ul>
+<p>为了保持简单，这种脚本语言缺少一些关键的功能，比如块级作用域、模块、子类型（subtyping）等等，但是可以利用现有功能找出解决办法。这种功能的不足，直接导致了后来JavaScript的一个显著特点：对于其他语言，你需要学习语言的各种功能，而对于JavaScript，你常常需要学习各种解决问题的模式。而且由于来源多样，从一开始就注定，JavaScript的编程风格是函数式编程和面向对象编程的一种混合体。</p>
+<p>Netscape公司的这种浏览器脚本语言，最初名字叫做Mocha，1995年9月改为LiveScript。12月，Netscape公司与Sun公司（Java语言的发明者和所有者）达成协议，后者允许将这种语言叫做JavaScript。这样一来，Netscape公司可以借助Java语言的声势，而Sun公司则将自己的影响力扩展到了浏览器。</p>
+<p>之所以起这个名字，并不是因为JavaScript本身与Java语言有多么深的关系（事实上，两者关系并不深），而是因为Netscape公司已经决定，使用Java语言开发网络应用程序，JavaScript可以像胶水一样，将各个部分连接起来。当然，后来的历史是Java语言的浏览器插件失败了，JavaScript反而发扬光大。</p>
+<p>1995年12月4日，Netscape公司与Sun公司联合发布了JavaScript语言。</p>
+<p>1996年3月，Navigator 2.0浏览器正式内置了JavaScript脚本语言。</p>
+<h2 id="JavaScript与ECMAScript的关系"><a href="#JavaScript与ECMAScript的关系" class="headerlink" title="JavaScript与ECMAScript的关系"></a>JavaScript与ECMAScript的关系</h2><p>1996年8月，微软模仿JavaScript开发了一种相近的语言，取名为JScript（JavaScript是Netscape的注册商标，微软不能用），首先内置于IE 3.0。Netscape公司面临丧失浏览器脚本语言的主导权的局面。</p>
+<p>1996年11月，Netscape公司决定将JavaScript提交给国际标准化组织ECMA（European Computer Manufacturers Association），希望JavaScript能够成为国际标准，以此抵抗微软。ECMA的39号技术委员会（Technical Committee 39）负责制定和审核这个标准，成员由业内的大公司派出的工程师组成，目前共25个人。该委员会定期开会，所有的邮件讨论和会议记录，都是公开的。</p>
+<p>1997年7月，ECMA组织发布262号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为ECMAScript。这个版本就是ECMAScript 1.0版。之所以不叫JavaScript，一方面是由于商标的关系，Java是Sun公司的商标，根据一份授权协议，只有Netscape公司可以合法地使用JavaScript这个名字，且JavaScript已经被Netscape公司注册为商标，另一方面也是想体现这门语言的制定者是ECMA，不是Netscape，这样有利于保证这门语言的开放性和中立性。因此，ECMAScript和JavaScript的关系是，前者是后者的规格，后者是前者的一种实现。在日常场合，这两个词是可以互换的。</p>
+<p>ECMAScript只用来标准化JavaScript这种语言的基本语法结构，与部署环境相关的标准都由其他标准规定，比如DOM的标准就是由W3C组织（World Wide Web Consortium）制定的。</p>
+<p>ECMA-262标准后来也被另一个国际标准化组织ISO（International Organization for Standardization）批准，标准号是ISO-16262。</p>
+<h2 id="JavaScript与Java的关系"><a href="#JavaScript与Java的关系" class="headerlink" title="JavaScript与Java的关系"></a>JavaScript与Java的关系</h2><p>JavaScript和Java是两种不一样的语言，但是它们之间存在联系。</p>
+<p>JavaScript的基本语法和对象体系，是模仿Java而设计的。但是，JavaScript没有采用Java的静态类型。正是因为JavaScript与Java有很大的相似性，所以这门语言才从一开始的LiveScript改名为JavaScript。基本上，JavaScript这个名字的原意是“很像Java的脚本语言”。</p>
+<p>在JavaScript语言中，函数是一种独立的数据类型，以及采用基于原型对象（prototype）的继承链。这是它与Java语法最大的两点区别。JavaScript语法要比Java自由得多。</p>
+<p>另外，Java语言需要编译，而JavaScript语言则是运行时由解释器直接执行。</p>
+<p>总之，JavaScript的原始设计目标是一种小型的、简单的动态语言，与Java有足够的相似性，使得使用者（尤其是Java程序员）可以快速上手。</p>
+<h2 id="JavaScript的版本"><a href="#JavaScript的版本" class="headerlink" title="JavaScript的版本"></a>JavaScript的版本</h2><p>1997年7月，ECMAScript 1.0发布。</p>
+<p>1998年6月，ECMAScript 2.0版发布。</p>
+<p>1999年12月，ECMAScript 3.0版发布，成为JavaScript的通行标准，得到了广泛支持。</p>
+<p>2007年10月，ECMAScript 4.0版草案发布，对3.0版做了大幅升级，预计次年8月发布正式版本。草案发布后，由于4.0版的目标过于激进，各方对于是否通过这个标准，发生了严重分歧。以Yahoo、Microsoft、Google为首的大公司，反对JavaScript的大幅升级，主张小幅改动；以JavaScript创造者Brendan Eich为首的Mozilla公司，则坚持当前的草案。</p>
+<p>2008年7月，由于对于下一个版本应该包括哪些功能，各方分歧太大，争论过于激进，ECMA开会决定，中止ECMAScript 4.0的开发（即废除了这个版本），将其中涉及现有功能改善的一小部分，发布为ECMAScript 3.1，而将其他激进的设想扩大范围，放入以后的版本，由于会议的气氛，该版本的项目代号起名为Harmony（和谐）。会后不久，ECMAScript 3.1就改名为ECMAScript 5。</p>
+<p>2009年12月，ECMAScript 5.0版正式发布。Harmony项目则一分为二，一些较为可行的设想定名为JavaScript.next继续开发，后来演变成ECMAScript 6；一些不是很成熟的设想，则被视为JavaScript.next.next，在更远的将来再考虑推出。TC39的总体考虑是，ECMAScript 5与ECMAScript 3基本保持兼容，较大的语法修正和新功能加入，将由JavaScript.next完成。当时，JavaScript.next指的是ECMAScript 6。第六版发布以后，将指ECMAScript 7。TC39预计，ECMAScript 5会在2013年的年中成为JavaScript开发的主流标准，并在此后五年中一直保持这个位置。</p>
+<p>2011年6月，ECMAscript 5.1版发布，并且成为ISO国际标准（ISO/IEC 16262:2011）。到了2012年底，所有主要浏览器都支持ECMAScript 5.1版的全部功能。</p>
+<p>2013年3月，ECMAScript 6草案冻结，不再添加新功能。新的功能设想将被放到ECMAScript 7。</p>
+<p>2013年12月，ECMAScript 6草案发布。然后是12个月的讨论期，听取各方反馈。</p>
+<p>2015年6月，ECMAScript 6正式发布，并且更名为“ECMAScript 2015”。这是因为TC39委员会计划，以后每年发布一个ECMAScirpt的版本，下一个版本在2016年发布，称为“ECMAScript 2016”。</p>
+<p>除了ECMAScript的版本，很长一段时间中，Netscape公司（以及继承它的Mozilla基金会）在内部依然使用自己的版本号。这导致了JavaScript有自己不同于ECMAScript的版本号。1996年3月，Navigator 2.0内置了JavaScript 1.0。JavaScript 1.1版对应ECMAScript 1.0，但是直到JavaScript 1.4版才完全兼容ECMAScript 1.0。JavaScript 1.5版完全兼容ECMAScript 3.0。目前的JavaScript 1.8版完全兼容ECMAScript 5。</p>
+<h2 id="周边大事记"><a href="#周边大事记" class="headerlink" title="周边大事记"></a>周边大事记</h2><p>JavaScript伴随着互联网的发展一起发展。互联网周边技术的快速发展，刺激和推动了JavaScript语言的发展。</p>
+<p>1996年，样式表标准CSS第一版发布。</p>
+<p>1997年，DHTML（Dynamic HTML，动态HTML）发布，允许动态改变网页内容。这标志着DOM模式（Document Object Model，文档对象模型）正式应用。</p>
+<p>1998年，Netscape公司开源了浏览器套件，这导致了Mozilla项目的诞生。几个月后，美国在线（AOL）宣布并购Netscape。</p>
+<p>1999年，IE 5部署了XMLHttpRequest接口，允许JavaScript发出HTTP请求，为后来大行其道的Ajax应用创造了条件。</p>
+<p>2000年，KDE项目重写了浏览器引擎KHTML，为后来的WebKit和Blink引擎打下基础。这一年的10月23日，KDE 2.0发布，第一次将KHTML浏览器包括其中。</p>
+<p>2001年，微软公司时隔5年之后，发布了IE浏览器的下一个版本Internet Explorer 6。这是当时最先进的浏览器，它后来统治了浏览器市场多年。</p>
+<p>2001年，Douglas Crockford提出了JSON格式，用于取代XML格式，进行服务器和网页之间的数据交换。JavaScript可以原生支持这种格式，不需要额外部署代码。</p>
+<p>2002年，Mozilla项目发布了它的浏览器的第一版，后来起名为Firefox。</p>
+<p>2003年，苹果公司发布了Safari浏览器的第一版。</p>
+<p>2004年，Google公司发布了Gmail，促成了互联网应用程序（Web Application）这个概念的诞生。由于Gmail是在4月1日发布的，很多人起初以为这只是一个玩笑。</p>
+<p>2004年，Dojo框架诞生，为不同浏览器提供了同一接口，并为主要功能提供了便利的调用方法。这标志着JavaScript编程框架的时代开始来临。</p>
+<p>2004年，WHATWG组织成立，致力于加速HTML语言的标准化进程。</p>
+<p>2005年，苹果公司在KHTML引擎基础上，建立了WebKit引擎。</p>
+<p>2005年，Ajax方法（Asynchronous JavaScript and XML）正式诞生，Jesse James Garrett发明了这个词汇。它开始流行的标志是，2月份发布的Google Maps项目大量采用该方法。它几乎成了新一代网站的标准做法，促成了Web 2.0时代的来临。</p>
+<p>2005年，Apache基金会发布了CouchDB数据库。这是一个基于JSON格式的数据库，可以用JavaScript函数定义视图和索引。它在本质上有别于传统的关系型数据库，标识着NoSQL类型的数据库诞生。</p>
+<p>2006年，jQuery函数库诞生，作者为John Resig。jQuery为操作网页DOM结构提供了非常强大易用的接口，成为了使用最广泛的函数库，并且让JavaScript语言的应用难度大大降低，推动了这种语言的流行。</p>
+<p>2006年，微软公司发布IE 7，标志重新开始启动浏览器的开发。</p>
+<p>2006年，Google推出 Google Web Toolkit 项目（缩写为GWT），提供Java编译成JavaScript的功能，开创了将其他语言转为JavaScript的先河。</p>
+<p>2007年，Webkit引擎在iPhone手机中得到部署。它最初基于KDE项目，2003年苹果公司首先采用，2005年开源。这标志着JavaScript语言开始能在手机中使用了，意味着有可能写出在桌面电脑和手机中都能使用的程序。</p>
+<p>2007年，Douglas Crockford发表了名为《JavaScript: The good parts》的演讲，次年由O’Reilly出版社出版。这标志着软件行业开始严肃对待JavaScript语言，对它的语法开始重新认识，</p>
+<p>2008年，V8编译器诞生。这是Google公司为Chrome浏览器而开发的，它的特点是让JavaScript的运行变得非常快。它提高了JavaScript的性能，推动了语法的改进和标准化，改变外界对JavaScript的不佳印象。同时，V8是开源的，任何人想要一种快速的嵌入式脚本语言，都可以采用V8，这拓展了JavaScript的应用领域。</p>
+<p>2009年，Node.js项目诞生，创始人为Ryan Dahl，它标志着JavaScript可以用于服务器端编程，从此网站的前端和后端可以使用同一种语言开发。并且，Node.js可以承受很大的并发流量，使得开发某些互联网大规模的实时应用变得容易。</p>
+<p>2009年，Jeremy Ashkenas发布了CoffeeScript的最初版本。CoffeeScript可以被转化为JavaScript运行，但是语法要比JavaScript简洁。这开启了其他语言转为JavaScript的风潮。</p>
+<p>2009年，PhoneGap项目诞生，它将HTML5和JavaScript引入移动设备的应用程序开发，主要针对iOS和Android平台，使得JavaScript可以用于跨平台的应用程序开发。</p>
+<p>2009，Google发布Chrome OS，号称是以浏览器为基础发展成的操作系统，允许直接使用JavaScript编写应用程序。类似的项目还有Mozilla的Firefox OS。</p>
+<p>2010年，三个重要的项目诞生，分别是NPM、BackboneJS和RequireJS，标志着JavaScript进入模块化开发的时代。</p>
+<p>2011年，微软公司发布Windows 8操作系统，将JavaScript作为应用程序的开发语言之一，直接提供系统支持。</p>
+<p>2011年，Google发布了Dart语言，目的是为了结束JavaScript语言在浏览器中的垄断，提供更合理、更强大的语法和功能。Chromium浏览器有内置的Dart虚拟机，可以运行Dart程序，但Dart程序也可以被编译成JavaScript程序运行。</p>
+<p>2011年，微软工程师<a href="http://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx" target="_blank" rel="noopener">Scott Hanselman</a>提出，JavaScript将是互联网的汇编语言。因为它无所不在，而且正在变得越来越快。其他语言的程序可以被转成JavaScript语言，然后在浏览器中运行。</p>
+<p>2012年，单页面应用程序框架（single-page app framework）开始崛起，AngularJS项目和Ember项目都发布了1.0版本。</p>
+<p>2012年，微软发布TypeScript语言。该语言被设计成JavaScript的超集，这意味着所有JavaScipt程序，都可以不经修改地在TypeScript中运行。同时，TypeScript添加了很多新的语法特性，主要目的是为了开发大型程序，然后还可以被编译成JavaScript运行。</p>
+<p>2012年，Mozilla基金会提出<a href="http://asmjs.org/" target="_blank" rel="noopener">asm.js</a>规格。asm.js是JavaScript的一个子集，所有符合asm.js的程序都可以在浏览器中运行，它的特殊之处在于语法有严格限定，可以被快速编译成性能良好的机器码。这样做的目的，是为了给其他语言提供一个编译规范，使其可以被编译成高效的JavaScript代码。同时，Mozilla基金会还发起了<a href="https://github.com/kripken/emscripten/wiki" target="_blank" rel="noopener">Emscripten</a>项目，目标就是提供一个跨语言的编译器，能够将LLVM的位代码（bitcode）转为JavaScript代码，在浏览器中运行。因为大部分LLVM位代码都是从C / C++语言生成的，这意味着C / C++将可以在浏览器中运行。此外，Mozilla旗下还有<a href="http://mbebenita.github.io/LLJS/" target="_blank" rel="noopener">LLJS</a>（将JavaScript转为C代码）项目和<a href="https://github.com/RiverTrail/RiverTrail/wiki" target="_blank" rel="noopener">River Trail</a>（一个用于多核心处理器的ECMAScript扩展）项目。目前，在可以被编译成JavaScript的<a href="https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS" target="_blank" rel="noopener">语言列表</a>上，共有将近40种语言。</p>
+<p>2013年，Mozilla基金会发布手机操作系统Firefox OS，该操作系统的整个用户界面都使用JavaScript。</p>
+<p>2013年，ECMA正式推出JSON的<a href="http://www.ecma-international.org/publications/standards/Ecma-404.htm" target="_blank" rel="noopener">国际标准</a>，这意味着JSON格式已经变得与XML格式一样重要和正式了。</p>
+<p>2013年5月，Facebook发布UI框架库React，引入了新的JSX语法，使得UI层可以用组件开发。</p>
+<p>2014年，微软推出JavaScript的Windows库WinJS，标志微软公司全面支持JavaScript与Windows操作系统的融合。</p>
+<p>2014年11月，由于对Joyent公司垄断Node项目、以及该项目进展缓慢的不满，一部分核心开发者离开了Node.js，创造了io.js项目，这是一个更开放、更新更频繁的Node.js版本，很短时间内就发布到了2.0版。三个月后，Joyent公司宣布放弃对Node项目的控制，将其转交给新成立的开放性质的Node基金会。随后，io.js项目宣布回归Node，两个版本将合并。</p>
+<p>2015年3月，Facebook公司发布了React Native项目，将React框架移植到了手机端，可以用来开发手机App。它会将JavaScript代码转为iOS平台的Objective-C代码，或者Android平台的Java代码，从而为JavaScript语言开发高性能的原生App打开了一条道路。</p>
+<p>2015年4月，Angular框架宣布，2.0版将基于微软公司的TypeScript语言开发，这等于为JavaScript语言引入了强类型。</p>
+<p>2015年5月，Node模块管理器npm超越CPAN，标志着JavaScript成为世界上软件模块最多的语言。</p>
+<p>2015年5月，Google公司的Polymer框架发布1.0版。该项目的目标是生产环境可以使用WebComponent组件，如果能够达到目标，Web开发将进入一个全新的以组件为开发基础的阶段。</p>
+<p>2015年6月，ECMA标准化组织正式批准了ECMAScript 6语言标准，定名为《ECMAScript 2015 标准》。JavaScript语言正式进入了下一个阶段，成为一种企业级的、开发大规模应用的语言。这个标准从提出到批准，历时10年，而JavaScript语言从诞生至今也已经20年了。</p>
+<p>2015年6月，Mozilla在asm.js的基础上发布WebAssembly项目。这是一种JavaScript语言编译后的二进制格式，类似于Java的字节码，有利于移动设备加载JavaScript脚本，解析速度提高了20+倍。这意味着将来的软件，会发布JavaScript二进制包。</p>
+<p>2016年6月，《ECMAScript 2016 标准》发布。与前一年发布的版本相比，它只增加了两个较小的特性。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>Axel Rauschmayer, <a href="http://oreilly.com/javascript/radarreports/past-present-future-javascript.csp" target="_blank" rel="noopener">The Past, Present, and Future of JavaScript</a></li>
+<li>John Dalziel, <a href="http://creativejs.com/2013/06/the-race-for-speed-part-4-the-future-for-javascript/" target="_blank" rel="noopener">The race for speed part 4: The future for JavaScript</a></li>
+<li>Axel Rauschmayer, <a href="http://www.2ality.com/2013/06/basic-javascript.html" target="_blank" rel="noopener">Basic JavaScript for the impatient programmer</a></li>
+<li>resin.io, <a href="http://resin.io/happy-18th-birthday-javascript/" target="_blank" rel="noopener">Happy 18th Birthday JavaScript! A look at an unlikely past and bright future</a></li>
 </ul>
 
 	
@@ -1117,6 +1137,163 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2017-03-12 </div>
+			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-plugins/" >JavaScript 函数库和插件列表</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><ul>
+<li><a href="http://velocityjs.org/" target="_blank" rel="noopener">Velocity.js</a>：替代jQuery.animate()的函数库</li>
+<li><a href="http://greensock.com/gsap/" target="_blank" rel="noopener">GSAP</a>：替代jQuery.animate()的函数库</li>
+<li><a href="http://www.attriboot.com/plugins/text-fx" target="_blank" rel="noopener">Attriboot-Text FX</a>：生成文字动画效果的插件</li>
+<li><a href="http://www.attriboot.com/plugins/fx" target="_blank" rel="noopener">Attriboot-Fx Plugin</a>：产生图片抖动和飞入效果的插件</li>
+<li><a href="http://git.blivesta.com/animsition/" target="_blank" rel="noopener">Animsition</a>：页面切换载入的动画库</li>
+</ul>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><ul>
+<li><a href="http://www.attriboot.com/plugins/flip" target="_blank" rel="noopener">Attriboot-Flip Plugin</a>：图片翻转效果的插件</li>
+<li><a href="http://www.attriboot.com/plugins/touch-slider" target="_blank" rel="noopener">Attriboot-Touch Slider Plugin</a>：鼠标拖动图片，产生幻灯片效果的插件</li>
+<li><a href="http://www.attriboot.com/plugins/cycle" target="_blank" rel="noopener">Attriboot-Cycle Plugin</a>：图片循环播放的插件</li>
+<li><a href="http://www.attriboot.com/plugins/image-zoom" target="_blank" rel="noopener">Attriboot-Image Zoom Plugin</a>：图片放大效果的插件</li>
+<li><a href="http://www.attriboot.com/plugins/image-fit" target="_blank" rel="noopener">Attriboot-Image Fit Plugin</a>：使得图片适应容器大小的插件</li>
+</ul>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><ul>
+<li><a href="http://www.attriboot.com/plugins/vertical-align" target="_blank" rel="noopener">Attriboot-Vertical Align Plugin</a>：网页元素垂直居中的插件</li>
+<li><a href="http://www.attriboot.com/plugins/sticky" target="_blank" rel="noopener">Attriboot-Sticky Plugin</a>：使得元素在页面上始终处于固定位置的插件</li>
+</ul>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
+<li><a href="https://github.com/datazenit/sensei-grid/tree/master" target="_blank" rel="noopener">Sensei Grid</a>：生成可编辑数据表格</li>
+<li><a href="http://adodson.com/hello.js/" target="_blank" rel="noopener">hello.js</a>：客户端OAuth 2.0认证的库</li>
+<li><a href="https://github.com/zendesk/cross-storage" target="_blank" rel="noopener">cross-storage</a> ：跨域名在浏览器端储存数据的库</li>
+</ul>
+<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><ul>
+<li><a href="https://github.com/inikulin/ineed" target="_blank" rel="noopener">ineed</a>：一个网页内容获取（Web scraping）的库</li>
+<li><a href="https://github.com/pieroxy/lz-string/" target="_blank" rel="noopener">lz-string</a>：客户端文本压缩的库</li>
+<li><a href="https://github.com/typicode/json-server" target="_blank" rel="noopener">json-server</a>: 快速搭建本地后台服务器，提供完整的 REST API.<blockquote>
+<p>Get a full fake REST API with zero coding in less than 30 seconds (seriously)</p>
+</blockquote>
+</li>
+<li><a href="https://github.com/mzabriskie/axios" target="_blank" rel="noopener">axios</a>: 基于 <code>promise</code> 的 <code>HTTP</code> 库，可以运行在浏览器和 <code>node.js</code> 环境。<blockquote>
+<p>Promise based HTTP client for the browser and node.js</p>
+</blockquote>
+</li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-12 </div>
+			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-lib-date/" >Datejs</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Datejs 是一个用来操作日期的库，官方网站为 <a href="http://www.datejs.com/" target="_blank" rel="noopener">datejs.com</a>,<a href="https://github.com/datejs/Datejs" target="_blank" rel="noopener">github</a>。</p>
+<p>下载后插入网页，就可以使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"date.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span></pre></td></tr></table></figure>
+
+<p>官方还提供多种语言的版本，可以选择使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 美国版</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"date-en-US.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 中国版</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"date-zh-CN.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span></pre></td></tr></table></figure>
+
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>Datejs在原生的Date对象上面，定义了许多语义化的方法，可以方便地链式使用。</p>
+<h3 id="日期信息"><a href="#日期信息" class="headerlink" title="日期信息"></a>日期信息</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today() <span class="comment">// 返回当天日期，时间定在这一天开始的00:00 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().getDayName() <span class="comment">// 今天是星期几</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().friday()      <span class="comment">// 今天是否为星期五，返回true或者false</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().fri()         <span class="comment">// 等同于上一行</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().november()    <span class="comment">// 今天是否为11月，返回true或者false</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().is().nov()         <span class="comment">// 等同于上一行</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().isWeekday() <span class="comment">// 今天是否为工作日（周一到周五）</span></span></pre></td></tr></table></figure>
+
+<h3 id="日期的变更"><a href="#日期的变更" class="headerlink" title="日期的变更"></a>日期的变更</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().next().friday()    <span class="comment">// 下一个星期五</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().last().monday()    <span class="comment">// 上一个星期一</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>().next().march()       <span class="comment">// 下个三月份的今天</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>().last().week()        <span class="comment">// 上星期的今天</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().add(<span class="number">5</span>).days() <span class="comment">// 五天后</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.friday() <span class="comment">// 本周的星期五</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.march() <span class="comment">// 今年的三月</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.january().first().monday() <span class="comment">// 今年一月的第一个星期一</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.dec().final().fri() <span class="comment">// 今年12月的最后一个星期五</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先将日期定在本月15日的下午4点30分，然后向后推90天</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.today().set(&#123; <span class="attr">day</span>: <span class="number">15</span>, <span class="attr">hour</span>: <span class="number">16</span>, <span class="attr">minute</span>: <span class="number">30</span> &#125;).add(&#123; <span class="attr">days</span>: <span class="number">90</span> &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">(<span class="number">3</span>).days().fromNow() <span class="comment">// 三天后</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">(<span class="number">6</span>).months().ago() <span class="comment">// 6个月前</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">(<span class="number">12</span>).weeks().fromNow() <span class="comment">// 12个星期后</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">(<span class="number">30</span>).days().after(<span class="built_in">Date</span>.today()) <span class="comment">// 30天后</span></span></pre></td></tr></table></figure>
+
+<h3 id="日期的解析"><a href="#日期的解析" class="headerlink" title="日期的解析"></a>日期的解析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'today'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'tomorrow'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'July 8'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'July 8th, 2007'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'July 8th, 2007, 10:30 PM'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.parse(<span class="string">'07.15.2007'</span>)</span></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="http://www.datejs.com/2007/11/27/getting-started-with-datejs/" target="_blank" rel="noopener">Getting Started With Datejs</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-12 </div>
+			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-lib-d3/" >D3.js</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>D3.js 是一个用于网页作图、生成互动图形的 JavaScript 函数库。它提供一个d3对象，所有方法都通过这个对象调用。</p>
+<blockquote>
+<p><a href="https://github.com/d3/d3" target="_blank" rel="noopener">Bring data to life with SVG, Canvas and HTML</a></p>
+</blockquote>
+<h2 id="操作网页元素"><a href="#操作网页元素" class="headerlink" title="操作网页元素"></a>操作网页元素</h2><p>D3提供了一系列操作网页元素的方法，很类似jQuery，也是先选中某个元素（select方法），然后对其进行某种操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> body = d3.select(<span class="string">"body"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = body.append(<span class="string">"div"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">div.html(<span class="string">"Hello, world!"</span>);</span></pre></td></tr></table></figure>
+
+<p>select方法用于选中一个元素，而selectAll方法用于选中一组元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> section = d3.selectAll(<span class="string">"section"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = section.append(<span class="string">"div"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">div.html(<span class="string">"Hello, world!"</span>);</span></pre></td></tr></table></figure>
+
+<p>大部分D3的方法都返回D3对象的实例，这意味着可以采用链式写法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">d3.select(<span class="string">"body"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    .style(<span class="string">"color"</span>, <span class="string">"black"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    .style(<span class="string">"background-color"</span>, <span class="string">"white"</span>);</span></pre></td></tr></table></figure>
+
+<p>需要注意的是append方法返回一个新对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">d3.selectAll(<span class="string">"section"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  .attr(<span class="string">"class"</span>, <span class="string">"special"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  .append(<span class="string">"div"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  .html(<span class="string">"Hello, world!"</span>);</span></pre></td></tr></table></figure>
+
+<h2 id="生成svg元素"><a href="#生成svg元素" class="headerlink" title="生成svg元素"></a>生成svg元素</h2><p>D3作图需要svg元素，可以用JavaScript代码动态生成。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> v = d3.select(<span class="string">"#graph"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">            .append(<span class="string">"svg"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">v.attr(<span class="string">"width"</span>, <span class="number">900</span>).attr(<span class="string">"height"</span>, <span class="number">400</span>);</span></pre></td></tr></table></figure>
+
+<h2 id="生成图形"><a href="#生成图形" class="headerlink" title="生成图形"></a>生成图形</h2><h3 id="选中对象集"><a href="#选中对象集" class="headerlink" title="选中对象集"></a>选中对象集</h3><p>selectAll方法不仅可以选中现有的网页元素，还可以选中不存在的网页元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">d3.select(<span class="string">".chart"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  .selectAll(<span class="string">"div"</span>);</span></pre></td></tr></table></figure>
+
+<p>上面代码表示，selectAll方法选中了.chart元素下面所有现有和将来可能出现的div元素。</p>
+<h3 id="绑定数据"><a href="#绑定数据" class="headerlink" title="绑定数据"></a>绑定数据</h3><p>data方法用于对选中的结果集绑定数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [<span class="number">4</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">42</span>, <span class="number">12</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">d3.select(<span class="string">".chart"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  .selectAll(<span class="string">"div"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  .data(data)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  .enter().append(<span class="string">"div"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  .style(<span class="string">"width"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> d * <span class="number">10</span> + <span class="string">"px"</span>; &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  .text(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> d; &#125;);</span></pre></td></tr></table></figure>
+
+<p>上面代码中，enter方法和append方法表示由于此时div元素还不存在，必须根据数据的个数将它们创造出来。style方法和text方法的参数是函数，表示函数的运行结果就是设置网页元素的值。</p>
+<p>上面代码的运行结果是生成一个条状图，但是没有对条状图的长度进行控制，下面采用scale.linear方法对数据长度进行设置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [<span class="number">4</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">42</span>, <span class="number">12</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scale.linear()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    .domain([<span class="number">0</span>, d3.max(data)])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    .range([<span class="number">0</span>, <span class="number">420</span>]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">d3.select(<span class="string">".chart"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  .selectAll(<span class="string">"div"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  .data(data)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  .enter().append(<span class="string">"div"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  .style(<span class="string">"width"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> x(d) + <span class="string">"px"</span>; &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  .text(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> d; &#125;);</span></pre></td></tr></table></figure>
+
+<h2 id="操作SVG图形"><a href="#操作SVG图形" class="headerlink" title="操作SVG图形"></a>操作SVG图形</h2><p>使用SVG图形生成条形图，首先是选中矢量图格式，然后每个数据值生成一个g元素（group），再在每个g元素内部生成一个rect元素和text元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> width = <span class="number">840</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    barHeight = <span class="number">20</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scale.linear()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    .domain([<span class="number">0</span>, d3.max(dataArray)])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    .range([<span class="number">0</span>, width]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chart = d3.select(<span class="string">".bar-chart-svg"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"width"</span>, width)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"height"</span>, barHeight * dataArray.length);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = chart.selectAll(<span class="string">"g"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    .data(dataArray)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  .enter().append(<span class="string">"g"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"transform"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d, i</span>) </span>&#123; <span class="keyword">return</span> <span class="string">"translate(0,"</span> + i * barHeight + <span class="string">")"</span>; &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">bar.append(<span class="string">"rect"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"width"</span>, x)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"height"</span>, barHeight - <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">bar.append(<span class="string">"text"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"x"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> x(d) - <span class="number">3</span>; &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"y"</span>, barHeight / <span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    .attr(<span class="string">"dy"</span>, <span class="string">".35em"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    .text(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> d; &#125;);</span></pre></td></tr></table></figure>
+
+<h2 id="加载XML文件"><a href="#加载XML文件" class="headerlink" title="加载XML文件"></a>加载XML文件</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">d3.xml(<span class="string">'example'</span>, <span class="string">'image/svg+xml'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, data</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (error) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">console</span>.log(<span class="string">'加载SVG文件出错！'</span>, error);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 处理SVG文件</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>Mike Bostock, <a href="http://bost.ocks.org/mike/bar/" target="_blank" rel="noopener">Let’s Make a Bar Chart</a></li>
+<li>Dana Silver, <a href="http://danasilver.org/2013/12/31/d3-github-language-stats/" target="_blank" rel="noopener">The d3.js Bar Chart Tutorials with Github Data</a></li>
+</ul>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-12 </div>
 			<div class="article-title"><a href="/2017/03/12/2017-03-12-jquery-deferred/" >jQuery.Deferred 对象</a></div>						
 		</h3>
 	
@@ -1287,122 +1464,6 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2017-03-12 </div>
-			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-history/" >JavaScript 语言的历史</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="JavaScript的诞生"><a href="#JavaScript的诞生" class="headerlink" title="JavaScript的诞生"></a>JavaScript的诞生</h2><p>JavaScript因为互联网而生，紧随着浏览器的出现而问世。回顾它的历史，就要从浏览器的历史讲起。</p>
-<p>1990年底，欧洲核能研究组织（CERN）科学家Tim Berners-Lee，在全世界最大的电脑网络——互联网的基础上，发明了万维网（World Wide Web），从此可以在网上浏览网页文件。最早的网页只能在操作系统的终端里浏览，也就是说只能使用命令行操作，网页都是在字符窗口中显示，这当然非常不方便。</p>
-<p>1992年底，美国国家超级电脑应用中心（NCSA）开始开发一个独立的浏览器，叫做Mosaic。这是人类历史上第一个浏览器，从此网页可以在图形界面的窗口浏览。</p>
-<p>1994年10月，NCSA的一个主要程序员Marc Andreessen联合风险投资家Jim Clark，成立了Mosaic通信公司（Mosaic Communications），不久后改名为Netscape。这家公司的方向，就是在Mosaic的基础上，开发面向普通用户的新一代的浏览器Netscape Navigator。</p>
-<p>1994年12月，Navigator发布了1.0版，市场份额一举超过90%。</p>
-<p>Netscape公司很快发现，Navigator浏览器需要一种可以嵌入网页的脚本语言，用来控制浏览器行为。当时，网速很慢而且上网费很贵，有些操作不宜在服务器端完成。比如，如果用户忘记填写“用户名”，就点了“发送”按钮，到服务器再发现这一点就有点太晚了，最好能在用户发出数据之前，就告诉用户“请填写用户名”。这就需要在网页中嵌入小程序，让浏览器检查每一栏是否都填写了。</p>
-<p>管理层对这种浏览器脚本语言的设想是：功能不需要太强，语法较为简单，容易学习和部署。那一年，正逢Sun公司的Java语言问世，市场推广活动非常成功。Netscape公司决定与Sun公司合作，浏览器支持嵌入Java小程序（后来称为Java applet）。但是，浏览器脚本语言是否就选用Java，则存在争论。后来，还是决定不使用Java，因为网页小程序不需要Java这么“重”的语法。但是，同时也决定脚本语言的语法要接近Java，并且可以支持Java程序。这些设想直接排除了使用现存语言，比如Perl、Python和TCL。</p>
-<p>1995年，Netscape公司雇佣了程序员Brendan Eich开发这种网页脚本语言。Brendan Eich有很强的函数式编程背景，希望以Scheme语言（函数式语言鼻祖LISP语言的一种方言）为蓝本，实现这种新语言。</p>
-<p>1995年5月，Brendan Eich只用了10天，就设计完成了这种语言的第一版。它是一个大杂烩，语法有多个来源：</p>
-<ul>
-<li>基本语法：借鉴C语言和Java语言。</li>
-<li>数据结构：借鉴Java语言，包括将值分成原始值和对象两大类。</li>
-<li>函数的用法：借鉴Scheme语言和Awk语言，将函数当作第一等公民，并引入闭包。</li>
-<li>原型继承模型：借鉴Self语言（Smalltalk的一种变种）。</li>
-<li>正则表达式：借鉴Perl语言。</li>
-<li>字符串和数组处理：借鉴Python语言。</li>
-</ul>
-<p>为了保持简单，这种脚本语言缺少一些关键的功能，比如块级作用域、模块、子类型（subtyping）等等，但是可以利用现有功能找出解决办法。这种功能的不足，直接导致了后来JavaScript的一个显著特点：对于其他语言，你需要学习语言的各种功能，而对于JavaScript，你常常需要学习各种解决问题的模式。而且由于来源多样，从一开始就注定，JavaScript的编程风格是函数式编程和面向对象编程的一种混合体。</p>
-<p>Netscape公司的这种浏览器脚本语言，最初名字叫做Mocha，1995年9月改为LiveScript。12月，Netscape公司与Sun公司（Java语言的发明者和所有者）达成协议，后者允许将这种语言叫做JavaScript。这样一来，Netscape公司可以借助Java语言的声势，而Sun公司则将自己的影响力扩展到了浏览器。</p>
-<p>之所以起这个名字，并不是因为JavaScript本身与Java语言有多么深的关系（事实上，两者关系并不深），而是因为Netscape公司已经决定，使用Java语言开发网络应用程序，JavaScript可以像胶水一样，将各个部分连接起来。当然，后来的历史是Java语言的浏览器插件失败了，JavaScript反而发扬光大。</p>
-<p>1995年12月4日，Netscape公司与Sun公司联合发布了JavaScript语言。</p>
-<p>1996年3月，Navigator 2.0浏览器正式内置了JavaScript脚本语言。</p>
-<h2 id="JavaScript与ECMAScript的关系"><a href="#JavaScript与ECMAScript的关系" class="headerlink" title="JavaScript与ECMAScript的关系"></a>JavaScript与ECMAScript的关系</h2><p>1996年8月，微软模仿JavaScript开发了一种相近的语言，取名为JScript（JavaScript是Netscape的注册商标，微软不能用），首先内置于IE 3.0。Netscape公司面临丧失浏览器脚本语言的主导权的局面。</p>
-<p>1996年11月，Netscape公司决定将JavaScript提交给国际标准化组织ECMA（European Computer Manufacturers Association），希望JavaScript能够成为国际标准，以此抵抗微软。ECMA的39号技术委员会（Technical Committee 39）负责制定和审核这个标准，成员由业内的大公司派出的工程师组成，目前共25个人。该委员会定期开会，所有的邮件讨论和会议记录，都是公开的。</p>
-<p>1997年7月，ECMA组织发布262号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为ECMAScript。这个版本就是ECMAScript 1.0版。之所以不叫JavaScript，一方面是由于商标的关系，Java是Sun公司的商标，根据一份授权协议，只有Netscape公司可以合法地使用JavaScript这个名字，且JavaScript已经被Netscape公司注册为商标，另一方面也是想体现这门语言的制定者是ECMA，不是Netscape，这样有利于保证这门语言的开放性和中立性。因此，ECMAScript和JavaScript的关系是，前者是后者的规格，后者是前者的一种实现。在日常场合，这两个词是可以互换的。</p>
-<p>ECMAScript只用来标准化JavaScript这种语言的基本语法结构，与部署环境相关的标准都由其他标准规定，比如DOM的标准就是由W3C组织（World Wide Web Consortium）制定的。</p>
-<p>ECMA-262标准后来也被另一个国际标准化组织ISO（International Organization for Standardization）批准，标准号是ISO-16262。</p>
-<h2 id="JavaScript与Java的关系"><a href="#JavaScript与Java的关系" class="headerlink" title="JavaScript与Java的关系"></a>JavaScript与Java的关系</h2><p>JavaScript和Java是两种不一样的语言，但是它们之间存在联系。</p>
-<p>JavaScript的基本语法和对象体系，是模仿Java而设计的。但是，JavaScript没有采用Java的静态类型。正是因为JavaScript与Java有很大的相似性，所以这门语言才从一开始的LiveScript改名为JavaScript。基本上，JavaScript这个名字的原意是“很像Java的脚本语言”。</p>
-<p>在JavaScript语言中，函数是一种独立的数据类型，以及采用基于原型对象（prototype）的继承链。这是它与Java语法最大的两点区别。JavaScript语法要比Java自由得多。</p>
-<p>另外，Java语言需要编译，而JavaScript语言则是运行时由解释器直接执行。</p>
-<p>总之，JavaScript的原始设计目标是一种小型的、简单的动态语言，与Java有足够的相似性，使得使用者（尤其是Java程序员）可以快速上手。</p>
-<h2 id="JavaScript的版本"><a href="#JavaScript的版本" class="headerlink" title="JavaScript的版本"></a>JavaScript的版本</h2><p>1997年7月，ECMAScript 1.0发布。</p>
-<p>1998年6月，ECMAScript 2.0版发布。</p>
-<p>1999年12月，ECMAScript 3.0版发布，成为JavaScript的通行标准，得到了广泛支持。</p>
-<p>2007年10月，ECMAScript 4.0版草案发布，对3.0版做了大幅升级，预计次年8月发布正式版本。草案发布后，由于4.0版的目标过于激进，各方对于是否通过这个标准，发生了严重分歧。以Yahoo、Microsoft、Google为首的大公司，反对JavaScript的大幅升级，主张小幅改动；以JavaScript创造者Brendan Eich为首的Mozilla公司，则坚持当前的草案。</p>
-<p>2008年7月，由于对于下一个版本应该包括哪些功能，各方分歧太大，争论过于激进，ECMA开会决定，中止ECMAScript 4.0的开发（即废除了这个版本），将其中涉及现有功能改善的一小部分，发布为ECMAScript 3.1，而将其他激进的设想扩大范围，放入以后的版本，由于会议的气氛，该版本的项目代号起名为Harmony（和谐）。会后不久，ECMAScript 3.1就改名为ECMAScript 5。</p>
-<p>2009年12月，ECMAScript 5.0版正式发布。Harmony项目则一分为二，一些较为可行的设想定名为JavaScript.next继续开发，后来演变成ECMAScript 6；一些不是很成熟的设想，则被视为JavaScript.next.next，在更远的将来再考虑推出。TC39的总体考虑是，ECMAScript 5与ECMAScript 3基本保持兼容，较大的语法修正和新功能加入，将由JavaScript.next完成。当时，JavaScript.next指的是ECMAScript 6。第六版发布以后，将指ECMAScript 7。TC39预计，ECMAScript 5会在2013年的年中成为JavaScript开发的主流标准，并在此后五年中一直保持这个位置。</p>
-<p>2011年6月，ECMAscript 5.1版发布，并且成为ISO国际标准（ISO/IEC 16262:2011）。到了2012年底，所有主要浏览器都支持ECMAScript 5.1版的全部功能。</p>
-<p>2013年3月，ECMAScript 6草案冻结，不再添加新功能。新的功能设想将被放到ECMAScript 7。</p>
-<p>2013年12月，ECMAScript 6草案发布。然后是12个月的讨论期，听取各方反馈。</p>
-<p>2015年6月，ECMAScript 6正式发布，并且更名为“ECMAScript 2015”。这是因为TC39委员会计划，以后每年发布一个ECMAScirpt的版本，下一个版本在2016年发布，称为“ECMAScript 2016”。</p>
-<p>除了ECMAScript的版本，很长一段时间中，Netscape公司（以及继承它的Mozilla基金会）在内部依然使用自己的版本号。这导致了JavaScript有自己不同于ECMAScript的版本号。1996年3月，Navigator 2.0内置了JavaScript 1.0。JavaScript 1.1版对应ECMAScript 1.0，但是直到JavaScript 1.4版才完全兼容ECMAScript 1.0。JavaScript 1.5版完全兼容ECMAScript 3.0。目前的JavaScript 1.8版完全兼容ECMAScript 5。</p>
-<h2 id="周边大事记"><a href="#周边大事记" class="headerlink" title="周边大事记"></a>周边大事记</h2><p>JavaScript伴随着互联网的发展一起发展。互联网周边技术的快速发展，刺激和推动了JavaScript语言的发展。</p>
-<p>1996年，样式表标准CSS第一版发布。</p>
-<p>1997年，DHTML（Dynamic HTML，动态HTML）发布，允许动态改变网页内容。这标志着DOM模式（Document Object Model，文档对象模型）正式应用。</p>
-<p>1998年，Netscape公司开源了浏览器套件，这导致了Mozilla项目的诞生。几个月后，美国在线（AOL）宣布并购Netscape。</p>
-<p>1999年，IE 5部署了XMLHttpRequest接口，允许JavaScript发出HTTP请求，为后来大行其道的Ajax应用创造了条件。</p>
-<p>2000年，KDE项目重写了浏览器引擎KHTML，为后来的WebKit和Blink引擎打下基础。这一年的10月23日，KDE 2.0发布，第一次将KHTML浏览器包括其中。</p>
-<p>2001年，微软公司时隔5年之后，发布了IE浏览器的下一个版本Internet Explorer 6。这是当时最先进的浏览器，它后来统治了浏览器市场多年。</p>
-<p>2001年，Douglas Crockford提出了JSON格式，用于取代XML格式，进行服务器和网页之间的数据交换。JavaScript可以原生支持这种格式，不需要额外部署代码。</p>
-<p>2002年，Mozilla项目发布了它的浏览器的第一版，后来起名为Firefox。</p>
-<p>2003年，苹果公司发布了Safari浏览器的第一版。</p>
-<p>2004年，Google公司发布了Gmail，促成了互联网应用程序（Web Application）这个概念的诞生。由于Gmail是在4月1日发布的，很多人起初以为这只是一个玩笑。</p>
-<p>2004年，Dojo框架诞生，为不同浏览器提供了同一接口，并为主要功能提供了便利的调用方法。这标志着JavaScript编程框架的时代开始来临。</p>
-<p>2004年，WHATWG组织成立，致力于加速HTML语言的标准化进程。</p>
-<p>2005年，苹果公司在KHTML引擎基础上，建立了WebKit引擎。</p>
-<p>2005年，Ajax方法（Asynchronous JavaScript and XML）正式诞生，Jesse James Garrett发明了这个词汇。它开始流行的标志是，2月份发布的Google Maps项目大量采用该方法。它几乎成了新一代网站的标准做法，促成了Web 2.0时代的来临。</p>
-<p>2005年，Apache基金会发布了CouchDB数据库。这是一个基于JSON格式的数据库，可以用JavaScript函数定义视图和索引。它在本质上有别于传统的关系型数据库，标识着NoSQL类型的数据库诞生。</p>
-<p>2006年，jQuery函数库诞生，作者为John Resig。jQuery为操作网页DOM结构提供了非常强大易用的接口，成为了使用最广泛的函数库，并且让JavaScript语言的应用难度大大降低，推动了这种语言的流行。</p>
-<p>2006年，微软公司发布IE 7，标志重新开始启动浏览器的开发。</p>
-<p>2006年，Google推出 Google Web Toolkit 项目（缩写为GWT），提供Java编译成JavaScript的功能，开创了将其他语言转为JavaScript的先河。</p>
-<p>2007年，Webkit引擎在iPhone手机中得到部署。它最初基于KDE项目，2003年苹果公司首先采用，2005年开源。这标志着JavaScript语言开始能在手机中使用了，意味着有可能写出在桌面电脑和手机中都能使用的程序。</p>
-<p>2007年，Douglas Crockford发表了名为《JavaScript: The good parts》的演讲，次年由O’Reilly出版社出版。这标志着软件行业开始严肃对待JavaScript语言，对它的语法开始重新认识，</p>
-<p>2008年，V8编译器诞生。这是Google公司为Chrome浏览器而开发的，它的特点是让JavaScript的运行变得非常快。它提高了JavaScript的性能，推动了语法的改进和标准化，改变外界对JavaScript的不佳印象。同时，V8是开源的，任何人想要一种快速的嵌入式脚本语言，都可以采用V8，这拓展了JavaScript的应用领域。</p>
-<p>2009年，Node.js项目诞生，创始人为Ryan Dahl，它标志着JavaScript可以用于服务器端编程，从此网站的前端和后端可以使用同一种语言开发。并且，Node.js可以承受很大的并发流量，使得开发某些互联网大规模的实时应用变得容易。</p>
-<p>2009年，Jeremy Ashkenas发布了CoffeeScript的最初版本。CoffeeScript可以被转化为JavaScript运行，但是语法要比JavaScript简洁。这开启了其他语言转为JavaScript的风潮。</p>
-<p>2009年，PhoneGap项目诞生，它将HTML5和JavaScript引入移动设备的应用程序开发，主要针对iOS和Android平台，使得JavaScript可以用于跨平台的应用程序开发。</p>
-<p>2009，Google发布Chrome OS，号称是以浏览器为基础发展成的操作系统，允许直接使用JavaScript编写应用程序。类似的项目还有Mozilla的Firefox OS。</p>
-<p>2010年，三个重要的项目诞生，分别是NPM、BackboneJS和RequireJS，标志着JavaScript进入模块化开发的时代。</p>
-<p>2011年，微软公司发布Windows 8操作系统，将JavaScript作为应用程序的开发语言之一，直接提供系统支持。</p>
-<p>2011年，Google发布了Dart语言，目的是为了结束JavaScript语言在浏览器中的垄断，提供更合理、更强大的语法和功能。Chromium浏览器有内置的Dart虚拟机，可以运行Dart程序，但Dart程序也可以被编译成JavaScript程序运行。</p>
-<p>2011年，微软工程师<a href="http://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx" target="_blank" rel="noopener">Scott Hanselman</a>提出，JavaScript将是互联网的汇编语言。因为它无所不在，而且正在变得越来越快。其他语言的程序可以被转成JavaScript语言，然后在浏览器中运行。</p>
-<p>2012年，单页面应用程序框架（single-page app framework）开始崛起，AngularJS项目和Ember项目都发布了1.0版本。</p>
-<p>2012年，微软发布TypeScript语言。该语言被设计成JavaScript的超集，这意味着所有JavaScipt程序，都可以不经修改地在TypeScript中运行。同时，TypeScript添加了很多新的语法特性，主要目的是为了开发大型程序，然后还可以被编译成JavaScript运行。</p>
-<p>2012年，Mozilla基金会提出<a href="http://asmjs.org/" target="_blank" rel="noopener">asm.js</a>规格。asm.js是JavaScript的一个子集，所有符合asm.js的程序都可以在浏览器中运行，它的特殊之处在于语法有严格限定，可以被快速编译成性能良好的机器码。这样做的目的，是为了给其他语言提供一个编译规范，使其可以被编译成高效的JavaScript代码。同时，Mozilla基金会还发起了<a href="https://github.com/kripken/emscripten/wiki" target="_blank" rel="noopener">Emscripten</a>项目，目标就是提供一个跨语言的编译器，能够将LLVM的位代码（bitcode）转为JavaScript代码，在浏览器中运行。因为大部分LLVM位代码都是从C / C++语言生成的，这意味着C / C++将可以在浏览器中运行。此外，Mozilla旗下还有<a href="http://mbebenita.github.io/LLJS/" target="_blank" rel="noopener">LLJS</a>（将JavaScript转为C代码）项目和<a href="https://github.com/RiverTrail/RiverTrail/wiki" target="_blank" rel="noopener">River Trail</a>（一个用于多核心处理器的ECMAScript扩展）项目。目前，在可以被编译成JavaScript的<a href="https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS" target="_blank" rel="noopener">语言列表</a>上，共有将近40种语言。</p>
-<p>2013年，Mozilla基金会发布手机操作系统Firefox OS，该操作系统的整个用户界面都使用JavaScript。</p>
-<p>2013年，ECMA正式推出JSON的<a href="http://www.ecma-international.org/publications/standards/Ecma-404.htm" target="_blank" rel="noopener">国际标准</a>，这意味着JSON格式已经变得与XML格式一样重要和正式了。</p>
-<p>2013年5月，Facebook发布UI框架库React，引入了新的JSX语法，使得UI层可以用组件开发。</p>
-<p>2014年，微软推出JavaScript的Windows库WinJS，标志微软公司全面支持JavaScript与Windows操作系统的融合。</p>
-<p>2014年11月，由于对Joyent公司垄断Node项目、以及该项目进展缓慢的不满，一部分核心开发者离开了Node.js，创造了io.js项目，这是一个更开放、更新更频繁的Node.js版本，很短时间内就发布到了2.0版。三个月后，Joyent公司宣布放弃对Node项目的控制，将其转交给新成立的开放性质的Node基金会。随后，io.js项目宣布回归Node，两个版本将合并。</p>
-<p>2015年3月，Facebook公司发布了React Native项目，将React框架移植到了手机端，可以用来开发手机App。它会将JavaScript代码转为iOS平台的Objective-C代码，或者Android平台的Java代码，从而为JavaScript语言开发高性能的原生App打开了一条道路。</p>
-<p>2015年4月，Angular框架宣布，2.0版将基于微软公司的TypeScript语言开发，这等于为JavaScript语言引入了强类型。</p>
-<p>2015年5月，Node模块管理器npm超越CPAN，标志着JavaScript成为世界上软件模块最多的语言。</p>
-<p>2015年5月，Google公司的Polymer框架发布1.0版。该项目的目标是生产环境可以使用WebComponent组件，如果能够达到目标，Web开发将进入一个全新的以组件为开发基础的阶段。</p>
-<p>2015年6月，ECMA标准化组织正式批准了ECMAScript 6语言标准，定名为《ECMAScript 2015 标准》。JavaScript语言正式进入了下一个阶段，成为一种企业级的、开发大规模应用的语言。这个标准从提出到批准，历时10年，而JavaScript语言从诞生至今也已经20年了。</p>
-<p>2015年6月，Mozilla在asm.js的基础上发布WebAssembly项目。这是一种JavaScript语言编译后的二进制格式，类似于Java的字节码，有利于移动设备加载JavaScript脚本，解析速度提高了20+倍。这意味着将来的软件，会发布JavaScript二进制包。</p>
-<p>2016年6月，《ECMAScript 2016 标准》发布。与前一年发布的版本相比，它只增加了两个较小的特性。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li>Axel Rauschmayer, <a href="http://oreilly.com/javascript/radarreports/past-present-future-javascript.csp" target="_blank" rel="noopener">The Past, Present, and Future of JavaScript</a></li>
-<li>John Dalziel, <a href="http://creativejs.com/2013/06/the-race-for-speed-part-4-the-future-for-javascript/" target="_blank" rel="noopener">The race for speed part 4: The future for JavaScript</a></li>
-<li>Axel Rauschmayer, <a href="http://www.2ality.com/2013/06/basic-javascript.html" target="_blank" rel="noopener">Basic JavaScript for the impatient programmer</a></li>
-<li>resin.io, <a href="http://resin.io/happy-18th-birthday-javascript/" target="_blank" rel="noopener">Happy 18th Birthday JavaScript! A look at an unlikely past and bright future</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-12 </div>
 			<div class="article-title"><a href="/2017/03/12/2017-03-12-jquery-free/" >如何做到 jQuery-free？</a></div>						
 		</h3>
 	
@@ -1545,175 +1606,6 @@
 
            
 		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2017-03-12 </div>
-			<div class="article-title"><a href="/2017/03/12/2017-03-12-javascript-lib-sorting/" >排序算法</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>排序算法是将一系列的值按照顺序进行排列的方法。</p>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>冒泡排序（Bubble Sort）是最易懂的排序算法，但是效率较低，生产环境中很少使用。</p>
-<p>它的基本思想是：</p>
-<ol>
-<li><p>依次比较相邻的两个数，如果不符合排序规则，则调换两个数的位置。这样一遍比较下来，能够保证最大（或最小）的数排在最后一位。</p>
-</li>
-<li><p>再对最后一位以外的数组，重复前面的过程，直至全部排序完成。</p>
-</li>
-</ol>
-<p>由于每进行一次这个过程，在该次比较的最后一个位置上，正确的数会自己冒出来，就好像“冒泡”一样，这种算法因此得名。</p>
-<p>以对数组<code>[3, 2, 4, 5, 1]</code>进行从小到大排序为例，步骤如下：</p>
-<ol>
-<li><p>第一位的“3”与第二位的“2”进行比较，3大于2，互换位置，数组变成<code>[2, 3, 4, 5, 1]</code>。</p>
-</li>
-<li><p>第二位的“3”与第三位的“4”进行比较，3小于4，数组不变。</p>
-</li>
-<li><p>第三位的“4”与第四位的“5”进行比较，4小于5，数组不变。</p>
-</li>
-<li><p>第四位的“5”与第五位的“1”进行比较，5大于1，互换位置，数组变成<code>[2, 3, 4, 1, 5]</code>。</p>
-</li>
-</ol>
-<p>第一轮排序完成，可以看到最后一位的5，已经是正确的数了。然后，再对剩下的数<code>[2, 3, 4, 1]</code>重复这个过程，每一轮都会在本轮最后一位上出现正确的数。直至剩下最后一个位置，所有排序结束。</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>先定义一个交换函数，作用是交换两个位置的值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">myArray, p1, p2</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> temp = myArray[p1];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  myArray[p1] = myArray[p2];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  myArray[p2] = temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>然后定义主函数。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">myArray</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> len = myArray.length;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> j;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> stop;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>, stop = len - <span class="number">1</span> - i; j &lt; stop; j++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      <span class="keyword">if</span> (myArray[j] &gt; myArray[j + <span class="number">1</span>])&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        swap(myArray, j, j + <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>选择排序（Selection Sort）与冒泡排序类似，也是依次对相邻的数进行两两比较。不同之处在于，它不是每比较一次就调换位置，而是一轮比较完毕，找到最大值（或最小值）之后，将其放在正确的位置，其他数的位置不变。</p>
-<p>以对数组[3, 2, 4, 5, 1] 进行从小到大排序为例，步骤如下：</p>
-<ol>
-<li><p>假定第一位的“3”是最小值。</p>
-</li>
-<li><p>最小值“3”与第二位的“2”进行比较，2小于3，所以新的最小值是第二位的“2”。</p>
-</li>
-<li><p>最小值“2”与第三位的“4”进行比较，2小于4，最小值不变。</p>
-</li>
-<li><p>最小值“2”与第四位的“5”进行比较，2小于5，最小值不变。</p>
-</li>
-<li><p>最小值“2”与第五位的“1”进行比较，1小于2，所以新的最小值是第五位的“1”。</p>
-</li>
-<li><p>第五位的“1”与第一位的“3”互换位置，数组变为[1, 2, 4, 5, 3]。</p>
-</li>
-</ol>
-<p>这一轮比较结束后，最小值“1”已经排到正确的位置了，然后对剩下的[2, 4, 5, 3]重复上面的过程。每一轮排序都会将该轮的最小值排到正确的位置，直至剩下最后一个位置，所有排序结束。</p>
-<h3 id="算法实现-1"><a href="#算法实现-1" class="headerlink" title="算法实现"></a>算法实现</h3><p>先定义一个交换函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">myArray, p1, p2</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> temp = myArray[p1];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    myArray[p1] = myArray[p2];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    myArray[p2] = temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>然后定义主函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectionSort</span>(<span class="params">myArray</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> len = myArray.length,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        min;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; len; i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 将当前位置设为最小值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        min = i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 检查数组其余部分是否更小</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> (j=i+<span class="number">1</span>; j &lt; len; j++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> (myArray[j] &lt; myArray[min])&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">                min = j;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 如果当前位置不是最小值，将其换为最小值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (i != min)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">            swap(myArray, i, min);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>插入排序（insertion sort）比前面两种排序方法都更有效率。它将数组分成“已排序”和“未排序”两部分，一开始的时候，“已排序”的部分只有一个元素，然后将它后面一个元素从“未排序”部分插入“已排序”部分，从而“已排序”部分增加一个元素，“未排序”部分减少一个元素。以此类推，完成全部排序。</p>
-<p>以对数组[3, 2, 4, 5, 1] 进行从小到大排序为例，步骤如下：</p>
-<ol>
-<li><p>将数组分成[3]和[2, 4, 5, 1]两部分，前者是已排序的，后者是未排序的。</p>
-</li>
-<li><p>取出未排序部分的第一个元素“2”，与已排序部分最后一个元素“3”比较，因为2小于3，所以2排在3前面，整个数组变成[2, 3]和[4, 5, 1]两部分。</p>
-</li>
-<li><p>取出未排序部分的第一个元素“4”，与已排序部分最后一个元素“3”比较，因为4大于3，所以4排在3后面，整个数组变成[2, 3, 4]和[5, 1]两部分。</p>
-</li>
-<li><p>取出未排序部分的第一个元素“5”，与已排序部分最后一个元素“4”比较，因为5大于4，所以5排在4后面，整个数组变成[2, 3, 4, 5]和[1]两部分。</p>
-</li>
-<li><p>取出未排序部分的第一个元素“1”，与已排序部分最后一个元素“5”比较，因为1小于5，所以再与前一个元素“4”比较；因为1小于4，再与前一个元素“3”比较；因为1小于3，再与前一个元素“2”比较；因为小于1小于2，所以“1”排在2的前面，整个数组变成[1, 2, 3, 4, 5]。</p>
-</li>
-</ol>
-<h3 id="算法实现-2"><a href="#算法实现-2" class="headerlink" title="算法实现"></a>算法实现</h3><p>算法的实现如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertionSort</span>(<span class="params">myArray</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> len     = myArray.length,     <span class="comment">// 数组的长度</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        value,                      <span class="comment">// 当前比较的值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        i,                          <span class="comment">// 未排序部分的当前位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        j;                          <span class="comment">// 已排序部分的当前位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; len; i++) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 储存当前位置的值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        value = myArray[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">/*</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">         * 当已排序部分的当前元素大于value，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment">         * 就将当前元素向后移一位，再将前一位与value比较</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="comment">         */</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> (j=i<span class="number">-1</span>; j &gt; <span class="number">-1</span> &amp;&amp; myArray[j] &gt; value; j--) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            myArray[j+<span class="number">1</span>] = myArray[j];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        myArray[j+<span class="number">1</span>] = value;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<h2 id="合并排序"><a href="#合并排序" class="headerlink" title="合并排序"></a>合并排序</h2><h3 id="简介-3"><a href="#简介-3" class="headerlink" title="简介"></a>简介</h3><p>前面三种排序算法只有教学价值，因为效率低，很少实际使用。合并排序（Merge sort）则是一种被广泛使用的排序方法。</p>
-<p>它的基本思想是，将两个已经排序的数组合并，要比从头开始排序所有元素来得快。因此，可以将数组拆开，分成n个只有一个元素的数组，然后不断地两两合并，直到全部排序完成。</p>
-<p>以对数组[3, 2, 4, 5, 1] 进行从小到大排序为例，步骤如下：</p>
-<ol>
-<li><p>将数组分成[3, 2, 4]和[5, 1]两部分。</p>
-</li>
-<li><p>将[3, 2, 4]分成[3, 2]和[4]两部分。</p>
-</li>
-<li><p>将[3, 2]分成[3]和[2]两部分，然后合并成[2, 3]。</p>
-</li>
-<li><p>将[2, 3]和[4]合并成[2, 3, 4]。</p>
-</li>
-<li><p>将[5, 1]分成[5]和[1]两部分，然后合并成[1, 5]。</p>
-</li>
-<li><p>将[2, 3, 4]和[1, 5]合并成[1, 2, 3, 4, 5]。</p>
-</li>
-</ol>
-<h3 id="算法实现-3"><a href="#算法实现-3" class="headerlink" title="算法实现"></a>算法实现</h3><p>这里的关键是如何合并两个已经排序的数组。具体实现请看下面的函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">left, right</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> result  = [],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        il      = <span class="number">0</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        ir      = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span> (il &lt; left.length &amp;&amp; ir &lt; right.length)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (left[il] &lt; right[ir])&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            result.push(left[il++]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        &#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            result.push(right[ir++]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> result.concat(left.slice(il)).concat(right.slice(ir));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>上面的merge函数，合并两个已经按升序排好序的数组。首先，比较两个数组的第一个元素，将其中较小的一个放入result数组；然后，将其中较大的一个与另一个数组的第二个元素进行比较，再将其中较小的一个放入result数组的第二个位置。以此类推，直到一个数组的所有元素都进入result数组为止，再将另一个数组剩下的元素接着result数组后面返回（使用concat方法）。</p>
-<p>有了merge函数，就可以对任意数组排序了。基本方法是将数组不断地拆成两半，直到每一半只包含零个元素或一个元素为止，然后就用merge函数，将拆成两半的数组不断合并，直到合并成一整个排序完成的数组。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">myArray</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (myArray.length &lt; <span class="number">2</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> middle = <span class="built_in">Math</span>.floor(myArray.length / <span class="number">2</span>),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        left    = myArray.slice(<span class="number">0</span>, middle),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        right   = myArray.slice(middle);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> merge(mergeSort(left), mergeSort(right));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>上面的代码有一个问题，就是返回的是一个全新的数组，会多占用空间。因此，修改上面的函数，使之在原地排序，不多占用空间。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">myArray</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (myArray.length &lt; <span class="number">2</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> middle = <span class="built_in">Math</span>.floor(myArray.length / <span class="number">2</span>),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        left    = myArray.slice(<span class="number">0</span>, middle),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        right   = myArray.slice(middle),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        params = merge(mergeSort(left), mergeSort(right));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 在返回的数组头部，添加两个元素，第一个是0，第二个是返回的数组长度</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    params.unshift(<span class="number">0</span>, myArray.length);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// splice用来替换数组元素，它接受多个参数，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 第一个是开始替换的位置，第二个是需要替换的个数，后面就是所有新加入的元素。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 因为splice不接受数组作为参数，所以采用apply的写法。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 这一句的意思就是原来的myArray数组替换成排序后的myArray</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    myArray.splice.apply(myArray, params);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 返回排序后的数组</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="简介-4"><a href="#简介-4" class="headerlink" title="简介"></a>简介</h3><p>快速排序（quick sort）是公认最快的排序算法之一，有着广泛的应用。</p>
-<p>它的基本思想很简单：先确定一个“支点”（pivot），将所有小于“支点”的值都放在该点的左侧，大于“支点”的值都放在该点的右侧，然后对左右两侧不断重复这个过程，直到所有排序完成。</p>
-<p>具体做法是：</p>
-<ol>
-<li><p>确定“支点”（pivot）。虽然数组中任意一个值都能作为“支点”，但通常是取数组的中间值。</p>
-</li>
-<li><p>建立两端的指针。左侧的指针指向数组的第一个元素，右侧的指针指向数组的最后一个元素。</p>
-</li>
-<li><p>左侧指针的当前值与“支点”进行比较，如果小于“支点”则指针向后移动一位，否则指针停在原地。</p>
-</li>
-<li><p>右侧指针的当前值与“支点”进行比较，如果大于“支点”则指针向前移动一位，否则指针停在原地。</p>
-</li>
-<li><p>左侧指针的位置与右侧指针的位置进行比较，如果前者大于等于后者，则本次排序结束；否则，左侧指针的值与右侧指针的值相交换。</p>
-</li>
-<li><p>对左右两侧重复第2至5步。</p>
-</li>
-</ol>
-<p>以对数组[3, 2, 4, 5, 1] 进行从小到大排序为例，步骤如下：</p>
-<ol>
-<li><p>选择中间值“4”作为“支点”。</p>
-</li>
-<li><p>第一个元素3小于4，左侧指针向后移动一位；第二个元素2小于4，左侧指针向后移动一位；第三个元素4等于4，左侧指针停在这个位置（数组的第2位）。</p>
-</li>
-<li><p>倒数第一个元素1小于4，右侧指针停在这个位置（数组的第4位）。</p>
-</li>
-<li><p>左侧指针的位置（2）小于右侧指针的位置（4），两个位置的值互换，数组变成[3, 2, 1, 5, 4]。</p>
-</li>
-<li><p>左侧指针向后移动一位，第四个元素5大于4，左侧指针停在这个位置（数组的第3位）。</p>
-</li>
-<li><p>右侧指针向前移动一位，第四个元素5大于4，右侧指针移动向前移动一位，第三个元素1小于4，右侧指针停在这个位置（数组的第3位）。</p>
-</li>
-<li><p>左侧指针的位置（3）大于右侧指针的位置（2），本次排序结束。</p>
-</li>
-<li><p>对 [3, 2, 1]和[5, 4]两部分各自不断重复上述步骤，直到排序完成。</p>
-</li>
-</ol>
-<h3 id="算法实现-4"><a href="#算法实现-4" class="headerlink" title="算法实现"></a>算法实现</h3><p>首先部署一个swap函数，用于互换两个位置的值。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">myArray, firstIndex, secondIndex</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> temp = myArray[firstIndex];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    myArray[firstIndex] = myArray[secondIndex];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    myArray[secondIndex] = temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>然后，部署一个partition函数，用于完成一轮排序。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">myArray, left, right</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> pivot   = myArray[<span class="built_in">Math</span>.floor((right + left) / <span class="number">2</span>)],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        i       = left,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        j       = right;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span> (i &lt;= j) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">while</span> (myArray[i] &lt; pivot) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            i++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">while</span> (myArray[j] &gt; pivot) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            j--;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (i &lt;= j) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">            swap(myArray, i, j);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">            i++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">            j--;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<p>接下来，就是递归上面的过程，完成整个排序。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">myArray, left, right</span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">if</span> (myArray.length &lt; <span class="number">2</span>) <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	left = (<span class="keyword">typeof</span> left !== <span class="string">"number"</span> ? <span class="number">0</span> : left);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	right = (<span class="keyword">typeof</span> right !== <span class="string">"number"</span> ? myArray.length - <span class="number">1</span> : right);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">var</span> index  = partition(myArray, left, right);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	 <span class="keyword">if</span> (left &lt; index - <span class="number">1</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            quickSort(myArray, left, index - <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">     &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">	 <span class="keyword">if</span> (index &lt; right) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            quickSort(myArray, index, right);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">	 <span class="keyword">return</span> myArray;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li>Nicholas C. Zakas, <a href="http://www.nczonline.net/blog/2009/05/26/computer-science-in-javascript-bubble-sort/" target="_blank" rel="noopener">Computer science in JavaScript: Bubble sort</a> </li>
-<li>Nicholas C. Zakas, <a href="http://www.nczonline.net/blog/2012/09/17/computer-science-in-javascript-insertion-sort/" target="_blank" rel="noopener">Computer science in JavaScript: Selection sort</a></li>
-<li>Nicholas C. Zakas, <a href="http://www.nczonline.net/blog/2012/09/17/computer-science-in-javascript-insertion-sort/" target="_blank" rel="noopener">Computer science in JavaScript: Insertion sort</a></li>
-<li>Nicholas C. Zakas, <a href="http://www.nczonline.net/blog/2012/10/02/computer-science-and-javascript-merge-sort/" target="_blank" rel="noopener">Computer science in JavaScript: Merge sort</a></li>
-<li>Nicholas C. Zakas, <a href="http://www.nczonline.net/blog/2012/11/27/computer-science-in-javascript-quicksort/" target="_blank" rel="noopener">Computer science in JavaScript: Quicksort</a></li>
-</ul>
-
-	
-	</div>
-</div>
-
-           
-		
 
 		</div>
 
@@ -1816,7 +1708,7 @@
 		
 			<li><a href="/categories/Read/">Read<span>9</span></a></li>
 		
-			<li><a href="/categories/STEM/">STEM<span>2</span></a></li>
+			<li><a href="/categories/STEM/">STEM<span>3</span></a></li>
 		
 			<li><a href="/categories/Synology/">Synology<span>1</span></a></li>
 		
@@ -1839,48 +1731,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/sqlite/">sqlite<span>3</span></a></li>
+			<li><a href="/tags/JSP/">JSP<span>1</span></a></li>
 		
-			<li><a href="/tags/Library/">Library<span>7</span></a></li>
+			<li><a href="/tags/stem/">stem<span>1</span></a></li>
 		
-			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
+			<li><a href="/tags/OOP/">OOP<span>9</span></a></li>
 		
-			<li><a href="/tags/docker/">docker<span>1</span></a></li>
-		
-			<li><a href="/tags/Android/">Android<span>3</span></a></li>
-		
-			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
-		
-			<li><a href="/tags/synology/">synology<span>1</span></a></li>
-		
-			<li><a href="/tags/Promise/">Promise<span>2</span></a></li>
-		
-			<li><a href="/tags/RegExp/">RegExp<span>2</span></a></li>
-		
-			<li><a href="/tags/Document/">Document<span>8</span></a></li>
-		
-			<li><a href="/tags/MongoDB/">MongoDB<span>2</span></a></li>
-		
-			<li><a href="/tags/scrapy/">scrapy<span>1</span></a></li>
-		
-			<li><a href="/tags/noi/">noi<span>1</span></a></li>
-		
-			<li><a href="/tags/Mocha/">Mocha<span>1</span></a></li>
-		
-			<li><a href="/tags/kotlin/">kotlin<span>1</span></a></li>
-		
-			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
 			<li><a href="/tags/Bom/">Bom<span>10</span></a></li>
 		
-			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
+			<li><a href="/tags/noi/">noi<span>1</span></a></li>
 		
-			<li><a href="/tags/children/">children<span>1</span></a></li>
+			<li><a href="/tags/Chrome/">Chrome<span>2</span></a></li>
+		
+			<li><a href="/tags/scrapy/">scrapy<span>1</span></a></li>
+		
+			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+		
+			<li><a href="/tags/synology/">synology<span>1</span></a></li>
+		
+			<li><a href="/tags/sqlite/">sqlite<span>3</span></a></li>
+		
+			<li><a href="/tags/Webpack/">Webpack<span>2</span></a></li>
+		
+			<li><a href="/tags/PhantomJs/">PhantomJs<span>1</span></a></li>
 		
 			<li><a href="/tags/gradle/">gradle<span>1</span></a></li>
 		
+			<li><a href="/tags/Sublime/">Sublime<span>2</span></a></li>
 		
-		   <li><a href="/tags">...<span>32</span></a></li>
+			<li><a href="/tags/kotlin/">kotlin<span>1</span></a></li>
+		
+			<li><a href="/tags/Es6/">Es6+<span>2</span></a></li>
+		
+			<li><a href="/tags/Grammar/">Grammar<span>11</span></a></li>
+		
+			<li><a href="/tags/Npm/">Npm<span>3</span></a></li>
+		
+			<li><a href="/tags/StdLib/">StdLib<span>11</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>33</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1891,6 +1783,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/04/13/2021-04-13-lanqiao/" ><i class="fa fa-file-o"></i>蓝桥杯</a>
+      </li>
     
       <li>
         <a href="/2021/03/22/2021-03-22-noi-introduce/" ><i class="fa fa-file-o"></i>全国青少年信息学奥林匹克竞赛系列活动简介</a>
@@ -1906,10 +1802,6 @@
     
       <li>
         <a href="/2021/01/15/2021-01-15-children-programming/" ><i class="fa fa-file-o"></i>Children Programming</a>
-      </li>
-    
-      <li>
-        <a href="/2020/11/30/2020-11-30-android-gradle/" ><i class="fa fa-file-o"></i>Gradle</a>
       </li>
     
   </ul>
